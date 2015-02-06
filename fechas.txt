@@ -1,0 +1,8 @@
+<?php
+	$fecha=date("Y-m-d");
+	for($i=0;$i<8;$i++){
+		echo '<option value='.$fecha.'>'.$fecha.'</fecha>';
+		$fecha=strtotime('+7 day', strtotime($fecha));
+		$fecha=date("Y-m-d", $fecha);
+	}
+?>
