@@ -10,8 +10,7 @@ header{
 }
 /*Formulario de entrada*/
 #principal{
-	background-image: url(fondo2.jpg);
-	background-repeat: no-repeat;
+	background-image: url(fondo2.png);
 	height: auto;
 }
 #sesion{
@@ -29,7 +28,7 @@ header{
 .campo{
 	font-family: "letra1", serif;
 	padding: 0.2em;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(16,173,237,0.4);
 	color:#fff;
 	width: 155px;
 }

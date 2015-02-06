@@ -2,7 +2,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Autobuses AJAX</title>
+	<title>SLOW</title>
 	<link rel="stylesheet" href="estilo.css">
 	<link rel="icon" type="image/png" href="" />
 	<script src="control.js" type="text/javascript" charset="utf-8" async defer></script>
