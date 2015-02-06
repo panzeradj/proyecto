@@ -68,11 +68,13 @@
 		/*
 			Calcula la fecha dentro de una semana(fecha introducida por parámetros)
 		*/
+		//	echo "-".$dia."---";
 		$dias_mes= cal_days_in_month(CAL_GREGORIAN, $mes, $anyo);
 		$resultado="";
 		if($dias_mes<($dia+7))
 		{
 			$resta_dias=($dia+7)-$dias_mes;
+			//echo $resta_dias."-----";
 			$dia_final=$resta_dias;
 			$mes_final=$mes+1;
 			$anyo_final=$anyo;
@@ -89,63 +91,62 @@
 			$anyo_final=$anyo;
 		}
 		$resultado="".$anyo_final."-".$mes_final."-".$dia_final;
+		//echo $resultado."     --------";
 		return $resultado;
 	}
-	function reservas($dia_inicio, $mes_inicio,$anyo_inicio,$dia_fin,$mes_fin,$anyo_fin,$hora,$cliente)
+	function reservas($anyo_inicio,$mes_inicio,$dia_inicio,$anyo_fin,$mes_fin,$dia_fin,$hora, $cliente)
 	{
-		/*
-			Reserva la hora que quieres desde el dia de inicio hasta el dia de fin, ambos inclusive
-		*/
-		/*	
-		$dia_inicio=6;
-		$mes_inicio=2;
-		$anyo_inicio=2015;
-		$dia_fin=25;
-		$mes_fin=2;
-		$anyo_fin=2015;
-		$hora=3;
-		$cliente='roberto';*/
+	
+		
 		$bandera=true;/*Para quitar el bucle cuando es el mismo mes y el dia final es menor que el dia de la siguiente semana*/
 		
-			
-		$fecha=sumarSemana($anyo_inicio,$mes_inicio,$dia_inicio);
-		$fecha=date("Y-m-d");
-		$fecha_mas=explode("-",$fecha);
-		$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";					
+		$fecha=sumarSemana($anyo_inicio,$mes_inicio,$dia_inicio);		
 		while( $bandera==true)
 		{
-			
 			$fecha_mas=explode("-",$fecha);
 		
-			if( $fecha_mas[0]==$anyo_fin)
+			if( $fecha_mas[0]==$anyo_fin)//año igual
 			{
-				if($fecha_mas[1]==$mes_fin  )
+				if($fecha_mas[1]==$mes_fin  )//mes igual 
 				{
-					if( $fecha_mas[2] > $dia_fin )
+					if( $fecha_mas[2] >= $dia_fin )
 					{
+					
 						$bandera=false;
+
 					}
 					else
 					{
+						echo  $fecha_mas[0]."/".$fecha_mas[1]."/".$fecha_mas[2]."<br>";
 						$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";
 						ordensqlupdate($orden);
 					}
 				}
-				else
+				else//distinto mes de fin por tanto tiene que seguir 
 				{
-					$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";
-					ordensqlupdate($orden);
+					if($fecha_mas[1]<$mes_fin  )//mes igual 
+					{
+						
+							echo  $fecha_mas[0]."/".$fecha_mas[1]."/".$fecha_mas[2]."<br>";
+							$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";
+							ordensqlupdate($orden);
+					}
+					else
+					{
+						$bandera=false;
+					}
 				}
 			}
-			else
+			else//año distinto por tanto debe entrar sin problemas
 			{
+				echo  $fecha_mas[0]."/".$fecha_mas[1]."/".$fecha_mas[2]."<br>";
 				$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";
 				ordensqlupdate($orden);
 			}
-			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);
+			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);		
 			
-		}
 	}
+}
 	function reservaIndividual($dia, $mes,$anyo,$hora,$cliente)
 	{
 		$orden="insert into horario(anyo, mes, dia, hora, cliente) values(".$anyo.",".$mes.",".$dia.",".$hora.",'".$cliente."')";		
