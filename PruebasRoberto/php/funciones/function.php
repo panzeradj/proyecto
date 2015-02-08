@@ -3,6 +3,8 @@
 	////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////BBDD//////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
+	
+
 	function abrirBBDD()
 	{
 			$conexion = new mysqli("127.0.0.1", "root", "root", "proyecto");
@@ -40,6 +42,12 @@
 		$conexion=abrirBBDD();
 		$conexion->query($ordensql);
 		cerrarBBDD($conexion);
+	}
+	///////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////PAGINAS///////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////
+	function generaNav(){
+		echo "<header><h1 id='txt'>FAST</h1><ul><li><a href=#>Clientes</a></li><li><a href=#>Reservas</a></li><li><a href=calendario.php>Calendario</a></li><li><a href=#>Tarifas y bonos</a></li><li><a href=index.php>Cerrar sesion</a></li></ul></header>";
 	}
 	///////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////CALENDARIO//////////////////////////////////
@@ -188,19 +196,19 @@
 	}
 	function horarioSemana()
 	{
-		echo "<table border=2>";
+		echo "<table border=2 id=calendario>";
 			echo "<tr>";
 				echo "<td></td>";
 				for($dia_mas=dia();$dia_mas<=(dia()+6);$dia_mas++)
 				{
-						echo "<td>".diaDeLaSemana("".anyo()."-".mes()."-".$dia_mas)."</td>";
+						echo "<td id=diaSemana>".diaDeLaSemana("".anyo()."-".mes()."-".$dia_mas)."</td>";
 				}	
 			echo "</tr>";
 			echo "<tr>";
 			for($hora=1;$hora<9;$hora++ )
 			{
 				echo "<tr>";
-				echo "<td>".$hora."</td>";
+				echo "<td id=hora>".$hora."</td>";
 				for($dia_mas=dia();$dia_mas<=(dia()+6);$dia_mas++)
 				{
 					$orden="select dia, hora, cliente from horario where dia =".$dia_mas." and mes=".mes()."  and anyo =".anyo()." and hora=".$hora." order by 1,2,3" ;
@@ -216,7 +224,7 @@
 					{
 						$diaenviar="".anyo()."-".mes()."-".$dia_mas;
 
-						echo "<td style='background:green;' onClick=enviar('".$diaenviar."',".$hora.")>$diaenviar Libre</td>";
+						echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>$diaenviar Libre</td>";
 					}
 					else
 					{
