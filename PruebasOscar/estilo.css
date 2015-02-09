@@ -108,12 +108,6 @@ header{
 #nav li:hover ul ul {	margin-left: -1000em; }
 #nav li:hover ul{	margin-left: 0; }
 #nav li li:hover ul {	margin-left: 10em; margin-top:-2.5em;}
-#nav li a:focus + ul {  margin-left: 0; margin-top:2.2em; }
-#nav li li a:focus + ul { left:0; margin-left: 1010em; margin-top:-2.2em;}
-#nav li li a:focus {left:0;  margin-left:1000em; width:10em;  margin-top:0;}
-#nav li li li a:focus {left:0; margin-left: 2010em; width: 10em;  margin-top:-1em;}
-#nav li:hover a:focus{ margin-left: 0; }
-#nav li li:hover a:focus + ul { margin-left: 10em; }
 #two:hover{
 	box-shadow: -1px -9px 17px -1px rgba(48,63,159,1);
 	cursor:pointer
