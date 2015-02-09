@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Fredoka+One);
+@import url(https://reset5.googlecode.com/hg/reset.min.css);
 * {
     padding: 0;
     margin: 0;
@@ -11,7 +12,7 @@ header{
 }
 /*Formulario de entrada*/
 #principal{
-	background-image: url(fondo2.jpg);
+	background-image: url(imagenes/fondo2.jpg);
 	height: auto;
 }
 #sesion{
@@ -48,60 +49,100 @@ header{
 	color:#10ADED;
 	box-shadow: -2px 0px 16px 10px rgba(16,173,237,0.4);
 }
-/*Pruebas menu vertical*/
-ul {
+/*Menus*/
+#nav{
 	font-family: "letra1", serif;
 	font-weight: bold;
 	height: auto;
-	margin-top: 50px;
+	margin-top: 44.5px;
 	margin-right: 30px;
 	float: right;
 	list-style-type: none;
 	padding: 2px;
+	text-decoration: none;
+	font-size: 1em;
 }
-li {
-	background-color: rgba(0, 0, 0, 0.7);
+#two {
+	background-color: rgba(0, 0, 0, 0.8);
 	display: inline-block;
     border: 2px solid transparent;
 	border-top-left-radius: 1em 1em;
 	border-top-right-radius: 1em 1em;
 	margin-right: 2px;
 }
-a {
+.one {
 	color: #fff;
 	text-decoration: none;
 	font-size: 1em;
-	display: inline-block;
 	padding: 0.8em;
 	float: right;
 }
-li:hover{
-	box-shadow: -1px -9px 17px -1px rgba(48,63,159,1);
-}
-a:hover{
+#sub2{
+	background-color: rgba(0, 0, 0, 0.7);
 
-	/*color: #FFF;
-	border: 2px solid transparent;
-	border-top-left-radius: 1em 1em;
-	border-top-right-radius: 1em 1em;*/
 }
+#sub2 li {
+	color:#fff;
+	text-decoration: none;
+	font-size: 1em;
+	text-align: center;
+	list-style-type: none;
+	padding: 0.8em;
+}
+#nav li li{	float:none; }
+
+#nav li li a{ 
+	position:relative;
+	float:none;
+}
+#nav li ul {
+	position: absolute;
+	width:auto;
+	margin-left: -1000em;
+	margin-top:3.2em;
+}
+
+#nav li ul ul { margin: -1em 0 0 -1000em; }
+#nav li:hover ul ul {	margin-left: -1000em; }
+#nav li:hover ul{	margin-left: 0; }
+#nav li li:hover ul {	margin-left: 10em; margin-top:-2.5em;}
+#nav li a:focus + ul {  margin-left: 0; margin-top:2.2em; }
+#nav li li a:focus + ul { left:0; margin-left: 1010em; margin-top:-2.2em;}
+#nav li li a:focus {left:0;  margin-left:1000em; width:10em;  margin-top:0;}
+#nav li li li a:focus {left:0; margin-left: 2010em; width: 10em;  margin-top:-1em;}
+#nav li:hover a:focus{ margin-left: 0; }
+#nav li li:hover a:focus + ul { margin-left: 10em; }
+#two:hover{
+	box-shadow: -1px -9px 17px -1px rgba(48,63,159,1);
+	cursor:pointer
+}
+#subone:hover{
+	text-shadow: 0.1em 0.1em 0.05em #10ADED;
+	cursor:pointer
+}
+
 /*Texto nav*/
 #txt{
-	font-family: "letra1", serif;
+	font-family: 'Fredoka One', cursive;
 	margin-left: 5%;
 	margin-top: 3%;
 	display: inline-block;
 	float: left;
+	font-size: 1.5em;
 }
 /*Calendario*/
 #calendario{
-	margin-left: 0%;
+	margin-left: 0.5%;
 	margin-top: 2%;
 }
 #campo{
 	font-family: 'Fredoka One', cursive;
-	padding: 0.6em 2.4em;
+	padding: 0.7em 1.9em;
 	background-color: #BADA55;
+	border:1px solid #fff;
+}
+#campo:hover{
+	background-color: #BADA99;
 }
 #diaSemana{
 	font-weight: bold;

@@ -1,0 +1,45 @@
+@import url(http://fonts.googleapis.com/css?family=Fredoka+One);
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+/*Formulario de entrada*/
+#principal{
+	background-image: url(imagenes/fondo2.jpg);
+	height: auto;
+}
+#sesion{
+	font-family: 'Fredoka One', cursive;
+	margin: 16% auto;
+	display: block;
+	width: 150px;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 15px 15px;
+	padding: 2em;
+	color: #10ADED;
+	font-size: 1.3em;
+	box-shadow: -2px 0px 16px 14px rgba(16,173,237,0.4);
+}
+.campo{
+	font-family: 'Fredoka One', cursive;
+	padding: 0.2em;
+	background-color: rgba(16,173,237,0.4);
+	color:#fff;
+	width: 155px;
+}
+.boton{
+	font-family: 'Fredoka One', cursive;
+	margin-top: 10%;
+	padding: 0.5em;
+	margin-left: 34%;
+	background-color: #10ADED;
+	font-weight: bold;
+	border-radius: 15px 15px;
+	cursor:pointer;
+}
+.boton:hover{
+	background-color: rgba(0, 0, 0, 0.4);
+	color:#10ADED;
+	box-shadow: -2px 0px 16px 10px rgba(16,173,237,0.4);
+}

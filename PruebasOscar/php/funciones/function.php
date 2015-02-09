@@ -4,7 +4,23 @@
 	//////////////////////////////////BBDD//////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	function generaNav(){
-		echo "<header><h1 id='txt'>FAST</h1><ul><li><a href=#>Clientes</a></li><li><a href=#>Reservas</a></li><li><a href=calendario.php>Calendario</a></li><li><a href=#>Tarifas y bonos</a></li><li><a href=index.php>Cerrar sesion</a></li></ul></header>";
+		echo "<header>
+		<h1 id='txt'>Training manager</h1>
+		<nav>
+			<ul id=nav>
+			<li id=two><a href=# class=one><span><img src=imagenes/client.png />Clientes</span></a></li>
+			<li id=two><a href=# class=one><span><img src=imagenes/save.png />Reservas</span></a>
+			<ul id=sub2>
+	   			<li id=subone><a href=individuales.php id=subtwo>Individuales</a></li>
+	  			<li id=subone><a href=multiples.php id=subtwo >multiples</a></li>
+	  		</ul>
+	  		</li>
+			<li id=two><a href=calendario.php class=one><span><img src=imagenes/calendar.png />Calendario</span></a></li>
+			<li id=two><a href=# class=one><span><img src=imagenes/tarifas.png />Tarifas y bonos</span></a></li>
+			<li id=two><a href=index.php class=one><span>Cerrar sesion</span></a></li>
+			</ul>
+		</nav>
+		</header>";
 	}
 
 	function abrirBBDD()

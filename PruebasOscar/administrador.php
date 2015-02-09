@@ -2,8 +2,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
+	<title>Training manager</title>
 	<link rel="stylesheet" href="estilo.css">
+	<script src="js/javaScript.js"></script>
 </head>
 <body>
 	<?php
