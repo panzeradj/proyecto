@@ -1,17 +1,21 @@
 <?php
-		include("php/funciones/function.php");
+	session_start();
+	$_SESSION['hora']='';
+	$_SESSION['dia']='';
 ?>
+
 <html>
 <head>
-	<script src="js/javaScript.js"></script>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
+	<title>Training manager</title>
 	<link rel="stylesheet" href="estilo.css">
+	<script src="js/javaScript.js"></script>
 </head>
 
 <body>
 	<?php
+		include("php/funciones/function.php");
 		generaNav();
 		horarioSemana();
 	?>

@@ -1,14 +1,28 @@
+<?php 
+	session_start();
+	include("/php/funciones.php");	
+	$dia=$_GET['dia'];
+	$hora=$_GET['hora'];
+	$calendario=$_GET['calendario'];
+	$_SESSION['hora']=''.$_SESSION['hora']."/".$hora;
+	$_SESSION['dia']=''.$_SESSION['dia']."/".$dia;
+	echo $_SESSION['hora']."<br>";
+	echo $_SESSION['dia'];	
+?>
+
 <html>
 <head>
-<script src="js/javaScript.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Training manager</title>
+	<link rel="stylesheet" href="estilo.css">
+	<script src="js/javaScript.js"></script>
 </head>
-
 <body>
 	<?php
-
-		$dia=$_GET['dia'];
-		$hora=$_GET['hora'];
-		if($hora!=null )
+		include("php/funciones/function.php");
+		generaNav();
+		if($calendario!=null )
 		{
 			echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
 				echo "<br><input type=text name=cliente[1]>";
@@ -21,18 +35,17 @@
 		}
 		else
 		{
+
 				echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
 					echo "<br><input type=text name=cliente[1]>";
 					echo "<br><input type=text name=cliente[2]>";
 					echo "<br><input type=text name=cliente[3]>";
 					echo "<br><input type=hidden name=dia value=$dia>";
 					echo "<input type=hidden name=hora value=$hora>";
+					horarioReservaI($_SESSION['hora'], $_SESSION['dia']);
 					echo "<input type=submit name=Aceptar value=Aceptar>";
-				echo "</form>";
-			echo "elegir dia y hora";
-		}
-		
-	
-?>
+				echo "</form>";			
+		}		
+	?>
 </body>
 </html>
