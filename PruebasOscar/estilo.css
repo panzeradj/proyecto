@@ -92,8 +92,10 @@ header{
 #nav li li{	float:none; }
 
 #nav li li a{ 
+	color:#fff;
 	position:relative;
 	float:none;
+	text-decoration: none;
 }
 #nav li ul {
 	position: absolute;
