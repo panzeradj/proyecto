@@ -1,0 +1,88 @@
+@import url(http://reset5.googlecode.com/hg/reset.min.css);
+@import url(http://fonts.googleapis.com/css?family=Fredoka+One);
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+html, body{
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	background-color: #A6AEAB;
+}
+/*Diseño cabecera*/
+body header{
+	font-family: 'Fredoka One', cursive;
+	width: 100%;
+	height: 50px;
+	background-color: #45473D;
+	border-bottom: 5px solid #10ADED;
+	color:#fff;
+	font-size: 2em;
+}
+/*Barra de menus*/
+body nav{
+	 overflow: hidden;
+	display: inline-block;
+	float: left;
+	width: 200px;
+	height: 100%;
+	background-color: #45473D;
+	
+}
+#menu{
+	position: relative;
+	width: 100%;
+	background-color: #BC1414;
+	list-style-type: none;
+
+}
+li{
+	position: relative;
+	width: 100%;
+	list-style-type: none;
+	background-color: #BC1414;
+}
+.menu{
+	font-family: 'Fredoka One', cursive;
+	text-align: center;
+	float: left;
+	width: 100%;
+	background-color: #151612;
+	padding: 1em;
+	list-style-type: none;
+	text-decoration: none;
+	color:#fff;
+	border-bottom: 8px solid #45473D;
+	font-size: 1em;
+}
+.submenu{
+	font-family: 'Fredoka One', cursive;
+	text-align: center;
+	float: left;
+	width: 100%;
+	background-color: #3A3D32;
+	padding: 0.5em;
+	list-style-type: none;
+	text-decoration: none;
+	color:#fff;
+	border-bottom: 8px solid #45473D;
+	font-size: 0.8em;
+}
+article{
+	overflow: auto;
+	float: left;
+	display: inline-block;
+	width: 87%;
+	height: 100%;
+	background-color: #6D0101;
+	
+	border-left: 5px solid #10ADED;
+}
+#cuerpo{
+	width: 100%;
+	height: 94%;
+	background-color: red;
+	z-index: 9999;
+}
