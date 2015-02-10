@@ -3,11 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
+	<link rel="icon" type="image/png" href="imagenes/logoTM.png" />
+	<title>Training manager</title>
 	<link rel="stylesheet" href="estilo.css"/>
+	<script src="js/javaScript.js"></script>
 </head>
 <body>
-	<header><h1>Training manager</h1></header>
+	<header><h1>Calendario</h1></header>
 	<section id="cuerpo">
 	<nav>			
 		<ul id='menu'>
@@ -23,7 +25,12 @@
 		</ul>
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
-	<article id="zona"></article>
+	<article id="zona">
+	<?php 
+	include("funciones/function.php"); 
+	horarioSemana(); 
+	?>
+	</article>
 	</section>
 </body>
 </html>
