@@ -6,83 +6,88 @@
     border: 0;
 }
 html, body{
-	overflow: auto;
 	width: 100%;
 	height: 100%;
 	background-color: #A6AEAB;
 }
 /*Diseño cabecera*/
 body header{
-	font-family: 'Fredoka One', cursive;
 	width: 100%;
 	height: 50px;
 	background-color: #45473D;
 	border-bottom: 5px solid #10ADED;
+}
+h1{
+	padding-top: 0.2em;
+	padding-left: 0.8em;
+	font-family: 'Fredoka One', cursive;
 	color:#fff;
 	font-size: 2em;
+	font-style: normal;
 }
 /*Barra de menus*/
-body nav{
-	 overflow: hidden;
+nav{
+
 	display: inline-block;
 	float: left;
-	width: 200px;
+	width: 15%;
 	height: 100%;
 	background-color: #45473D;
 	
 }
-#menu{
-	position: relative;
+ul#menu{
 	width: 100%;
 	background-color: #BC1414;
 	list-style-type: none;
-
 }
 li{
-	position: relative;
 	width: 100%;
 	list-style-type: none;
-	background-color: #BC1414;
+	background-color: #BC1414;	
+	border-bottom: 2px solid #0F0F0D;
+	border-top: 2px solid #2B2B24;
 }
-.menu{
+.menu:hover{
+	background-color: #0B79A8;	
+}
+.submenu:hover{
+	background-color: #0B79A8;
+}
+a.menu{
 	font-family: 'Fredoka One', cursive;
 	text-align: center;
-	float: left;
-	width: 100%;
+	display: block;
 	background-color: #151612;
-	padding: 1em;
+	/*padding: 1em;*/
 	list-style-type: none;
 	text-decoration: none;
 	color:#fff;
-	border-bottom: 8px solid #45473D;
 	font-size: 1em;
+	padding: 20px 0;
 }
-.submenu{
+a.submenu{
 	font-family: 'Fredoka One', cursive;
 	text-align: center;
-	float: left;
-	width: 100%;
+	display: block;
 	background-color: #3A3D32;
-	padding: 0.5em;
 	list-style-type: none;
 	text-decoration: none;
 	color:#fff;
-	border-bottom: 8px solid #45473D;
 	font-size: 0.8em;
+	padding: 10px 0;
 }
-article{
-	overflow: auto;
+article#zona{
+	overflow: scroll;
 	float: left;
 	display: inline-block;
-	width: 87%;
+	width: 84.6%;
 	height: 100%;
 	background-color: #6D0101;
-	
 	border-left: 5px solid #10ADED;
 }
-#cuerpo{
+section#cuerpo{
+	display: flex;
 	width: 100%;
-	height: 94%;
+	height: 91.7%;
 	background-color: red;
-	z-index: 9999;
 }
