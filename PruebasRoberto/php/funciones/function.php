@@ -18,7 +18,8 @@
 
 	function cerrarBBDD($conexion)
 	{
-		$conexion->close($conexion);
+		$conexion->close();
+
 	}
 	function ordensql($ordensql)
 	{
@@ -49,7 +50,7 @@
 	{
 		$fecha=date("Y-m-d");
 		$fecha_mas=explode("-",$fecha);
-		$dia=explode("",  $fecha_mas[2]);
+		/*$dia=explode("",  $fecha_mas[2]);
 		/*if($dia[0]==0)
 		{
 			$resultado=$dia[1];
@@ -334,7 +335,7 @@
 					}
 					if($bandera==false)
 					{
-						$diaenviar="".anyo()."-".mes()."-".$dia_mas;
+						$diaenviar="".anyo()."*".mes()."*".$dia_mas;
 
 						echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>$diaenviar Libre</td>";
 					}
@@ -365,13 +366,15 @@
 			{
 				echo "<tr>";
 				echo "<td id=hora>".$hora."</td>";
+				$d=  array();
 				for($dia_mas=dia();$dia_mas<=(dia()+6);$dia_mas++)
 				{
 					$banderaReserva=true;
-					for($i=1;$i<sizeof($horass);$i++ ) {
-						if($horass[$i]!=null)
+					//echo sizeof($horass);
+				for($i=1;$i<sizeof($horass);$i++ ) {
+						if(!empty($diass[$i]))
 						{
-							$d=explode("-",$diass[$i]);
+							$d=explode("*",$diass[$i]);
 							if($horass[$i]==$hora && $d[2]==$dia_mas)
 							{
 								//echo $d[2]."/".$horass[$i]."<br>";	
@@ -397,8 +400,8 @@
 						}
 						if($bandera==false)
 						{
-							$diaenviar="".anyo()."-".mes()."-".$dia_mas;
-							echo "<td id=campo onClick=individual('".$diaenviar."',".$hora.")>$diaenviar  Libre</td>";
+							$diaenviar="".anyo()."*".mes()."*".$dia_mas;
+							echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>$diaenviar  Libre</td>";
 						}
 						else
 						{
@@ -407,9 +410,70 @@
 					}
 					else
 					{
-						echo "<td id=campo onClick=>aaaa $banderaReserva Libre</td>";
+						$diaenviar="".anyo()."*".mes()."*".$dia_mas;
+						echo "<td id=campo onClick= eliminar('".$diaenviar."',".$hora.")>Reservado </td>";
 					}
 					
+					
+				}	
+				echo "</tr>";
+			}
+		echo "</table>";
+	}
+	function horarioReservaM($horas, $dias)
+	{
+		//comprobarReservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora)
+		$horass=explode("/", $horas);
+		$diass=explode("/", $dias);
+		echo "<table border=2 id=calendario>";
+			echo "<tr>";
+				echo "<td></td>";
+				for($dia_mas=dia();$dia_mas<=(dia()+6);$dia_mas++)
+				{
+					echo "<td id=diaSemana>".diaDeLaSemana("".anyo()."-".mes()."-".$dia_mas)."</td>";
+				}	
+			echo "</tr>";
+			echo "<tr>";
+			for($hora=1;$hora<9;$hora++ )
+			{
+				echo "<tr>";
+				echo "<td id=hora>".$hora."</td>";
+				$d=  array();
+				for($dia_mas=dia();$dia_mas<=(dia()+6);$dia_mas++)
+				{
+					$banderaReserva=true;
+					//echo sizeof($horass);
+				for($i=1;$i<sizeof($horass);$i++ ) {
+						if(!empty($diass[$i]))
+						{
+							$d=explode("*",$diass[$i]);
+							if($horass[$i]==$hora && $d[2]==$dia_mas)
+							{
+								//echo $d[2]."/".$horass[$i]."<br>";	
+								$banderaReserva=0;
+							}
+							//echo $d[2]."/".$horass[$i]."<br>";	
+						}
+								
+					}						
+					if($banderaReserva==1)
+					{
+						$bandera=comprobarReservas(anyo(),mes(),$dia_mas,$hora);
+						if($bandera==false)
+						{
+							$diaenviar="".anyo()."*".mes()."*".$dia_mas;
+							echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>Libre</td>";
+						}
+						else
+						{
+							echo "<td>Ocupado</td>";
+						}
+					}
+					else
+					{
+						$diaenviar="".anyo()."*".mes()."*".$dia_mas;
+						echo "<td id=campo onClick= eliminar('".$diaenviar."',".$hora.")>Reservado </td>";
+					}					
 					
 				}	
 				echo "</tr>";
