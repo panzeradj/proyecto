@@ -9,19 +9,34 @@
 	<script src="js/javaScript.js"></script>
 </head>
 <body>
-	<header><h1>Training manager</h1></header>
+	<header>
+		<h1>Training manager</h1>
+		<nav id="superior">
+			<ul id="nav">
+			<li id="two"><a href="#" class="one"><span>Clientes</span></a></li>
+			<li id="two"><a href="#" class="one"><span>Reservas</span></a>
+			<ul id="sub2">
+	   			<!--<li id="two"><a href="individuales.php" id="subtwo">Individuales</a></li>
+	  			<li id="two"><a href="multiples.php" id="subtwo" >multiples</a></li>-->
+	  		</ul>
+	  		</li>
+			<li id="two"><a href="calendario.php" class="one"><span>Calendario</span></a></li>
+			<li id="two"><a href="#" class="one"><span>Tarifas y bonos</span></a></li>
+			</ul>
+		</nav>
+	</header>
 	<section id="cuerpo">
-	<nav>			
+	<nav id="general">			
 		<ul id='menu'>
-			<li><a href='#' class="menu"><img src="imagenes/client.png" />Clientes</a></li>
-			<li><a href='#' class="menu"><img src="imagenes/save.png" />Reservas</a>
+			<li class="liMenu"><a href='#' class="menu"><img src="imagenes/client.png" id="icon"/><span id="contenidoMenu"> Clientes</span></a></li>
+			<li class="liMenu"><a href='#' class="menu"><img src="imagenes/save.png" id="icon"/><span id="contenidoMenu"> Reservas</span></a>
 				<ul id="submenu">
-					<li><a href='#' class="submenu"><img src="imagenes/individual2.png" />Individual</a>
-					<li><a href='#' class="submenu"><img src="imagenes/multiple2.png" />Multiples</a>
+					<li class="liMenu"><a href='#' class="submenu"><img src="imagenes/individual2.png" id="icon"/><span id="contenidoMenu"> Individua</span></a>
+					<li class="liMenu"><a href='#' class="submenu"><img src="imagenes/multiple2.png" id="icon" /><span id="contenidoMenu"> Multiples</span></a>
 				</ul>
 			</li>	
-			<li><a href='calendario.php' class="menu"><img src="imagenes/calendar.png" />Calendario</a></li>
-			<li><a href='#' class="menu"><img src="imagenes/tarifas.png" />Tarifas y bonos</a></li>
+			<li class="liMenu"><a href='calendario.php' class="menu"><img src="imagenes/calendar.png" id="icon" /><span id="contenidoMenu"> Calendario</span></a></li>
+			<li class="liMenu"><a href='#' class="menu"><img src="imagenes/tarifas.png" id="icon" /><span id="contenidoMenu"> Tarifas y bonos</span></a></li>
 		</ul>
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
