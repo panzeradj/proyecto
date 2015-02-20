@@ -1,30 +1,12 @@
-<?php 
-	session_start();
-	include("php/funciones/function.php");
-	if(!empty($_GET['dia']) &&  !empty($_GET['hora']))
-	{
-		$dia=$_GET['dia'];
-		$hora=$_GET['hora'];
-
-		$_SESSION['hora']=''.$_SESSION['hora']."/".$hora;
-		$_SESSION['dia']=''.$_SESSION['dia']."/".$dia;
-	}
-	else
-	{
-
-		$dia="";
-		$hora="";	
-	}
-	
-?>
-
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" type="image/png" href="imagenes/logoTM.png" />
 	<title>Training manager</title>
-	<link rel="stylesheet" href="estilo.css">
-	<script src="js/javaScriptIndividuales.js"></script>
+	<link rel="stylesheet" href="estilo.css"/>
+	<script src="js/javaScript.js"></script>
 </head>
 <body>
 	<header>
@@ -58,33 +40,7 @@
 		</ul>
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
-	<article id="zona">
-	<?php
-		if(!empty($_GET['calendario']))
-		{
-			echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
-				echo "<br><input type=text name=cliente[1]><br>";
-				echo "<br><input type=text name=cliente[2]><br>";
-				echo "<br><input type=text name=cliente[3]><br>";
-				echo "<br><input type=hidden name=dia value=$dia>";
-				echo "<input type=hidden name=hora value=$hora>";
-				echo "<input type=submit name=Aceptar value=Aceptar>";
-			echo "</form>";
-		}
-		else
-		{
-
-				echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
-					echo "<br><input type=text name=cliente[1]><br>";
-					echo "<br><input type=text name=cliente[2]><br>";
-					echo "<br><input type=text name=cliente[3]><br>";
-					echo "<br><input type=hidden name=dia value=".$dia.">";
-					echo "<input type=hidden name=hora value=$hora><div id='calendario'>";
-					echo "</div><input type=submit name=Aceptar value=Aceptar>";
-				echo "</form>";			
-		}		
-	?>
-	</article>
+	<article id="zona"></article>
 	</section>
 </body>
 </html>

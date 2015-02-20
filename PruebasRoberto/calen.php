@@ -6,8 +6,8 @@
 	{
 		$dia=$_POST['dia'];
 		$hora=$_POST['hora'];
-		echo $hora;
-		echo $dia;
+		//echo $hora;
+		//echo $dia;
 		$_SESSION['hora']=''.$_SESSION['hora']."/".$hora;
 		$_SESSION['dia']=''.$_SESSION['dia']."/".$dia;
 	}

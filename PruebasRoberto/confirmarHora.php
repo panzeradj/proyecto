@@ -1,3 +1,8 @@
+<html>
+<head>
+	<link rel="stylesheet" href="estilo.css"/>
+</head>
+<body>
 <?php
 	session_start();
 	include("/php/funciones/function.php");
@@ -67,10 +72,20 @@
 	}
 	if($bandera==true)
 	{
-		echo "orden realizada con exito";
+		echo "<script>alert('orden realizada con exito');</script>";
+		echo "<img src=imagenes/2F7864BDA.gif id=cargando/>";
+		header("refresh:0;url=calendario.php");
+	//	echo "<img"
+	}
+	else
+	{
+		echo "<script>alert('orden no realizada con exito');</script>";
+		echo "<img src=imagenes/2F7864BDA.gif id=cargando/>";
+		header("refresh:0;url=calendario.php");
 	}
 
-	echo "<form method=post action=calendario.php name=a><input type=submit name=volver value=volver></form>";
+	
+	//echo "<form method=post action=calendario.php name=a><input type=submit name=volver value=volver></form>";
 	/*
 	for($i=1;$i<4;$i++)
 	{
@@ -114,4 +129,7 @@
 		}
 	}*/
 
+
 ?>
+</body>
+</html>
