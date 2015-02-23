@@ -157,6 +157,18 @@
 			$dia=$dia-$dias_mes;
 		
 		}
+		while($dia<1)
+		{	
+			$mes--;
+			if($mes<1)
+			{
+				$anyo--;
+				$mes=12;
+			}
+			$dias_mes= cal_days_in_month(CAL_GREGORIAN, $mes, $anyo);
+			
+			$dia=intval($dias_mes)+$dia;			
+		}
 
 
 		
