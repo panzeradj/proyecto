@@ -3,7 +3,15 @@
 	$_SESSION['hora']='';
 	$_SESSION['dia']='';
 	include("php/funciones/function.php");
-	$_SESSION['semanas']=0;
+	$Semana=$_GET['semana'];
+	if(!empty($Semana))
+	{
+		echo "HOLA MUNDO";
+		$_SESSION['semanas']=$Semana;
+	}
+	else {
+		$_SESSION['semanas']=0;
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,6 +22,11 @@
 	<title>Calendario</title>
 	<link rel="stylesheet" href="estilo.css"/>
 	<script src="js/javaScript.js"></script>
+	<script src="js/jquery-2.1.3.min.js"></script>
+	<script src="js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+	<script src="js/jquery.datetimepicker.js"></script>
+	
+	
 </head>
 <body>
 	<header>
@@ -23,8 +36,7 @@
 			<li id="two"><a href="#" class="one"><span>Clientes</span></a></li>
 			<li id="two"><a href="#" class="one"><span>Reservas</span></a>
 			<ul id="sub2">
-	   			<!--<li id="two"><a href="individuales.php" id="subtwo">Individuales</a></li>
-	  			<li id="two"><a href="multiples.php" id="subtwo" >multiples</a></li>-->
+	   			
 	  		</ul>
 	  		</li>
 			<li id="two"><a href="calendario.php" class="one"><span>Calendario</span></a></li>
@@ -49,8 +61,47 @@
 	</nav>
 	<article id="zona">
 		<button onClick=semanaMenos()>Semana menos</button>
+		<form class="form_login"> <input type="text" id="datepicker" /></form>
 		<button onClick=semanaMas()>Semana mas</button>
 		<div id='calendario'></div></article>
 	</section>
+	<script type="text/javascript">
+
+	 $.datepicker.regional['es'] = 
+	  {
+	  closeText: 'Cerrar', 
+	  prevText: 'Previo', 
+	  nextText: 'Próximo',
+	   
+	  monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+	  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+	  monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+	  'Jul','Ago','Sep','Oct','Nov','Dic'],
+	  monthStatus: 'Ver otro mes', yearStatus: 'Ver otro año',
+	  dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+	  dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'],
+	  dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+	  dateFormat: 'dd/mm/yy', firstDay: 1, 
+	  initStatus: 'Selecciona la fecha', isRTL: false,
+	  onSelect: function(dateText) { 
+	          $('#fecha').val(dateText);
+	          alert("enviar a un nuevo lugar");
+	          alert( dateText);
+	         	location="calcularSemanas.php?semana="+dateText;
+	       
+	      },
+	  
+	};
+
+	 $.datepicker.setDefaults($.datepicker.regional['es']);
+	  
+
+	    $( "#datepicker" ).datepicker({ minDate: "-1Y", maxDate: "  +1Y" });
+	    	$(document).ready(function(){
+	
+			$('#datepicker').datepicker();
+
+	  });
+	</script>
 </body>
 </html>

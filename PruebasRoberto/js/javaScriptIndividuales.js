@@ -19,13 +19,36 @@ function crearObjetoAjax(){
 		}
 	}
 }
+function canceladaCalen(hora, dia)
+{
+	alert(dia);
+	var misdatos="?hora="+hora+"&dia="+dia;	
+	if(confirm("Quieres cancelar"))
+	{
+		if(confirm("Quieres que se le aplique recargo"))
+		{
+			alert("cancelada con recargo");
+			misdatos=misdatos+"&can=2";
+			location="cancelarI.php"+misdatos;
+		}
+		else		
+		{
+			alert("cancelada sin recargo");
+			misdatos=misdatos+"&can=1";
+			location="cancelarI.php"+misdatos;
+		}
+	}
+	else		
+	{
+		alert("No cancelada");
+	}
+}
 
 
 function refresca(){
 	// Timestamp para que IE no impida la recarga
 	var timestamp = parseInt(new Date().getTime().toString().substring(0, 10));
 	var url = "calen.php";
-
 	// El código...
 	objetoAjax.onreadystatechange=function(){
 		// Si esta listo para recibir de nuevo la pagina, la refresca
@@ -36,21 +59,17 @@ function refresca(){
 	}
 	objetoAjax.open("POST",url,true);
 	objetoAjax.send(null);
-//	alert("eee en ajax-");
 }
 function enviarCalen(dia, hora){
 	// Datos para el envio por POST:
-	//alert("melonazo");
 	var misdatos="?hora="+hora+"&dia="+dia+"&calendario=1";
 	location="individuales.php"+misdatos;
 }
 function enviar(dia, hora){
 	// Datos para el envio por POST:
-	//alert("Hola");
 	var misdatos="hora="+hora+"&dia="+dia;	
 	// Preparar el envio con Open
 	objetoAjax.open("POST","calen.php",true);
-
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
@@ -61,11 +80,9 @@ function enviar(dia, hora){
 function semanaMenos()
 {
 	// Datos para el envio por POST:
-	//alert("Hola");
 	var misdatos="semanaMenos=1";
 	// Preparar el envio con Open
 	objetoAjax.open("POST","calen.php",true);
-
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
@@ -77,7 +94,6 @@ function semanaMenos()
 function semanaMas()
 {
 	// Datos para el envio por POST:
-	//alert("Hola");
 	var misdatos="semanaMas=1";
 	// Preparar el envio con Open
 	objetoAjax.open("POST","calen.php",true);
@@ -93,16 +109,13 @@ function semanaMas()
 
 function eliminar(dia, hora){
 	// Datos para el envio por POST:
-	//alert("Hola");
 	var misdatos="hora="+hora+"&dia="+dia;
 	// Preparar el envio con Open
 	objetoAjax.open("POST","eliminar.php",true);
-
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
 	objetoAjax.setRequestHeader("Connection", "close");
-
 	// Pasar datos como parámetro
 	objetoAjax.send(misdatos); 
 }
@@ -110,7 +123,5 @@ function eliminar(dia, hora){
 // Comienzo: crea el objeto Ajax y empieza a refrescar
 window.onload = function(){
 	crearObjetoAjax();
-
-	// Cada X segundos actualiza la pagina
 	refresca();	
 }

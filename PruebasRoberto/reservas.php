@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <script src="js/javaScript.js"></script>

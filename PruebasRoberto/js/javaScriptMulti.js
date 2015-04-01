@@ -19,6 +19,25 @@ function crearObjetoAjax(){
 		}
 	}
 }
+function canceladaCalen()
+{
+	//alert("hola");
+	if(confirm("Quieres cancelar"))
+	{
+		if(confirm("Quieres que se le aplique recargo"))
+		{
+			alert("cancelada con recargo");
+		}
+		else		
+		{
+			alert("cancelada sin recargo");
+		}
+	}
+	else		
+	{
+		alert("No cancelada");
+	}
+}
 
 
 function refresca(){
@@ -47,10 +66,9 @@ function enviarCalen(dia, hora){
 function enviar(dia, hora){
 	// Datos para el envio por POST:
 	//alert("Hola");
-	var misdatos="hora="+hora+"&dia="+dia;	
+	var misdatos="hora="+hora+"&dia="+dia+"";	
 	// Preparar el envio con Open
 	objetoAjax.open("POST","multi.php",true);
-
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
@@ -64,7 +82,7 @@ function eliminar(dia, hora){
 	//alert("Hola");
 	var misdatos="hora="+hora+"&dia="+dia;
 	// Preparar el envio con Open
-	objetoAjax.open("POST","eliminar.php",true);
+	objetoAjax.open("POST","eliminarM.php",true);
 
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

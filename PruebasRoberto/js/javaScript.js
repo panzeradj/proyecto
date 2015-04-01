@@ -35,24 +35,43 @@ function refresca(){
 	}
 	objetoAjax.open("POST",url,true);
 	objetoAjax.send(null);
-//	alert("eee en ajax-");
 }
 window.onload = function(){
 	crearObjetoAjax();
-
-	// Cada X segundos actualiza la pagina
 	refresca();	
 }
+function canceladaCalen(hora, dia)
+{
+	var misdatos="?hora="+hora+"&dia="+dia;	
+	if(confirm("Quieres cancelar"))
+	{
+		if(confirm("Quieres que se le aplique recargo"))
+		{
+			alert("cancelada con recargo");
+			misdatos=misdatos+"&can=2";
+			location="cancelarI.php"+misdatos;
+		}
+		else		
+		{
+			alert("cancelada sin recargo");
+			misdatos=misdatos+"&can=1";
+			location="cancelarI.php"+misdatos;
+		}
+	}
+	else		
+	{
+		alert("No cancelada");
+	}
+}
+
 
 function multiples(dia, hora)
 {
-
 	alert("multiples");
 	var misdatos="?hora="+hora+"&dia="+dia;
 	location="multiples.php"+misdatos;
-	
 }
-function individual(dia, hora)
+function enviar(dia, hora)
 {
 	//alert("multiples");
 	var misdatos="?hora="+hora+"&dia="+dia+"&calendario=1";
@@ -70,23 +89,19 @@ function semanaMenos()
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
 	objetoAjax.setRequestHeader("Connection", "close");
-
 	// Pasar datos como parámetro
 	objetoAjax.send(misdatos); 
 }
 function semanaMas()
 {
 	// Datos para el envio por POST:
-	//alert("Hola");
 	var misdatos="semanaMas=1";
 	// Preparar el envio con Open
 	objetoAjax.open("POST","calen.php",true);
-
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
 	objetoAjax.setRequestHeader("Connection", "close");
-
 	// Pasar datos como parámetro
 	objetoAjax.send(misdatos); 
 }

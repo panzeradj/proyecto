@@ -63,7 +63,7 @@
 	<?php
 		
 
-				echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
+				echo "<form name=a method=post action=confirmarHoraM.php>Nombre del cliente:";
 					echo "<div id='calendario'></div><br><input type=text name=cliente[1]><br>";
 					echo "<br><input type=text name=cliente[2]><br>";
 					echo "<br><input type=text name=cliente[3]><br>";

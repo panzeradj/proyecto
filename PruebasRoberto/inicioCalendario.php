@@ -14,7 +14,7 @@
 		$banderaComprobar=true;
 		$bandera=true;/*Para quitar el bucle cuando es el mismo mes y el dia final es menor que el dia de la siguiente semana*/
 		
-		$orden="select * from horario where anyo=$anyo_inicio and  mes=$mes_inicio and dia=$dia_inicio and hora=$hora";
+		$orden="select * from horario where anyo=$anyo_inicio and  mes=$mes_inicio and dia=$dia_inicio and hora=$hora and estado=0";
 		
 		$cho=ordensql($orden);
 		
@@ -49,7 +49,7 @@
 					{
 						if($fecha_mas[2]<=$dia_fin)
 						{
-							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
+							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora and estado=0";
 							//echo $orden;
 							$cho=ordensql($orden);
 							
@@ -71,7 +71,7 @@
 					if($fecha_mas[1]<$mes_fin )
 					{
 
-							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
+							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora and estado=0";
 							//echo $orden;
 							$cho=ordensql($orden);
 							
@@ -85,7 +85,7 @@
 					}
 					if($fecha_mas[1]>$mes_fin )
 					{	
-						$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
+						$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora and estado=0";
 						//echo $orden;
 						$cho=ordensql($orden);
 						
@@ -105,7 +105,7 @@
 			{
 				if($fecha_mas[0]==($anyo_fin -1))
 				{
-					$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
+					$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora and estado=0";
 					//echo $orden;
 					$cho=ordensql($orden);
 					

@@ -1,8 +1,0 @@
-var formData = new FormData();
-f
-formData.append("nombre", valor); string  o int double,... el valor
-formData.append("part_image", somefile)
-
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "http://some.url/");  
-xhr.send(formData);

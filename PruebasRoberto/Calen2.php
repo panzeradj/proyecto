@@ -1,3 +1,5 @@
+<script src="js/javaScript.js"></script>
+
 <?php 
 //muestra el calendario en la pestaña calendario
 	session_start();

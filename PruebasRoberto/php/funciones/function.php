@@ -8,7 +8,6 @@
 	{
 			$conexion = new mysqli("127.0.0.1", "root", "root", "proyecto");
 			$conexion->Set_charset("UTF8");
-
 			if (mysqli_connect_errno()) 
 			{
 		    	die("Error grave: " . mysqli_connect_error());
@@ -23,7 +22,6 @@
 	}
 	function ordensql($ordensql)
 	{
-		//echo $ordensql;
 		$conexion=abrirBBDD();
 		
 		if($chorizo=$conexion->query($ordensql))
@@ -50,15 +48,6 @@
 	{
 		$fecha=date("Y-m-d");
 		$fecha_mas=explode("-",$fecha);
-		/*$dia=explode("",  $fecha_mas[2]);
-		/*if($dia[0]==0)
-		{
-			$resultado=$dia[1];
-		}
-		else
-		{
-			$resultado=$fecha_mas[2];
-		}*/
 		return intval($fecha_mas[2]);
 	}
 	function mes()//devuelve el mes actual
@@ -75,7 +64,7 @@
 	}
 	function diaDeLaSemana($fech)//devuelve el dia actual de la semana en string
 	{
-		//echo $fech;
+		
 		$dias=array('','lunes','martes','miercoles','jueves','viernes','sabado','domingo');
 		$dia=$dias[date('N',strtotime($fech))];
 		return $dia;
@@ -133,7 +122,7 @@
 		$mes=mes();
 		$anyo=anyo();
 		$dia=$dia-($semana*-7);
-		//echo $dia;
+		
 		while($dia<1)
 		{	
 			$mes--;
@@ -150,31 +139,10 @@
 	
 		while($dia>$dias_mes)
 		{
-			//echo "hola";
 			$mes++;
 			$dias_mes= cal_days_in_month(CAL_GREGORIAN, ($mes-1), $anyo);
-			echo $dias_mes;
-			$dia=$dia-$dias_mes;
-		
+			$dia=$dia-$dias_mes;		
 		}
-		while($dia<1)
-		{	
-			$mes--;
-			if($mes<1)
-			{
-				$anyo--;
-				$mes=12;
-			}
-			$dias_mes= cal_days_in_month(CAL_GREGORIAN, $mes, $anyo);
-			
-			$dia=intval($dias_mes)+$dia;			
-		}
-
-
-		
-		
-
-		
 		if($mes>12)
 		{
 			$mes=1;
@@ -189,8 +157,8 @@
 
 	function sumarSemana($anyo,$mes,$dia)//suma 7 dias a la semana actual
 	{
-		/*
-			Calcula la fecha dentro de una semana(fecha introducida por parámetros)
+		/** 
+		*Calcula la fecha dentro de una semana(fecha introducida por parámetros)
 		*/
 	
 		$dias_mes= cal_days_in_month(CAL_GREGORIAN, $mes, $anyo);
@@ -198,7 +166,7 @@
 		if($dias_mes<($dia+7))
 		{
 			$resta_dias=($dia+7)-$dias_mes;
-			//echo $resta_dias."-----";
+			
 			$dia_final=$resta_dias;
 			$mes_final=$mes+1;
 			$anyo_final=$anyo;
@@ -215,7 +183,7 @@
 			$anyo_final=$anyo;
 		}
 		$resultado="".$anyo_final."-".$mes_final."-".$dia_final;
-		//echo $resultado."     --------";
+		
 		return $resultado;
 	}
 	function sumar6Meses($anyo, $mes, $dia)//suma 6 meses al día actual
@@ -250,219 +218,79 @@
 	}
 	function reservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora, $cliente)//realiza las reservas múltiples de hoy a 6 meses
 	{
+		
 		$fecha_fin=sumar6Meses($anyo_inicio,$mes_inicio,$dia_inicio);
 		$anyo_fin=$fecha_fin[0];
 		$mes_fin=$fecha_fin[1];
 		$dia_fin=$fecha_fin[2];
-
+		
 		
 		$bandera=true;/*Para quitar el bucle cuando es el mismo mes y el dia final es menor que el dia de la siguiente semana*/
-		
-		$fecha=sumarSemana($anyo_inicio,$mes_inicio,$dia_inicio);		
+		$fecha_mas[0]= $anyo_inicio;
+		$fecha_mas[1]= $mes_inicio;
+		$fecha_mas[2]=$dia_inicio;
 		while( $bandera==true)
 		{
-			$fecha_mas=explode("-",$fecha);
-		
-			if( $fecha_mas[0]==$anyo_fin)//año igual
-			{
-				if($fecha_mas[1]==$mes_fin  )//mes igual 
-				{
-					if( $fecha_mas[2] >= $dia_fin )
-					{
-					
-						$bandera=false;
-
-					}
-					else
-					{
-						echo  $fecha_mas[0]."/".$fecha_mas[1]."/".$fecha_mas[2]."<br>";
-						$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";
-						ordensqlupdate($orden);
-					}
-				}
-				else//distinto mes de fin por tanto tiene que seguir 
-				{
-					if($fecha_mas[1]<$mes_fin  )//mes igual 
-					{
-						
-							echo  $fecha_mas[0]."/".$fecha_mas[1]."/".$fecha_mas[2]."<br>";
-							$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";
-							ordensqlupdate($orden);
-					}
-					else
-					{
-						$bandera=false;
-					}
-				}
-			}
-			else//año distinto por tanto debe entrar sin problemas
-			{
-				echo  $fecha_mas[0]."/".$fecha_mas[1]."/".$fecha_mas[2]."<br>";
-				$orden="insert into horario(anyo, mes, dia, hora, cliente) values($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."')";
-				ordensqlupdate($orden);
-			}
-			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);		
-			
-		}
-	}
-	function comprobarReservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora)//comprueba la hora de hoy a los proximos 6 meses
-	{
-		$fecha_fin=sumar6Meses($anyo_inicio,$mes_inicio,$dia_inicio);
-		$anyo_fin=$fecha_fin[0];
-		$mes_fin=$fecha_fin[1];
-		$dia_fin=$fecha_fin[2];
-		//echo $fecha_fin[0]."/".$fecha_fin[1]."/".$fecha_fin[2];
-
-		$banderaComprobar=true;
-		$bandera=true;/*Para quitar el bucle cuando es el mismo mes y el dia final es menor que el dia de la siguiente semana*/
-		
-		$orden="select * from horario where anyo=$anyo_inicio and  mes=$mes_inicio and dia=$dia_inicio and hora=$hora";
-		
-		$cho=ordensql($orden);
-		
-		if($cho!=false)
-		{
-			while ($regi = $cho->fetch_array()) {
-				$banderaComprobar=false;
-			}
-		}
-//		echo "<br>".$banderaComprobar."<br>";
-
-		$fecha=sumarSemana($anyo_inicio,$mes_inicio,$dia_inicio);
-		
-		while( $bandera==true && $banderaComprobar==true)
-		{
-			$fecha_mas=explode("-",$fecha);
-			if($fecha_mas[0]==$anyo_fin)
+				
+			if($fecha_mas[0]==anyo() && $fecha_mas[1]==mes() && $fecha_mas[2]<dia() )
 			{
 				
-				if($fecha_mas[1]>$mes_fin)
-				{
-					
-					if($fecha_mas[2]>$dia_fin)
-					{
-						$bandera=false;
-					}
-					
-				}
-				else
-				{
-					if($fecha_mas[1]==$mes_fin )
-					{
-						if($fecha_mas[2]<=$dia_fin)
-						{
-							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
-							//echo $orden;
-							$cho=ordensql($orden);
-							
-							if($cho!=false)
-							{
-								while ($regi = $cho->fetch_array()) {
-									$banderaComprobar=false;
-								}
-							}
-						}
-						else
-						{
-							$bandera=false;
-						}
-						
-
-						
-					}
-					if($fecha_mas[1]<$mes_fin )
-					{
-
-							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
-							//echo $orden;
-							$cho=ordensql($orden);
-							
-							if($cho!=false)
-							{
-								while ($regi = $cho->fetch_array()) {
-									$banderaComprobar=false;
-								}
-							}
-						
-					}
-					if($fecha_mas[1]>$mes_fin )
-					{	
-						$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
-						//echo $orden;
-						$cho=ordensql($orden);
-						
-						if($cho!=false)
-						{
-							while ($regi = $cho->fetch_array()) {
-								$banderaComprobar=false;
-							}
-						}
-					}
-
-					
-				}	
+			}
+			else
+			{	$StringDia=diaDeLaSemana("".$fecha_mas[0]."-".$fecha_mas[1]."-".$fecha_mas[2]);
+				$orden="insert into horario(anyo, mes, dia, hora, cliente,cuando,diaSemana,estado) value($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."',now(),'".$StringDia."',0)";
+				
+				ordensqlupdate($orden); 
+			}
+			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);
+			$fecha_mas=explode("-",$fecha);		
+			if($anyo_fin==$fecha_mas[0] && $mes_fin==$fecha_mas[1] && $dia_fin<$fecha_mas[2])
+			{
+				$bandera=false;
+			}
+		}
+		$StringDia=diaDeLaSemana("".$fecha_mas[0]."-".$fecha_mas[1]."-".$fecha_mas[2]);
+		$orden="insert into reservasmultiples(anyo_inicio,mes_inicio,dia_inicio,anyo_fin,mes_fin,dia_fin,cliente,diaSemana,hora) values(".anyo().",".mes().",".dia().",".$anyo_fin.",".$mes_fin.",".$dia_fin.",'".$cliente."','".$StringDia."',".$hora.")";
+		 
+		ordensqlupdate($orden);
+	}
 	
-			}
-			else//año fin mayor
-			{
-				if($fecha_mas[0]==($anyo_fin -1))
-				{
-					$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
-					//echo $orden;
-					$cho=ordensql($orden);
-					
-					if($cho!=false)
-					{
-						while ($regi = $cho->fetch_array()) {
-							$banderaComprobar=false;
-						}
-					}
-				}
-				else
-				{
-					$bandera=false;
-				}
-				
-			}
-			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);	
-		}
-		return $banderaComprobar;
-	}
 	function reservaIndividual($dia, $mes,$anyo,$hora,$cliente)//reserva de una hora y un cliente
 	{
-		$orden="insert into horario(anyo, mes, dia, hora, cliente) values(".$anyo.",".$mes.",".$dia.",".$hora.",'".$cliente."')";		
+		$orden="insert into horario(anyo, mes, dia, hora, cliente,dia,hora) values(".$anyo.",".$mes.",".$dia.",".$hora.",'".$cliente."','".$StringDia."',".$hora.")";		
 		ordensqlupdate($orden);
 	}
 	function horarioDia()//muesra el horario el dia elegido
 	{
 
-		echo "<table border=1><tr><td></td><td>".diaDeLaSemana(anyo()."-".mes()."-".dia())."</td>";
-		echo "</tr><tr>";
-		for($hora=1;$hora<9;$hora++)
-		{
-			$orden="select dia, hora, cliente from horario where dia =".dia()." and mes=".mes()."  and anyo =".anyo()." and hora=".$hora." order by 1,2,3" ;
-			$cho=ordensql($orden);
-			$bandera=false;
-			if($cho!=false)
-			{
-				while ($regi = $cho->fetch_array()) {
-					$bandera=true;
-				}
-			}
-			if($bandera==false)
-			{
-				echo "<td>".$hora."</td><td>no</td>";
-			}
-			else
-			{
-				echo "<td>".$hora."</td><td>si</td>";
-			}
-			echo "</tr>";
-		}	
-		echo "</table>";
+		// echo "<table border=1><tr><td></td><td>".diaDeLaSemana(anyo()."-".mes()."-".dia())."</td>";
+		// echo "</tr><tr>";
+		// for($hora=1;$hora<=16;$hora++)
+		// {
+		// 	$orden="select dia, hora, cliente from horario where dia =".dia()." and mes=".mes()."  and anyo =".anyo()." and hora=".$hora."and estado=0 order by 1,2,3 " ;
+		// 	$cho=ordensql($orden);
+		// 	$bandera=false;
+		// 	if($cho!=false)
+		// 	{
+		// 		while ($regi = $cho->fetch_array()) {
+		// 			$bandera=true;
+		// 		}
+		// 	}
+		// 	if($bandera==false)
+		// 	{
+		// 		echo "<td>".$hora."</td><td>no</td>";
+		// 	}
+		// 	else
+		// 	{
+		// 		echo "<td>".$hora."</td><td>si</td>";
+		// 	}
+		// 	echo "</tr>";
+		// }	
+		// echo "</table>";
 	}
 	function horarioSemana($semana)//muestra el horario de la semana (calendario)
 	{
+	
 		$fecha=calcularLunes($semana);
 		echo "<table border=2 id=calendario>";
 			echo "<tr>";
@@ -492,7 +320,7 @@
 				}	
 			echo "</tr>";
 			echo "<tr>";
-			for($hora=1;$hora<9;$hora++ )
+			for($hora=1;$hora<=16;$hora++ )
 			{
 				echo "<tr>";
 				echo "<td id=hora>".$hora."</td>";
@@ -516,64 +344,77 @@
 						$anyo++;
 						$mes=1;
 					}
-					$banderaReserva=true;
-					//echo sizeof($horass);
-				
-
 					
-					if($banderaReserva==1)
+					$banderaReserva=true;
+					if((($anyo<anyo())||($anyo==anyo() && $mes<mes())||($anyo==anyo() && $mes==mes() && $dia<dia())))
 					{
-						$orden="select dia, hora, cliente from horario where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." order by 1,2,3" ;
-						$cho=ordensql($orden);
-						$bandera=false;
-						if($cho!=false)
-						{
-							while ($regi = $cho->fetch_array()) {
-
-								$bandera=true;
-							}
-						}
-						if($bandera==false)
-						{
-							$diaenviar="".$anyo."*".$mes."*".$dia;
-							echo "<td id=campo onClick=individual('".$diaenviar."',".$hora.")>$diaenviar  Libre</td>";
-						}
-						else
-						{
-							
-							//mirar cuantos hay select count(cliente) from horario where anyo=2015 and mes=2 and dia=17
-							$c=ordensql("select count(cliente) from horario where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora");
-							$cuantos=0;
-							if($c!=false)
+						$orden="select  cliente from horario where dia =".$dia_mas." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+							$cho=ordensql($orden);
+							$bandera=false;
+							$cliente="";
+							if($cho!=false)
 							{
-								while ($reg = $c->fetch_array()) {
+								while ($regi = $cho->fetch_array()) {
 
-									$cuantos=$reg[0];
+									$cliente=$cliente.$regi[0]."<br>";
 								}
 							}
-							//echo $cuantos;
-							if($cuantos==1)
+						echo "<td class='pasado'>$cliente</td>";
+					}
+					else
+					{
+						if($banderaReserva==1)
+						{
+							$orden="select dia, hora, cliente from horario where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+							$cho=ordensql($orden);
+							$bandera=false;
+							if($cho!=false)
 							{
-								echo "<td>Ocupado1</td>";
+								while ($regi = $cho->fetch_array()) {
+
+									$bandera=true;
+								}
+							}
+							if($bandera==false)
+							{
+								$diaenviar="".$anyo."*".$mes."*".$dia;
+								echo "<td  onClick=enviar('".$diaenviar."',".$hora.") id=campo>$diaenviar  Libre</td>";
 							}
 							else
 							{
-								if($cuantos==2)
+								
+								//mirar cuantos hay select count(cliente) from horario where anyo=2015 and mes=2 and dia=17
+								$c=ordensql("select count(cliente) from horario where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora and estado=0");
+								$cuantos=0;
+								if($c!=false)
 								{
-									echo "<td>Ocupado2</td>";
-								}
-								if($cuantos==3)
-								{
-									echo "<td>Ocupado3</td>";
-								}
-							}
-							
-						}
-					}
-					
+									while ($reg = $c->fetch_array()) {
 
-					
-					
+										$cuantos=$reg[0];
+									}
+								}
+								
+								$diaenviar="".$anyo."*".$mes."*".$dia;
+								
+								if($cuantos==1)
+								{
+									echo "<td onClick=canceladaCalen($hora,'$diaenviar') id='ocupado'>$diaenviar Ocupado1</td>";
+								}
+								else
+								{
+									if($cuantos==2)
+									{
+										echo "<td onClick=canceladaCalen($hora,'$diaenviar') id='ocupado'>$diaenviar Ocupado2</td>";
+									}
+									if($cuantos==3)
+									{
+										echo "<td onClick=canceladaCalen($hora,'$diaenviar') id='ocupado'>$diaenviar Ocupado3</td>";
+									}
+								}					
+							 }
+						 }
+					}
+											
 				}	
 				echo "</tr>";
 			}
@@ -587,7 +428,7 @@
 		$fecha=calcularLunes($semana);
 		echo "<table border=2 id=calendario>";
 			echo "<tr>";
-				echo "<td></td>";
+				echo "<td ></td>";
 				for($dia_mas=$fecha[2];$dia_mas<=($fecha[2]+6);$dia_mas++)
 				{
 					$dias_mes= cal_days_in_month(CAL_GREGORIAN, $fecha[1], $fecha[0]);
@@ -613,7 +454,7 @@
 				}	
 			echo "</tr>";
 			echo "<tr>";
-			for($hora=1;$hora<9;$hora++ )
+			for($hora=1;$hora<=16;$hora++ )
 			{
 				echo "<tr>";
 				echo "<td id=hora>".$hora."</td>";
@@ -638,77 +479,92 @@
 						$mes=1;
 					}
 					$banderaReserva=true;
-					//echo sizeof($horass);
-					for($i=1;$i<sizeof($horass);$i++ ) {
-						if(!empty($diass[$i]))
-						{
-							$d=explode("*",$diass[$i]);
-							if($horass[$i]==$hora && $d[0]==$anyo && $d[1]==$mes && $d[2]==$dia  )
-							{
-								//echo $d[2]."/".$horass[$i]."<br>";	
-								$banderaReserva=0;
-							}
-							//echo $d[2]."/".$horass[$i]."<br>";	
-						}
-								
-					}	
-
 					
-					if($banderaReserva==1)
+					// ((($anyo<anyo())||($anyo==anyo() && $mes<mes())||
+
+					if((($anyo<anyo())||($anyo==anyo() && $mes<mes())||($anyo==anyo() && $mes==mes() && $dia<dia())))
 					{
-						$orden="select dia, hora, cliente from horario where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." order by 1,2,3" ;
-						$cho=ordensql($orden);
-						$bandera=false;
-						if($cho!=false)
-						{
-							while ($regi = $cho->fetch_array()) {
+						$orden="select  cliente from horario where dia =".$dia_mas." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+							$cho=ordensql($orden);
+							$bandera=false;
+							$cliente="";
+							if($cho!=false)
+							{
+								while ($regi = $cho->fetch_array()) {
 
-								$bandera=true;
-							}
-						}
-						if($bandera==false)
-						{
-							$diaenviar="".$anyo."*".$mes."*".$dia;
-							echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>$diaenviar  Libre</td>";
-						}
-						else
-						{
-							
-							//mirar cuantos hay select count(cliente) from horario where anyo=2015 and mes=2 and dia=17
-							$c=ordensql("select count(cliente) from horario where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora");
-							$cuantos=0;
-							if($c!=false)
-							{
-								while ($reg = $c->fetch_array()) {
-
-									$cuantos=$reg[0];
+									$cliente=$cliente.$regi[0]."<br>";
 								}
 							}
-							//echo $cuantos;
-							if($cuantos==1)
-							{
-								echo "<td>Ocupado1</td>";
-							}
-							else
-							{
-								if($cuantos==2)
-								{
-									echo "<td>Ocupado2</td>";
-								}
-								if($cuantos==3)
-								{
-									echo "<td>Ocupado3</td>";
-								}
-							}
-							
-						}
+						echo "<td class='pasado'>$cliente</td>";
 					}
 					else
 					{
-						$diaenviar="".$anyo."*".$mes."*".$dia;
-						echo "<td id=campo onClick= eliminar('".$diaenviar."',".$hora.")>Reservado </td>";
+						for($i=1;$i<sizeof($horass);$i++ ) {
+							if(!empty($diass[$i]))
+							{
+								$d=explode("*",$diass[$i]);
+								if($horass[$i]==$hora && $d[0]==$anyo && $d[1]==$mes && $d[2]==$dia  )
+								{	
+									$banderaReserva=0;
+								}	
+							}
+								
+						}	
+						if($banderaReserva==1)
+						{
+							$orden="select dia, hora, cliente from horario where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+							$cho=ordensql($orden);
+							$bandera=false;
+							if($cho!=false)
+							{
+								while ($regi = $cho->fetch_array()) {
+
+									$bandera=true;
+								}
+							}
+							if($bandera==false)
+							{
+								$diaenviar="".$anyo."*".$mes."*".$dia;
+								echo "<td  onClick=enviar('".$diaenviar."',".$hora.") id=campo>$diaenviar  Libre</td>";
+							}
+							else
+							{
+								
+								//mirar cuantos hay select count(cliente) from horario where anyo=2015 and mes=2 and dia=17
+								$c=ordensql("select count(cliente) from horario where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora and estado=0");
+								$cuantos=0;
+								if($c!=false)
+								{
+									while ($reg = $c->fetch_array()) {
+
+										$cuantos=$reg[0];
+									}
+								}
+								$diaenviar="".$anyo."*".$mes."*".$dia;
+								if($cuantos==1)
+								{
+									echo "<td onClick=canceladaCalen($hora,'$diaenviar') id='ocupado'>$diaenviar Ocupado1</td>";
+								}
+								else
+								{
+									if($cuantos==2)
+									{
+										echo "<td onClick=canceladaCalen($hora,'$diaenviar') id='ocupado'>$diaenviar Ocupado2</td>";
+									}
+									if($cuantos==3)
+									{
+										echo "<td onClick=canceladaCalen($hora,'$diaenviar') id='ocupado'>$diaenviar Ocupado3</td>";
+									}
+								}		
+								
+							}
+						}
+						else
+						{
+							$diaenviar="".$anyo."*".$mes."*".$dia;
+							echo "<td id=campo onClick= eliminar('".$diaenviar."',".$hora.")>Reservado </td>";
+						}
 					}
-					
 					
 				}	
 				echo "</tr>";
@@ -717,12 +573,22 @@
 	}
 	function horarioReservaM($horas, $dias)//saca el horario multiple
 	{
-		//comprobarReservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora)
-		$horass=explode("/", $horas);
-		$diass=explode("/", $dias);
+		
 
-			$fecha=calcularLunes(0);
-		echo "hoa";
+		$horass=explode("*", $horas);
+		$diass=explode("*", $dias);
+		$anyo_inicio=anyo();
+		$mes_inicio=mes();
+		$dia_inicio=dia();
+
+		$fecha_fin=sumar6Meses($anyo_inicio,$mes_inicio,$dia_inicio);
+		
+		$anyo_fin=$fecha_fin[0];
+		$mes_fin=$fecha_fin[1];
+		$dia_fin=$fecha_fin[2];
+		$arrayDias= array("lunes", "martes","miercoles", "jueves","viernes","sabado","domingo");
+		$arrayFech=array();
+		$fecha=calcularLunes(0);
 		echo "<table border=2 id=calendario>";
 			echo "<tr>";
 				echo "<td></td>";
@@ -745,52 +611,103 @@
 						$anyo++;
 						$mes=1;
 					}
-					$diaenviar="".$dia."/".$mes."/".$anyo;
-
+					$diaenviar="".$anyo."/".$mes."/".$dia;
+					array_push($arrayFech, $diaenviar);
 					echo "<td id=diaSemana>".diaDeLaSemana("".$anyo."-".$mes."-".$dia)."<br>$diaenviar</td>";
 				}	
 			echo "</tr>";
-			echo "<tr>";
-			for($hora=1;$hora<9;$hora++ )
+
+		for($hora=1;$hora<17;$hora++) {
+
+			echo "<tr><td id=hora>$hora</td>";
+			for($key=0;$key<sizeof($arrayDias);$key++ ) 
 			{
-				echo "<tr>";
-				echo "<td id=hora>".$hora."</td>";
-				$d=  array();
-				for($dia_mas=$fecha[2];$dia_mas<=($fecha[2]+6);$dia_mas++)
+				$value=$arrayFech[$key];
+				$banderaReserva=1;
+					for($i=0;$i<sizeof($diass);$i++ ) {	
+						
+						if(!empty($diass))
+						{
+							if( $horass[$i]==$hora && $diass[$i]==$value )
+							{
+								$banderaReserva=0;
+							}	
+						}
+					}	
+				if($banderaReserva==1)
 				{
-					$dias_mes= cal_days_in_month(CAL_GREGORIAN, $fecha[1], $fecha[0]);
-					$mes=$fecha[1];
-					$anyo=$fecha[0];
-					if($dias_mes<$dia_mas)
+					$diaSemana=diaDeLaSemana("".$value);
+					$bandera=true;		
+					$orden="select distinct  hora from horario where mes>=".($mes_inicio+1)." and mes<=".($mes_fin-1)."  and diaSemana='".$diaSemana."' and hora=".$hora." and estado=0";
+					//echo $orden;
+					$cho=ordensql($orden);
+					if($cho!=false)
 					{
-						$mes++;
-						$dia=$dia_mas-$dias_mes;
+						while ($regi = $cho->fetch_array()) {
+							$bandera=false;
+						}
 					}
-					else
-					{
-						$dia=$dia_mas;
-					}
-					if($mes>12)
-					{
-						$anyo++;
-						$mes=1;
-					}
-					$bandera=comprobarReservas($anyo,$mes,$dia,$hora);
 					if($bandera==true)
 					{
-						$diaenviar="".$anyo."*".$mes."*".$dia;
-						echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>$diaenviar  Libre</td>";	
+						//Dia limpio
+						//$dia12=$value;
+						$diaSemana=diaDeLaSemana("".$value);
+						//Ahora mirar las otras dos condiciones 
+						//sí el mes actual tiene alguna (dia de hoy hasta final de mes)
+						$orden="select distinct  hora from horario where mes=".($mes_inicio)." and dia>=".($dia_inicio)."  and diaSemana='".$diaSemana."' and hora=".$hora." and estado=0";
+						//echo $orden;
+						//$value=$dia12;
+						
+						$chos=ordensql($orden);
+						if($chos!=false)
+						{
+							while ($regi = $chos->fetch_array()) {
+								$bandera=false;
+							}
+						}
+						if($bandera==true)
+						{
+							$diaenviar=$value;
+							echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")> $diaenviar Libre</td>";
+						}
+						else
+						{
+							$orden="select distinct  hora from horario where mes=".($mes_fin)." and dia<=".($dia_fin)."  and diaSemana='".$diaSemana."' and hora=".$hora." and estado=0";
+							//echo $orden;
+							
+							$chorizo=ordensql($orden);
+							if($chorizo!=false)
+							{
+								while ($regi = $chorizo->fetch_array()) {
+									$bandera=false;
+								}
+							}
+							if($bandera==true)
+							{
+								$diaenviar=$value;
+								$diaenviar="".$anyo."*".$mes."*".$dia;
+								echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")> $diaenviar Libre</td>";
+							}
+							else
+							{
+								echo "<td> ocupado</td>";
+							}										
+						}
 					}
 					else
 					{
-						$diaenviar="".$anyo."*".$mes."*".$dia;
-						echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>Ocupado </td>";	
-					}
-					//comprobar hora a 6 meses
-				}	
-				echo "</tr>";
+						echo "<td> ocupado</td>";
+					}	
+				}
+				else
+				{
+					//eliminar
+					$diaenviar=$value;
+					echo "<td onClick=eliminar('".$diaenviar."',".$hora.")>Reservado</td>";
+				}
 			}
-		echo "</table>";
+			echo "</tr>";
+		}
 	}
 	///////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////PARTES////////////////////////////////////
