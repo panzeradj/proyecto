@@ -46,7 +46,7 @@
 	///////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////CALENDARIO//////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////
-	function dia()
+	function dia()//devuelve el dia actual
 	{
 		$fecha=date("Y-m-d");
 		$fecha_mas=explode("-",$fecha);
@@ -61,26 +61,26 @@
 		}*/
 		return intval($fecha_mas[2]);
 	}
-	function mes()
+	function mes()//devuelve el mes actual
 	{
 		$fecha=date("Y-m-d");
 		$fecha_mas=explode("-",$fecha);
 		return $fecha_mas[1];
 	}
-	function anyo()
+	function anyo()//devuelve el año actual
 	{
 		$fecha=date("Y-m-d");
 		$fecha_mas=explode("-",$fecha);
 		return $fecha_mas[0];
 	}
-	function diaDeLaSemana($fech)
+	function diaDeLaSemana($fech)//devuelve el dia actual de la semana en string
 	{
 		//echo $fech;
 		$dias=array('','lunes','martes','miercoles','jueves','viernes','sabado','domingo');
 		$dia=$dias[date('N',strtotime($fech))];
 		return $dia;
 	}
-	function calcularLunes($semana)
+	function calcularLunes($semana)//calcula el lunes de la semana actual
 	{
 		$dia=0;
 		if( strcmp(diaDeLaSemana("".anyo()."-".mes()."-".dia()),"lunes")==0)
@@ -133,7 +133,7 @@
 		$mes=mes();
 		$anyo=anyo();
 		$dia=$dia-($semana*-7);
-		echo $dia;
+		//echo $dia;
 		while($dia<1)
 		{	
 			$mes--;
@@ -144,17 +144,23 @@
 			}
 			$dias_mes= cal_days_in_month(CAL_GREGORIAN, $mes, $anyo);
 			
-			$dia=intval($dias_mes)+$dia;
-			
-			
+			$dia=intval($dias_mes)+$dia;			
+		}
+		$dias_mes= cal_days_in_month(CAL_GREGORIAN, $mes, $anyo);
+	
+		while($dia>$dias_mes)
+		{
+			//echo "hola";
+			$mes++;
+			$dias_mes= cal_days_in_month(CAL_GREGORIAN, ($mes-1), $anyo);
+			echo $dias_mes;
+			$dia=$dia-$dias_mes;
+		
 		}
 
-		$dias_mes= cal_days_in_month(CAL_GREGORIAN, $mes, $anyo);
-		if($dia>$dias_mes)
-		{
-			$mes++;
-			$dia=$dias_mes-$dia;
-		}
+
+		
+		
 
 		
 		if($mes>12)
@@ -169,7 +175,7 @@
 		return $fecha;
 	}
 
-	function sumarSemana($anyo,$mes,$dia)
+	function sumarSemana($anyo,$mes,$dia)//suma 7 dias a la semana actual
 	{
 		/*
 			Calcula la fecha dentro de una semana(fecha introducida por parámetros)
@@ -200,7 +206,7 @@
 		//echo $resultado."     --------";
 		return $resultado;
 	}
-	function sumar6Meses($anyo, $mes, $dia)
+	function sumar6Meses($anyo, $mes, $dia)//suma 6 meses al día actual
 	{
 		$mes=$mes+6;
 		if($mes>12)//comprobamos el año
@@ -230,7 +236,7 @@
 		$fecha = array($anyo, $mes, $dia);
 		return $fecha;
 	}
-	function reservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora, $cliente)
+	function reservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora, $cliente)//realiza las reservas múltiples de hoy a 6 meses
 	{
 		$fecha_fin=sumar6Meses($anyo_inicio,$mes_inicio,$dia_inicio);
 		$anyo_fin=$fecha_fin[0];
@@ -287,36 +293,89 @@
 			
 		}
 	}
-	function comprobarReservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora)
+	function comprobarReservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora)//comprueba la hora de hoy a los proximos 6 meses
 	{
 		$fecha_fin=sumar6Meses($anyo_inicio,$mes_inicio,$dia_inicio);
 		$anyo_fin=$fecha_fin[0];
 		$mes_fin=$fecha_fin[1];
 		$dia_fin=$fecha_fin[2];
+		//echo $fecha_fin[0]."/".$fecha_fin[1]."/".$fecha_fin[2];
 
 		$banderaComprobar=true;
 		$bandera=true;/*Para quitar el bucle cuando es el mismo mes y el dia final es menor que el dia de la siguiente semana*/
 		
+		$orden="select * from horario where anyo=$anyo_inicio and  mes=$mes_inicio and dia=$dia_inicio and hora=$hora";
+		
+		$cho=ordensql($orden);
+		
+		if($cho!=false)
+		{
+			while ($regi = $cho->fetch_array()) {
+				$banderaComprobar=false;
+			}
+		}
+//		echo "<br>".$banderaComprobar."<br>";
+
 		$fecha=sumarSemana($anyo_inicio,$mes_inicio,$dia_inicio);
 		
-		
-		
-		while( $bandera==true)
+		while( $bandera==true && $banderaComprobar==true)
 		{
-			$bandera=false;
 			$fecha_mas=explode("-",$fecha);
-			$bandera=true;
-			if( $fecha_mas[0]==$anyo_fin)//año igual
+			if($fecha_mas[0]==$anyo_fin)
 			{
-				if($fecha_mas[1]==$mes_fin  )//mes igual 
+				
+				if($fecha_mas[1]>$mes_fin)
 				{
-					if( $fecha_mas[2] >= $dia_fin )
+					
+					if($fecha_mas[2]>$dia_fin)
 					{
 						$bandera=false;
 					}
-					else
+					
+				}
+				else
+				{
+					if($fecha_mas[1]==$mes_fin )
 					{
-						$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2]";
+						if($fecha_mas[2]<=$dia_fin)
+						{
+							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
+							//echo $orden;
+							$cho=ordensql($orden);
+							
+							if($cho!=false)
+							{
+								while ($regi = $cho->fetch_array()) {
+									$banderaComprobar=false;
+								}
+							}
+						}
+						else
+						{
+							$bandera=false;
+						}
+						
+
+						
+					}
+					if($fecha_mas[1]<$mes_fin )
+					{
+
+							$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
+							//echo $orden;
+							$cho=ordensql($orden);
+							
+							if($cho!=false)
+							{
+								while ($regi = $cho->fetch_array()) {
+									$banderaComprobar=false;
+								}
+							}
+						
+					}
+					if($fecha_mas[1]>$mes_fin )
+					{	
+						$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
 						//echo $orden;
 						$cho=ordensql($orden);
 						
@@ -327,48 +386,42 @@
 							}
 						}
 					}
-				}
-				else//distinto mes de fin por tanto tiene que seguir 
-				{
-					if($fecha_mas[1]<$mes_fin  )//mes igual 
-					{
-						$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2]";
-						//echo $orden;
-						$cho=ordensql($orden);
-						
-						if($cho!=false)
-						{
-							while ($regi = $cho->fetch_array()) {
-								$banderaComprobar=false;
-							}
-						}	
-					}
-				}
+
+					
+				}	
+	
 			}
-			else//año distinto por tanto debe entrar sin problemas
+			else//año fin mayor
 			{
-				$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2]";
-				
-				$cho=ordensql($orden);
-				//echo $orden;
-				if($cho!=false)
+				if($fecha_mas[0]==($anyo_fin -1))
 				{
-					while ($regi = $cho->fetch_array()) {
-						$banderaComprobar=false;
+					$orden="select * from horario where anyo=$fecha_mas[0] and  mes=$fecha_mas[1] and dia=$fecha_mas[2] and hora=$hora";
+					//echo $orden;
+					$cho=ordensql($orden);
+					
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							$banderaComprobar=false;
+						}
 					}
-				}			
+				}
+				else
+				{
+					$bandera=false;
+				}
 				
 			}
-			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);			
-		}	
+			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);	
+		}
 		return $banderaComprobar;
 	}
-	function reservaIndividual($dia, $mes,$anyo,$hora,$cliente)
+	function reservaIndividual($dia, $mes,$anyo,$hora,$cliente)//reserva de una hora y un cliente
 	{
 		$orden="insert into horario(anyo, mes, dia, hora, cliente) values(".$anyo.",".$mes.",".$dia.",".$hora.",'".$cliente."')";		
 		ordensqlupdate($orden);
 	}
-	function horarioDia()
+	function horarioDia()//muesra el horario el dia elegido
 	{
 
 		echo "<table border=1><tr><td></td><td>".diaDeLaSemana(anyo()."-".mes()."-".dia())."</td>";
@@ -396,11 +449,8 @@
 		}	
 		echo "</table>";
 	}
-	function horarioSemana($semana)
+	function horarioSemana($semana)//muestra el horario de la semana (calendario)
 	{
-		
-		
-
 		$fecha=calcularLunes($semana);
 		echo "<table border=2 id=calendario>";
 			echo "<tr>";
@@ -517,7 +567,7 @@
 			}
 		echo "</table>";
 	}
-	function horarioReservaI($horas, $dias,$semana)
+	function horarioReservaI($horas, $dias,$semana)//saca el horario de individuales
 	{
 		$horass=explode("/", $horas);
 		$diass=explode("/", $dias);
@@ -653,17 +703,39 @@
 			}
 		echo "</table>";
 	}
-	function horarioReservaM($horas, $dias)
+	function horarioReservaM($horas, $dias)//saca el horario multiple
 	{
 		//comprobarReservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora)
 		$horass=explode("/", $horas);
 		$diass=explode("/", $dias);
+
+			$fecha=calcularLunes(0);
+		echo "hoa";
 		echo "<table border=2 id=calendario>";
 			echo "<tr>";
 				echo "<td></td>";
-				for($dia_mas=dia();$dia_mas<=(dia()+6);$dia_mas++)
+				for($dia_mas=$fecha[2];$dia_mas<=($fecha[2]+6);$dia_mas++)
 				{
-					echo "<td id=diaSemana>".diaDeLaSemana("".anyo()."-".mes()."-".$dia_mas)."</td>";
+					$dias_mes= cal_days_in_month(CAL_GREGORIAN, $fecha[1], $fecha[0]);
+					$mes=$fecha[1];
+					$anyo=$fecha[0];
+					if($dias_mes<$dia_mas)
+					{
+						$mes++;
+						$dia=$dia_mas-$dias_mes;
+					}
+					else
+					{
+						$dia=$dia_mas;
+					}
+					if($mes>12)
+					{
+						$anyo++;
+						$mes=1;
+					}
+					$diaenviar="".$dia."/".$mes."/".$anyo;
+
+					echo "<td id=diaSemana>".diaDeLaSemana("".$anyo."-".$mes."-".$dia)."<br>$diaenviar</td>";
 				}	
 			echo "</tr>";
 			echo "<tr>";
@@ -672,42 +744,37 @@
 				echo "<tr>";
 				echo "<td id=hora>".$hora."</td>";
 				$d=  array();
-				for($dia_mas=dia();$dia_mas<=(dia()+6);$dia_mas++)
+				for($dia_mas=$fecha[2];$dia_mas<=($fecha[2]+6);$dia_mas++)
 				{
-					$banderaReserva=true;
-					//echo sizeof($horass);
-				for($i=1;$i<sizeof($horass);$i++ ) {
-						if(!empty($diass[$i]))
-						{
-							$d=explode("*",$diass[$i]);
-							if($horass[$i]==$hora && $d[2]==$dia_mas)
-							{
-								//echo $d[2]."/".$horass[$i]."<br>";	
-								$banderaReserva=0;
-							}
-							//echo $d[2]."/".$horass[$i]."<br>";	
-						}
-								
-					}						
-					if($banderaReserva==1)
+					$dias_mes= cal_days_in_month(CAL_GREGORIAN, $fecha[1], $fecha[0]);
+					$mes=$fecha[1];
+					$anyo=$fecha[0];
+					if($dias_mes<$dia_mas)
 					{
-						$bandera=comprobarReservas(anyo(),mes(),$dia_mas,$hora);
-						if($bandera==false)
-						{
-							$diaenviar="".anyo()."*".mes()."*".$dia_mas;
-							echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>Libre</td>";
-						}
-						else
-						{
-							echo "<td>Ocupado</td>";
-						}
+						$mes++;
+						$dia=$dia_mas-$dias_mes;
 					}
 					else
 					{
-						$diaenviar="".anyo()."*".mes()."*".$dia_mas;
-						echo "<td id=campo onClick= eliminar('".$diaenviar."',".$hora.")>Reservado </td>";
-					}					
-					
+						$dia=$dia_mas;
+					}
+					if($mes>12)
+					{
+						$anyo++;
+						$mes=1;
+					}
+					$bandera=comprobarReservas($anyo,$mes,$dia,$hora);
+					if($bandera==true)
+					{
+						$diaenviar="".$anyo."*".$mes."*".$dia;
+						echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>$diaenviar  Libre</td>";	
+					}
+					else
+					{
+						$diaenviar="".$anyo."*".$mes."*".$dia;
+						echo "<td id=campo onClick=enviar('".$diaenviar."',".$hora.")>Ocupado </td>";	
+					}
+					//comprobar hora a 6 meses
 				}	
 				echo "</tr>";
 			}
