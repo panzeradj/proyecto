@@ -16,6 +16,9 @@
 		$hora="";	
 	}
 	
+		$_SESSION['semanas']=0;
+	
+	
 ?>
 
 <html>
@@ -34,8 +37,6 @@
 			<li id="two"><a href="#" class="one"><span>Clientes</span></a></li>
 			<li id="two"><a href="#" class="one"><span>Reservas</span></a>
 			<ul id="sub2">
-	   			<!--<li id="two"><a href="individuales.php" id="subtwo">Individuales</a></li>
-	  			<li id="two"><a href="multiples.php" id="subtwo" >multiples</a></li>-->
 	  		</ul>
 	  		</li>
 			<li id="two"><a href="calendario.php" class="one"><span>Calendario</span></a></li>
@@ -59,6 +60,9 @@
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
 	<article id="zona">
+		<button onClick=semanaMenos()>Semana menos</button>
+		<button onClick=semanaMas()>Semana mas</button>
+				
 	<?php
 		if(!empty($_GET['calendario']))
 		{
@@ -75,12 +79,12 @@
 		{
 
 				echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
-					echo "<br><input type=text name=cliente[1]><br>";
+					echo "<div id='calendario'></div><br><input type=text name=cliente[1]><br>";
 					echo "<br><input type=text name=cliente[2]><br>";
 					echo "<br><input type=text name=cliente[3]><br>";
 					echo "<br><input type=hidden name=dia value=".$dia.">";
-					echo "<input type=hidden name=hora value=$hora><div id='calendario'>";
-					echo "</div><input type=submit name=Aceptar value=Aceptar>";
+					echo "<input type=hidden name=hora value=$hora>";
+					echo "<input type=submit name=Aceptar value=Aceptar>";
 				echo "</form>";			
 		}		
 	?>

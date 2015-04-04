@@ -29,6 +29,6 @@
 	{
 		echo "fuera";
 	}	
-	horarioReservaI($_SESSION['hora'], $_SESSION['dia']);
+	horarioReservaI($_SESSION['hora'], $_SESSION['dia'],$_SESSION['semanas']);
 
 ?>

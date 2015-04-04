@@ -18,13 +18,11 @@ function crearObjetoAjax(){
 			}
 		}
 	}
-
 }
 
 
 function refresca(){
 	// Timestamp para que IE no impida la recarga
-	
 	var timestamp = parseInt(new Date().getTime().toString().substring(0, 10));
 	var url = "calen.php";
 
@@ -40,13 +38,47 @@ function refresca(){
 	objetoAjax.send(null);
 //	alert("eee en ajax-");
 }
+function enviarCalen(dia, hora){
+	// Datos para el envio por POST:
+	//alert("melonazo");
+	var misdatos="?hora="+hora+"&dia="+dia+"&calendario=1";
+	location="individuales.php"+misdatos;
+}
 function enviar(dia, hora){
 	// Datos para el envio por POST:
 	//alert("Hola");
-		var misdatos="hora="+hora+"&dia="+dia;
-		
+	var misdatos="hora="+hora+"&dia="+dia;	
+	// Preparar el envio con Open
+	objetoAjax.open("POST","calen.php",true);
 
+	// Enviar cabeceras para que acepte POST:
+	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	objetoAjax.setRequestHeader("Content-length", misdatos.length);
+	objetoAjax.setRequestHeader("Connection", "close");
+	// Pasar datos como parámetro
+	objetoAjax.send(misdatos); 
+}
+function semanaMenos()
+{
+	// Datos para el envio por POST:
+	//alert("Hola");
+	var misdatos="semanaMenos=1";
+	// Preparar el envio con Open
+	objetoAjax.open("POST","calen.php",true);
 
+	// Enviar cabeceras para que acepte POST:
+	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	objetoAjax.setRequestHeader("Content-length", misdatos.length);
+	objetoAjax.setRequestHeader("Connection", "close");
+
+	// Pasar datos como parámetro
+	objetoAjax.send(misdatos); 
+}
+function semanaMas()
+{
+	// Datos para el envio por POST:
+	//alert("Hola");
+	var misdatos="semanaMas=1";
 	// Preparar el envio con Open
 	objetoAjax.open("POST","calen.php",true);
 

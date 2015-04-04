@@ -3,6 +3,7 @@
 	$_SESSION['hora']='';
 	$_SESSION['dia']='';
 	include("php/funciones/function.php");
+	$_SESSION['semanas']=0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +47,10 @@
 		</ul>
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
-	<article id="zona"><?php horarioSemana(); ?></article>
+	<article id="zona">
+		<button onClick=semanaMenos()>Semana menos</button>
+		<button onClick=semanaMas()>Semana mas</button>
+		<div id='calendario'></div></article>
 	</section>
 </body>
 </html>
