@@ -61,19 +61,7 @@
 	</nav>
 	<article id="zona">
 	<?php
-		if(!empty($_GET['calendario']))
-		{
-			echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
-				echo "<br><input type=text name=cliente[1]><br>";
-				echo "<br><input type=text name=cliente[2]><br>";
-				echo "<br><input type=text name=cliente[3]><br>";
-				echo "<br><input type=hidden name=dia value=$dia>";
-				echo "<input type=hidden name=hora value=$hora>";
-				echo "<input type=submit name=Aceptar value=Aceptar>";
-			echo "</form>";
-		}
-		else
-		{
+		
 
 				echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
 					echo "<div id='calendario'></div><br><input type=text name=cliente[1]><br>";
@@ -83,7 +71,7 @@
 					echo "<input type=hidden name=hora value=$hora>";
 					echo "<input type=submit name=Aceptar value=Aceptar>";
 				echo "</form>";			
-		}		
+				
 	?>
 	</article>
 	</section>
