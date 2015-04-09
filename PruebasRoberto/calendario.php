@@ -6,7 +6,6 @@
 	$Semana=$_GET['semana'];
 	if(!empty($Semana))
 	{
-		echo "HOLA MUNDO";
 		$_SESSION['semanas']=$Semana;
 	}
 	else {
