@@ -56,10 +56,12 @@ CREATE TABLE `clientes` (
   `fecha_alta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `fecha_baja` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `objetivos` varchar(45) NOT NULL,
-  `comentarios` varchar(45) NOT NULL,
-  `patologias` varchar(45) NOT NULL,
-  `medicacion` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_cliente`)
+  `comentarios` varchar(300) NOT NULL,
+  `patologias` varchar(300) NOT NULL,
+  `medicacion` varchar(300) NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_cliente`),
+  CONSTRAINT `FK_clientes_1` FOREIGN KEY (`id_cliente`) REFERENCES `direcciones` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -172,6 +174,7 @@ CREATE TABLE `facturas` (
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `estado` int(10) unsigned NOT NULL,
   `valor` float NOT NULL,
+  `descuento` double NOT NULL,
   PRIMARY KEY (`id_factura`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -181,6 +184,24 @@ CREATE TABLE `facturas` (
 
 /*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
+
+
+--
+-- Definition of table `iva`
+--
+
+DROP TABLE IF EXISTS `iva`;
+CREATE TABLE `iva` (
+  `iva` double NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`iva`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `iva`
+--
+
+/*!40000 ALTER TABLE `iva` DISABLE KEYS */;
+/*!40000 ALTER TABLE `iva` ENABLE KEYS */;
 
 
 --
@@ -214,7 +235,8 @@ CREATE TABLE `lineas_factura` (
   `factura` int(10) unsigned NOT NULL,
   `producto` int(10) unsigned NOT NULL,
   `cantidad` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`factura`,`producto`)
+  PRIMARY KEY (`factura`,`producto`),
+  CONSTRAINT `FK_lineas_factura_1` FOREIGN KEY (`factura`) REFERENCES `facturas` (`id_factura`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -233,7 +255,8 @@ DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `entrenador` varchar(45) NOT NULL,
   `pass` varchar(45) NOT NULL,
-  PRIMARY KEY (`entrenador`)
+  PRIMARY KEY (`entrenador`),
+  CONSTRAINT `FK_login_1` FOREIGN KEY (`entrenador`) REFERENCES `entrenadores` (`id_entrenador`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -322,11 +345,11 @@ DROP TABLE IF EXISTS `tarifas`;
 CREATE TABLE `tarifas` (
   `id_tarifa` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
-  `descripcion` varchar(45) NOT NULL,
+  `descripcion` varchar(300) NOT NULL,
   `valor_sin_iva` float NOT NULL,
   `fecha_inicial` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `fecha_final` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `obsoleta` tinyint(1) NOT NULL,
+  `obsoleta` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_tarifa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

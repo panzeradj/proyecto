@@ -1,8 +1,8 @@
 <?php
 	include("/php/funciones/function.php");
 	$id=$_GET['id'];
-	echo $id;
-	$orden="select diaSemana, hora, dia_fin,mes_fin,anyo_fin from reservasmultiples where estado=0 and id=".$id;
+
+	$orden="select diaSemana, hora, dia_fin,mes_fin,anyo_fin from reservasmultiples where cancelada=0 and id=".$id;
 
 
 	$cho=ordensql($orden);
@@ -16,16 +16,16 @@
 			$anyo_fin=$regi[4];
 		}
 		//mes actual
-		$orden="update horario set estado=1  where  mes=".mes()."  and diaSemana='".$diaSemana."' and hora=".$hora." and dia>=".dia().";";
+		$orden="update reservas set cancelada=1  where  mes=".mes()."  and Semana='".$diaSemana."' and hora=".$hora." and dia>=".dia().";";
 		ordensqlupdate($orden);
 		//mes del medio 
-		$orden="update  horario set estado=1 where  mes<".$mes_fin." and mes>".mes()."  and diaSemana='".$diaSemana."' and hora=".$hora.";";
+		$orden="update  reservas set cancelada=1 where  mes<".$mes_fin." and mes>".mes()."  and Semana='".$diaSemana."' and hora=".$hora.";";
 		ordensqlupdate($orden);
 		//Mesfin
-		$orden="update horario set estado=1 where  mes=".$mes_fin." and diaSemana='".$diaSemana."' and hora=".$hora." and dia<".($dia_fin+1).";";
+		$orden="update reservas set cancelada=1 where  mes=".$mes_fin." and Semana='".$diaSemana."' and hora=".$hora." and dia<".($dia_fin+1).";";
 		//echo $orden;
 		ordensqlupdate($orden);
-		$orden="update reservasmultiples set estado=1 where  id=".$id.";";
+		$orden="update reservasmultiples set cancelada=1 where  id=".$id.";";
 		ordensqlupdate($orden);
 			
 	}

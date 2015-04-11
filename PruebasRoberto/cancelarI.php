@@ -12,18 +12,15 @@
 		/**
 		*Con can=1 cancelada sin pago
 		*/
-		$ordensql="update horario set estado=1 where hora=".$hora." and dia=".$fecha[2]." and mes=".$fecha[1]." and anyo=".$fecha[0]." and estado=0";
+		$ordensql="update reservas set cancelada=1 where hora=".$hora." and dia=".$fecha[2]." and mes=".$fecha[1]." and anyo=".$fecha[0]." and cancelada=0";
+		//echo $ordensql;
 		ordensqlupdate($ordensql);
 	}
 	else
 	{
 		if($cancelacion==2)
 		{
-			/**
-			*Con can=2 cancelada con pago
-			*/
-		
-			$ordensql="update horario set estado=2 where hora=".$hora." and dia=".$fecha[2]." and mes=".$fecha[1]." and anyo=".$fecha[0]." and estado=0";
+			$ordensql="update reservas set cancelada=2 where hora=".$hora." and dia=".$fecha[2]." and mes=".$fecha[1]." and anyo=".$fecha[0]." and cancelada=0";
 			ordensqlupdate($ordensql);
 		}
 	}

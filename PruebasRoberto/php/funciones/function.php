@@ -6,7 +6,7 @@
 
 	function abrirBBDD()
 	{
-			$conexion = new mysqli("127.0.0.1", "root", "root", "proyecto");
+			$conexion = new mysqli("127.0.0.1", "root", "root", "trainningmanager");
 			$conexion->Set_charset("UTF8");
 			if (mysqli_connect_errno()) 
 			{
@@ -218,7 +218,8 @@
 	}
 	function reservas($anyo_inicio,$mes_inicio,$dia_inicio,$hora, $cliente)//realiza las reservas múltiples de hoy a 6 meses
 	{
-		
+		//echo $hora."hora";
+		$cliente=1;
 		$fecha_fin=sumar6Meses($anyo_inicio,$mes_inicio,$dia_inicio);
 		$anyo_fin=$fecha_fin[0];
 		$mes_fin=$fecha_fin[1];
@@ -238,8 +239,9 @@
 			}
 			else
 			{	$StringDia=diaDeLaSemana("".$fecha_mas[0]."-".$fecha_mas[1]."-".$fecha_mas[2]);
-				$orden="insert into horario(anyo, mes, dia, hora, cliente,cuando,diaSemana,estado) value($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."',now(),'".$StringDia."',0)";
-				
+				$orden="insert into reservas(cliente,anyo,mes,dia, hora, semana , pagada) values(".$cliente.", $fecha_mas[0] , $fecha_mas[1] ,$fecha_mas[2]  ,".$hora.",'".$StringDia."',0);";
+				// $orden="insert into reservas(anyo, mes, dia, hora, cliente,cuando,Semana,cancelado) value($fecha_mas[0],$fecha_mas[1],$fecha_mas[2],$hora,'".$cliente."',now(),'".$StringDia."',0)";
+				//ECHO $orden;
 				ordensqlupdate($orden); 
 			}
 			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);
@@ -251,42 +253,19 @@
 		}
 		$StringDia=diaDeLaSemana("".$fecha_mas[0]."-".$fecha_mas[1]."-".$fecha_mas[2]);
 		$orden="insert into reservasmultiples(anyo_inicio,mes_inicio,dia_inicio,anyo_fin,mes_fin,dia_fin,cliente,diaSemana,hora) values(".anyo().",".mes().",".dia().",".$anyo_fin.",".$mes_fin.",".$dia_fin.",'".$cliente."','".$StringDia."',".$hora.")";
-		 
+		 echo $orden;
 		ordensqlupdate($orden);
 	}
 	
-	function reservaIndividual($dia, $mes,$anyo,$hora,$cliente)//reserva de una hora y un cliente
-	{
-		$orden="insert into horario(anyo, mes, dia, hora, cliente,dia,hora) values(".$anyo.",".$mes.",".$dia.",".$hora.",'".$cliente."','".$StringDia."',".$hora.")";		
-		ordensqlupdate($orden);
-	}
+	// function reservaIndividual($dia, $mes,$anyo,$hora,$cliente)//reserva de una hora y un cliente
+	// {
+	// 	$orden="insert into reservas(anyo, mes, dia, hora, cliente,dia,hora) values(".$anyo.",".$mes.",".$dia.",".$hora.",'".$cliente."','".$StringDia."',".$hora.")";		
+	// 	echo "cabezon";
+	// 	ordensqlupdate($orden);
+	// }
 	function horarioDia()//muesra el horario el dia elegido
 	{
 
-		// echo "<table border=1><tr><td></td><td>".diaDeLaSemana(anyo()."-".mes()."-".dia())."</td>";
-		// echo "</tr><tr>";
-		// for($hora=1;$hora<=16;$hora++)
-		// {
-		// 	$orden="select dia, hora, cliente from horario where dia =".dia()." and mes=".mes()."  and anyo =".anyo()." and hora=".$hora."and estado=0 order by 1,2,3 " ;
-		// 	$cho=ordensql($orden);
-		// 	$bandera=false;
-		// 	if($cho!=false)
-		// 	{
-		// 		while ($regi = $cho->fetch_array()) {
-		// 			$bandera=true;
-		// 		}
-		// 	}
-		// 	if($bandera==false)
-		// 	{
-		// 		echo "<td>".$hora."</td><td>no</td>";
-		// 	}
-		// 	else
-		// 	{
-		// 		echo "<td>".$hora."</td><td>si</td>";
-		// 	}
-		// 	echo "</tr>";
-		// }	
-		// echo "</table>";
 	}
 	function horarioSemana($semana)//muestra el horario de la semana (calendario)
 	{
@@ -348,7 +327,7 @@
 					$banderaReserva=true;
 					if((($anyo<anyo())||($anyo==anyo() && $mes<mes())||($anyo==anyo() && $mes==mes() && $dia<dia())))
 					{
-						$orden="select  cliente from horario where dia =".$dia_mas." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+						$orden="select  cliente from reservas where dia =".$dia_mas." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and cancelada=0 order by 1,2,3" ;
 							$cho=ordensql($orden);
 							$bandera=false;
 							$cliente="";
@@ -365,7 +344,7 @@
 					{
 						if($banderaReserva==1)
 						{
-							$orden="select dia, hora, cliente from horario where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+							$orden="select dia, hora, cliente from reservas where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and cancelada=0 order by 1,2,3" ;
 							$cho=ordensql($orden);
 							$bandera=false;
 							if($cho!=false)
@@ -384,7 +363,7 @@
 							{
 								
 								//mirar cuantos hay select count(cliente) from horario where anyo=2015 and mes=2 and dia=17
-								$c=ordensql("select count(cliente) from horario where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora and estado=0");
+								$c=ordensql("select count(cliente) from reservas where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora and cancelada=0");
 								$cuantos=0;
 								if($c!=false)
 								{
@@ -484,7 +463,7 @@
 
 					if((($anyo<anyo())||($anyo==anyo() && $mes<mes())||($anyo==anyo() && $mes==mes() && $dia<dia())))
 					{
-						$orden="select  cliente from horario where dia =".$dia_mas." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+						$orden="select  cliente from reservas where dia =".$dia_mas." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and cancelada=0 order by 1,2,3" ;
 							$cho=ordensql($orden);
 							$bandera=false;
 							$cliente="";
@@ -512,7 +491,7 @@
 						}	
 						if($banderaReserva==1)
 						{
-							$orden="select dia, hora, cliente from horario where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and estado=0 order by 1,2,3" ;
+							$orden="select dia, hora, cliente from reservas where dia =".$dia." and mes=".$mes."  and anyo =".$anyo." and hora=".$hora." and cancelada=0 order by 1,2,3" ;
 							$cho=ordensql($orden);
 							$bandera=false;
 							if($cho!=false)
@@ -531,7 +510,7 @@
 							{
 								
 								//mirar cuantos hay select count(cliente) from horario where anyo=2015 and mes=2 and dia=17
-								$c=ordensql("select count(cliente) from horario where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora and estado=0");
+								$c=ordensql("select count(cliente) from reservas where anyo=$anyo and mes=$mes and dia=$dia and hora=$hora and cancelada=0");
 								$cuantos=0;
 								if($c!=false)
 								{
@@ -638,7 +617,7 @@
 				{
 					$diaSemana=diaDeLaSemana("".$value);
 					$bandera=true;		
-					$orden="select distinct  hora from horario where mes>=".($mes_inicio+1)." and mes<=".($mes_fin-1)."  and diaSemana='".$diaSemana."' and hora=".$hora." and estado=0";
+					$orden="select distinct  hora from reservas where mes>=".($mes_inicio+1)." and mes<=".($mes_fin-1)."  and diaSemana='".$diaSemana."' and hora=".$hora." and cancelada=0";
 					//echo $orden;
 					$cho=ordensql($orden);
 					if($cho!=false)
@@ -654,7 +633,7 @@
 						$diaSemana=diaDeLaSemana("".$value);
 						//Ahora mirar las otras dos condiciones 
 						//sí el mes actual tiene alguna (dia de hoy hasta final de mes)
-						$orden="select distinct  hora from horario where mes=".($mes_inicio)." and dia>=".($dia_inicio)."  and diaSemana='".$diaSemana."' and hora=".$hora." and estado=0";
+						$orden="select distinct  hora from reservas where mes=".($mes_inicio)." and dia>=".($dia_inicio)."  and diaSemana='".$diaSemana."' and hora=".$hora." and cancelada=0";
 						//echo $orden;
 						//$value=$dia12;
 						
@@ -672,7 +651,7 @@
 						}
 						else
 						{
-							$orden="select distinct  hora from horario where mes=".($mes_fin)." and dia<=".($dia_fin)."  and diaSemana='".$diaSemana."' and hora=".$hora." and estado=0";
+							$orden="select distinct  hora from reservas where mes=".($mes_fin)." and dia<=".($dia_fin)."  and diaSemana='".$diaSemana."' and hora=".$hora." and cancelada=0";
 							//echo $orden;
 							
 							$chorizo=ordensql($orden);
@@ -712,23 +691,5 @@
 	///////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////PARTES////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////
-	function generaNav(){
-		echo "<header>
-		<h1 id='txt'>Training manager</h1>
-		<nav>
-			<ul id=nav>
-			<li id=two><a href=# class=one><span><img src=imagenes/client.png />Clientes</span></a></li>
-			<li id=two><a href=# class=one><span><img src=imagenes/save.png />Reservas</span></a>
-			<ul id=sub2>
-	   			<li id=subone><a href=individuales.php id=subtwo>Individuales</a></li>
-	  			<li id=subone><a href=multiples.php id=subtwo >multiples</a></li>
-	  		</ul>
-	  		</li>
-			<li id=two><a href=calendario.php class=one><span><img src=imagenes/calendar.png />Calendario</span></a></li>
-			<li id=two><a href=# class=one><span><img src=imagenes/tarifas.png />Tarifas y bonos</span></a></li>
-			<li id=two><a href=index.php class=one><span>Cerrar sesion</span></a></li>
-			</ul>
-		</nav>
-		</header>";
-	}
+
 ?>

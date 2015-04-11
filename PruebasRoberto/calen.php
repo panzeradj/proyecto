@@ -6,15 +6,10 @@
 	{
 		$dia=$_POST['dia'];
 		$hora=$_POST['hora'];
-		//echo $hora;
-		//echo $dia;
 		$_SESSION['hora']=''.$_SESSION['hora']."/".$hora;
 		$_SESSION['dia']=''.$_SESSION['dia']."/".$dia;
 	}
-	else
-	{
-		//echo "fuera";
-	}
+
 	if(!empty($_POST['semanaMenos']))
 	{
 		$_SESSION['semanas']=$_SESSION['semanas']-1;
@@ -24,7 +19,6 @@
 		$_SESSION['semanas']=$_SESSION['semanas']+1;
 	}
 
-	//echo $_SESSION['semanas'];
 	
 	horarioReservaI($_SESSION['hora'], $_SESSION['dia'],$_SESSION['semanas']);
 

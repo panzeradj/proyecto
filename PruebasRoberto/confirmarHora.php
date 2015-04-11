@@ -18,38 +18,19 @@
 	for($i=1;$i<sizeof($diass);$i++ ) {
 		if(!empty($diass[$i]))
 		{
-			//echo "hola";
 			for($a=0;$a<4;$a++)
 			{
 				if(!empty($cliente[$a]))
 				{
-					//echo $cliente[$a];
 					
 					$fecha=explode("*", $diass[$i]);
-					//echo $fecha[2];
-						$bandera=false;
-					$orden="select * from horario where hora=$horass[$i] and anyo =$fecha[0] and mes=$fecha[1] and dia=$fecha[2] cuando < now()+50 and estado=0";
-					//echo $orden;
-					$cho=ordensql($orden);
-
-				
-
-					if($cho!=false)
-					{
-						while ($regi = $cho->fetch_array()) {
-							$bandera=true;
-						//	echo "nooooo";
-						}
-					}
-					if($bandera==false)
-					{
 						$cli=$cliente[$a];
 						$fech=("".$fecha[0]."-".$fecha[1]."-".$fecha[2]);
-						$orden="insert into horario(cliente, anyo, mes , dia , hora, cuando , diaSemana) values('$cli', $fecha[0] , $fecha[1] ,$fecha[2] ,$horass[$i] ,now(),'".diaDeLaSemana($fech)."')";
-						//echo $orden;
+						$cli=1;//CAMBIAR CUANDO SALGA A EXPLOTACION O SE TENGA LOS CLIETNES 
+						$orden="insert into reservas(cliente,anyo,mes,dia, hora, semana , pagada) values('".$cli."', $fecha[0] , $fecha[1] ,$fecha[2] ,$horass[$i] ,'".diaDeLaSemana($fech)."',0);";
 
 						ordensqlupdate($orden);
-						$orden="select * from horario where hora=$horass[$i] and anyo = $fecha[0] and mes=$fecha[1] and dia=$fecha[2]  and cliente='$cli' and estado=0";
+						$orden="select * from reservas where hora=$horass[$i] and anyo = $fecha[0] and mes=$fecha[1] and dia=$fecha[2]  and cliente='".$cli."' and cancelada=0";
 						$cho=ordensql($orden);
 
 						$bandera=false;
@@ -61,14 +42,10 @@
 							}
 						}
 						
-					}
+					
 					
 				}
-				else//no cliente
-				{
-					//echo "no cliente";
-				}
-
+				
 			}
 		}
 	}

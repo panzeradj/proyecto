@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+	 session_destroy();
 	include("php/funciones/function.php");
 	if(!empty($_GET['dia']) &&  !empty($_GET['hora']))
 	{

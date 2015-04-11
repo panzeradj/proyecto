@@ -1,5 +1,5 @@
 <?php
-echo "hola";
+
 	include("php/funciones/function.php");
 	$anyo_inicio=anyo();
 	$mes_inicio=mes();

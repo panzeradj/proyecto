@@ -10,7 +10,7 @@
 		<table >
 			<tr><td>Cliente</td><td>Fecha Inicio</td><td>Fecha Fin</td> <td> Cancelar</td></tr>
 			<?php 
-				$orden="select dia_inicio, mes_inicio, anyo_inicio, dia_fin, mes_fin, anyo_fin, cliente, ID from reservasmultiples where estado=0";
+				$orden="select dia_inicio, mes_inicio, anyo_inicio, dia_fin, mes_fin, anyo_fin, cliente, ID from reservasmultiples where cancelada=0";
 				$cho=ordensql($orden);
 				if($cho!=false)
 				{

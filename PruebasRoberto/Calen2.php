@@ -14,7 +14,6 @@
 		$_SESSION['semanas']=$_SESSION['semanas']+1;
 	}
 
-	//echo $_SESSION['semanas'];
 	
 	horarioSemana($_SESSION['semanas']);
 
