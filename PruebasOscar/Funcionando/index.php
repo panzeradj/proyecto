@@ -9,14 +9,14 @@
 
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="estilos/styles.css">
+    <link rel="stylesheet" href="estilos/stylesadmin.css">
 </head>
 
 <body>
     <div class="container">
         <div class="col-md-12">
             <div class="col-md-4"></div>
-            <div class="col-md-4" id="login">
+            <div class="col-md-4" id="avatar">
                 <form class="form-signin" role="form" action="administrador.php" method="POST" accept-charset="utf-8">
                     <div class="text-center">
                         <img id="avatar" src="imagenes/logos.png" alt="avatar">
