@@ -1,6 +1,9 @@
+#avatar{
+     width: 280px;
+    height: 200px;
+}
 body {
     background-image: url(../imagenes/fondo.jpg);
-    
 }
 form,
 input,
@@ -27,8 +30,5 @@ button {
 #nebaris a:hover {
     color: white;
     background-color: black;
-}
-#avatar{
-    width: 280px;
-    height: 200px;
+} background-color: black;
 }
