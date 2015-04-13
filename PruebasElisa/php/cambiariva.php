@@ -41,8 +41,24 @@
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
 	<article id="zona">
-		[esta página haría lo que tuviera que hacer y luego redirige a tarifas]
-		<?php header("Refresh: 5; url=tarifas.php"); ?>
+		<?php
+		if(isset($_POST['cambiariva'])) {
+			include("funciones/function.php");
+			$ivaS=$_POST['iva'];
+			$iva=(double)$ivaS;
+			if($iva==0){
+				echo "No es un valor de IVA válido";
+			}else{
+				ordensqlupdate("DELETE * from iva;");
+				ordensqlupdate("INSERT into iva (iva) VALUES (".$iva.");");
+				echo "Cambio efectuado con éxito, el nuevo valor del IVA es ".$iva."%.";	
+			}
+			
+			header("Refresh: 5; url=tarifas.php"); 
+			}else{
+				header("Location:tarifas.php");
+			}
+		?>
 	</article>
 	</section>
 </body>

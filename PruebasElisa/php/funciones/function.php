@@ -1,7 +1,7 @@
 <?php
 	function abrirBBDD()
 	{
-			$conexion = new mysqli("127.0.0.1", "root", "root", "prueba");
+			$conexion = new mysqli("127.0.0.1", "root", "root", "trainningmanager");
 			$conexion->Set_charset("UTF8");
 
 			if (mysqli_connect_errno()) 

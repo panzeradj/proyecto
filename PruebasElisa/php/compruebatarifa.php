@@ -43,26 +43,32 @@
 	<article id="zona">
 		[esta página haría lo que tuviera que hacer y luego redirige a tarifas]
 		<br/>
-		<?php 
-		$nombreahora=$_POST['nombre'];
-		$descripcionahora=$_POST['descripcion'];
-		$valorahora=$_POST['valor'];
-		$nombreanterior=$_POST['anterior'];
-		if (isset($_POST['crear'])){
-			//insert normal y corriente
-			echo "haría lo de crear";
-
+		<?php
+		include("funciones/function.php"); 
+		if (isset($_POST['crear'])||isset($_POST['cambiar'])){
+			$nombreahora=$_POST['nombre'];
+			$descripcionahora=$_POST['descripcion'];
+			$valorahora=$_POST['valor'];
+			$nombreanterior=$_POST['anterior'];
+			if (isset($_POST['crear'])){
+				ordensqlupdate("INSERT into tarifas (nombre, descripcion, valor_sin_iva, fecha_inicial, obsoleta) VALUES ('".$nombreahora."', '".$descripcionahora."', ".$valorahora.", curdate(), false);");
+				//insert normal y corriente
+				echo "haría lo de crear";
+			}
+			if (isset($_POST['cambiar'])){
+				//1- hay que hacer consulta de la tarifa que se va a cambiar, para eso se tiene el $nombreanterior, y se sacan todos los datos.
+				//2- comparar $valorahora y $valoranterior
+					//2a (caso iguales): se hace un update del resto de los campos, y no hay que modificar nada más.
+					//2b (caso diferentes): Se crea una nueva tarifa y la anterior se marca como finalizada. 
+											//Se actualizará la tabla de los contratos, marcando como finalizados los anteriores que se tuvieran.
+											//Por cada uno marcado, se hace uno nuevo con los mismos datos y que empiece en esa fecha.
+				echo "haría lo de cambiar";
+			}
+			header("Refresh: 5; url=tarifas.php"); 
+		}else{
+			header("Location:tarifas.php");
 		}
-		if (isset($_POST['cambiar'])){
-			//1- hay que hacer consulta de la tarifa que se va a cambiar, para eso se tiene el $nombreanterior, y se sacan todos los datos.
-			//2- comparar $valorahora y $valoranterior
-				//2a (caso iguales): se hace un update del resto de los campos, y no hay que modificar nada más.
-				//2b (caso diferentes): Se crea una nueva tarifa y la anterior se marca como finalizada. 
-										//Se actualizará la tabla de los contratos, marcando como finalizados los anteriores que se tuvieran.
-										//Por cada uno marcado, se hace uno nuevo con los mismos datos y que empiece en esa fecha.
-			echo "haría lo de cambiar";
-		}
-		header("Refresh: 5; url=tarifas.php"); ?>
+		?>
 	</article>
 	</section>
 </body>

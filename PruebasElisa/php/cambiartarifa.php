@@ -44,7 +44,11 @@
 		<h1>Cambiar tarifa</h1>
 		<br/>
 		<br/>
-		<?php $tarifa=$_POST['tarifa'];?>
+		<?php 
+		if(isset($_POST['cambiartarifa'])){
+		$tarifa=$_POST['tarifa'];
+		//aquí se debería coger todo lo que tenga de información e insertarla en los cuadros.
+		?>
 		<form name="datostarifa" action="compruebatarifa.php" method="post">
 			<fieldset>
 				<label for="nombre">Nombre:</label> <input type="text" name="nombre" value="seria el nombre actual" required/>
@@ -59,6 +63,11 @@
 			</fieldset>
 		</form>
 		<button onclick="location.href='tarifas.php'">Volver</button>
+		<?php
+		}else{
+			header("Location:tarifas.php");
+		}
+		?>
 	</article>
 	</section>
 </body>

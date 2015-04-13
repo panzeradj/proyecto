@@ -58,7 +58,15 @@
 		<br/>
 		<h1>IVA</h1>
 		<br/>
-		El iva actualmente es [HABRÁ QUE INTRODUCIR EL IVA QUE HAY] 
+		<?php
+		include("funciones/function.php");
+		$lista=ordensql("select * from iva;");
+		while ($resultado=$lista->fetch_array()){
+			$iva=$resultado[0];
+		}
+
+		?>
+		El IVA actualmente es del <?php echo $iva; ?>%.
 		<br/>
 		<form name="cambioiva" action="cambiariva.php" method="post"> 
 			Introduce el nuevo valor: <input type="text" name="iva" required/>
