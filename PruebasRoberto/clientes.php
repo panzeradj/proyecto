@@ -93,9 +93,19 @@
 <div class="container">
 <?php
 $banderaBaja=false; 
+
 	if(!isset($_GET['baja'])  )
 	{
 		$banderaBaja=true;
+		echo "<div class='letraOscura'><h1>Clientes activos</h1><form name='a' method=get action='Clientes.php'><input type='hidden' name=baja value=a><input type=submit name=a value='Clientes inactivos'></form></div>";
+		//echo "<form name='a' method=post action='Clientes.php'><input type=submit name=asd value='Clientes activos'></form>";
+
+	}
+	else
+	{
+		echo "<div class='letraOscura'><h1>Clientes inactivos</h1>";
+			echo "<form name='a' method=post action='Clientes.php'><input type=submit name=asd value='Clientes activos'></form></div>";
+		//echo "<form name='a' method=get action='Clientes.php'><input type='hidden' name=baja value=a><input type=submit name=a value='Clientes inactivos'></form>";
 	}
 	
 

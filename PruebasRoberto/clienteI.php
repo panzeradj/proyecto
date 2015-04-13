@@ -2,7 +2,7 @@
 	include("/php/funciones/function.php");
 
 	$id_cliente=$_GET['cliente'];
-	echo $id_cliente;
+
 ?>
 <!DOCTYPE html>
 <html lang='es' xml:lang='es' xmlns="http://www.w3.org/1999/xhtml">

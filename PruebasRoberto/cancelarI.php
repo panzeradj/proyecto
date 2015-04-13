@@ -5,7 +5,7 @@
 	$hora=$_GET['hora'];
 	$dia=$_GET['dia'];
 	$cancelacion=$_GET['can'];
-	echo $dia;
+	
 	$fecha=explode("*", $dia);
 	if($cancelacion==1)
 	{

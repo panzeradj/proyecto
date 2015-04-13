@@ -125,14 +125,14 @@
 			$fecha=sumarSemana($fecha_mas[0],$fecha_mas[1],$fecha_mas[2]);	
 		}	
 		
-		if($banderaComprobar==true)
-		{
-			echo "treu";
-		}
-		else
-		{
-			echo "false";
-		}
-		echo "banderaComprobar".$banderaComprobar;
+		// if($banderaComprobar==true)
+		// {
+		// 	echo "treu";
+		// }
+		// else
+		// {
+		// 	echo "false";
+		// }
+		//echo "banderaComprobar".$banderaComprobar;
 
 ?>

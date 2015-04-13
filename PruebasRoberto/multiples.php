@@ -32,7 +32,7 @@
 
 	<link rel="stylesheet" href="style2.css"/>
 	<link rel="icon" type="image/png" href="imagenes/ico.png" />
-	<script src="js/javaScript.js"></script>
+
 	<script src="js/jquery-2.1.3.min.js"></script>
 	<script src="js/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 	<script src="js/jquery.datetimepicker.js"></script>

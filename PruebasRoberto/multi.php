@@ -10,7 +10,7 @@
 		$_SESSION['dia']=''.$_SESSION['dia']."*".$dia;
 	}
 	
-	echo$_SESSION['dia'];
+	
 
 	
 	horarioReservaM($_SESSION['hora'], $_SESSION['dia']);

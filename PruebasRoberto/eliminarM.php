@@ -24,10 +24,10 @@
 			$_SESSION['dia']=$_SESSION['dia']."*".$diass[$i];
 		}
 	}
-	else
-	{
-		echo "fuera";
-	}	
+	// else
+	// {
+	// 	echo "fuera";
+	// }	
 	horarioReservaM($_SESSION['hora'], $_SESSION['dia']);
 
 ?>

@@ -13,8 +13,8 @@
 	{
 		$_SESSION['semanas']=$_SESSION['semanas']+1;
 	}
-
-	
+	IF($_SESSION['semanas']>1)
+	$_SESSION['semanas']=$_SESSION['semanas']-1;
 	horarioSemana($_SESSION['semanas']);
 
 ?>
