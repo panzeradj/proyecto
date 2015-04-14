@@ -65,9 +65,13 @@
 					ordensqlupdate("UPDATE tarifas set descripcion='".$descripcionahora."', nombre='".$nombreahora."' where id_tarifa='".$idanterior."';");
 				}else{
 					//2b (caso diferentes): Se crea una nueva tarifa y la anterior se marca como finalizada. 
-						//Se actualizará la tabla de los contratos, marcando como finalizados los anteriores que se tuvieran.
-						//Por cada uno marcado, se hace uno nuevo con los mismos datos y que empiece en esa fecha.
-					echo "valores diferentes";
+					ordensqlupdate("INSERT into tarifas (nombre, descripcion, valor_sin_iva, fecha_inicial, obsoleta) VALUES ('".$nombreahora."', '".$descripcionahora."', ".$valorahora.", now(), false);");
+					ordensqlupdate("UPDATE tarifas set obsoleta=true, fecha_final=curdate() where id_tarifa='".$idanterior."';");
+					//Se actualizará la tabla de los contratos, marcando como finalizados los anteriores que se tuvieran.
+					//Por cada uno marcado, se hace uno nuevo con los mismos datos y que empiece en esa fecha.
+						//ordensqlupdate("UPDATE contratos set fecha_fin=curdate() where tarifa='".$idanterior."';");
+					
+
 				}
 				echo "<h2>La tarifa ha sido cambiada satisfactoriamente</h2>
 					A continuación se redirigirá a la página principal de tarifas. ";
