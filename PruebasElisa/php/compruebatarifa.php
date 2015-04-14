@@ -41,28 +41,36 @@
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
 	<article id="zona">
-		[esta página haría lo que tuviera que hacer y luego redirige a tarifas]
 		<br/>
 		<?php
 		include("funciones/function.php"); 
 		if (isset($_POST['crear'])||isset($_POST['cambiar'])){
 			$nombreahora=$_POST['nombre'];
 			$descripcionahora=$_POST['descripcion'];
-			$valorahora=$_POST['valor'];
-			$nombreanterior=$_POST['anterior'];
+			$valorahora=$_POST['valor'];			
 			if (isset($_POST['crear'])){
-				ordensqlupdate("INSERT into tarifas (nombre, descripcion, valor_sin_iva, fecha_inicial, obsoleta) VALUES ('".$nombreahora."', '".$descripcionahora."', ".$valorahora.", curdate(), false);");
-				//insert normal y corriente
-				echo "haría lo de crear";
+				ordensqlupdate("INSERT into tarifas (nombre, descripcion, valor_sin_iva, fecha_inicial, obsoleta) VALUES ('".$nombreahora."', '".$descripcionahora."', ".$valorahora.", now(), false);");
+				echo "<h2>La tarifa ha sido creada satisfactoriamente</h2>
+					A continuación se redirigirá a la página principal de tarifas. ";
 			}
 			if (isset($_POST['cambiar'])){
-				//1- hay que hacer consulta de la tarifa que se va a cambiar, para eso se tiene el $nombreanterior, y se sacan todos los datos.
+				$idanterior=$_POST['anterior'];
+				//1- hay que hacer consulta de la tarifa que se va a cambiar, para eso se tiene el $idanterior, y se sacan todos los datos.
+				$lista=ordensql("SELECT valor_sin_iva from tarifas where id_tarifa=".$idanterior.";");
+				$resultado=$lista->fetch_array();
+				$valoranterior=$resultado[0];				
 				//2- comparar $valorahora y $valoranterior
+				if($valoranterior==$valorahora){
 					//2a (caso iguales): se hace un update del resto de los campos, y no hay que modificar nada más.
+					ordensqlupdate("UPDATE tarifas set descripcion='".$descripcionahora."', nombre='".$nombreahora."' where id_tarifa='".$idanterior."';");
+				}else{
 					//2b (caso diferentes): Se crea una nueva tarifa y la anterior se marca como finalizada. 
-											//Se actualizará la tabla de los contratos, marcando como finalizados los anteriores que se tuvieran.
-											//Por cada uno marcado, se hace uno nuevo con los mismos datos y que empiece en esa fecha.
-				echo "haría lo de cambiar";
+						//Se actualizará la tabla de los contratos, marcando como finalizados los anteriores que se tuvieran.
+						//Por cada uno marcado, se hace uno nuevo con los mismos datos y que empiece en esa fecha.
+					echo "valores diferentes";
+				}
+				echo "<h2>La tarifa ha sido cambiada satisfactoriamente</h2>
+					A continuación se redirigirá a la página principal de tarifas. ";
 			}
 			header("Refresh: 5; url=tarifas.php"); 
 		}else{

@@ -49,8 +49,14 @@
 		<form name="cambiotarifa" action="cambiartarifa.php" method="post"> 
 			Selecciona la tarifa: 
 			<select name="tarifa" size="1" required>
-				<option value="">Elige una tarifa</option>
-				<option value="1">Tarifa 1</option>
+			<option value="">Elige una tarifa</option>
+			<?php
+			include("funciones/function.php");
+			$lista=ordensql("select id_tarifa, nombre from tarifas order by 1;");
+			while ($resultado=$lista->fetch_array()){
+				echo "<option value='".$resultado[0]."'>".$resultado[1]."</option>";
+			}
+			?>				
 			</select>
 			<input type="submit" name="cambiartarifa" value="Cambiar tarifa" />
 		</form>
@@ -59,7 +65,6 @@
 		<h1>IVA</h1>
 		<br/>
 		<?php
-		include("funciones/function.php");
 		$lista=ordensql("select * from iva;");
 		while ($resultado=$lista->fetch_array()){
 			$iva=$resultado[0];

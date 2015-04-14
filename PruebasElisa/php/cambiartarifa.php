@@ -44,18 +44,29 @@
 		<h1>Cambiar tarifa</h1>
 		<br/>
 		<br/>
-		<?php 
+		<?php
+		include("funciones/function.php"); 
 		if(isset($_POST['cambiartarifa'])){
 		$tarifa=$_POST['tarifa'];
-		//aquí se debería coger todo lo que tenga de información e insertarla en los cuadros.
+		$lista=ordensql("select nombre, descripcion, valor_sin_iva from tarifas where id_tarifa=".$tarifa.";");
+		while ($resultado=$lista->fetch_array()){
+			$id=$tarifa;
+			$nombre=$resultado[0];
+			$descripcion=$resultado[1];
+			$valor=$resultado[2];
+		}
+		$listaiva=ordensql("select * from IVA;");
+		while ($resultado=$listaiva->fetch_array()){
+			$iva=$resultado[0];
+		}
 		?>
 		<form name="datostarifa" action="compruebatarifa.php" method="post">
 			<fieldset>
-				<label for="nombre">Nombre:</label> <input type="text" name="nombre" value="seria el nombre actual" required/>
+				<label for="nombre">Nombre:</label> <input type='text' name='nombre' value="<?php echo $nombre;?>" required/>
 				<br/>
-				<label for="descripcion">Descripción de la tarifa:</label> <input type="fieldtext" name="descripcion" value="seria la actual" required/>
+				<label for="descripcion">Descripción de la tarifa:</label> <input type='fieldtext' name='descripcion' value="<?php echo $descripcion;?>" required/>
 				<br/>
-				<label for="valor">Precio por clase sin IVA:</label> <input type="text" name="valor" value="seria el actual" required/> [quizás actualizar a un lado lo que vale con iva]
+				<label for="valor">Precio por clase sin IVA:</label> <input type='text' name='valor' value="<?php echo $valor;?>" required/> [quizás actualizar a un lado lo que vale con iva]
 				<br/>
 				<input type="hidden" name="anterior" value="<?php echo $tarifa;?>"/>
 				<input type="submit" name="cambiar" value="Guardar cambios"/>
