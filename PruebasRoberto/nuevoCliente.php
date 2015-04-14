@@ -76,12 +76,12 @@
 		<div>
 			<form method=POST id="form" class="form-horizontal center-block container "  action="validarCliente.php">
 				<div class="contenedor center-block">
-				<div  ><label>Nombre y Apellidos: </label><input required  class="form-control  "  type=text name=nombre placeholder=TONTOELCULO/></div>
+				<div  ><label>Nombre y Apellidos: </label><input required  class="form-control  "  type=text name=nombre placeholder='Adrian Carnicero'/></div>
 				<div  ><label>DNI:</label><input required  class="form-control  "  type=text name=dni placeholder="666666666"/></div>
 				<div  ><label>Télefono movil:</label><input required  class="form-control  "  type=text name=movil placeholder="666666666"/></div>
 				<div  ><label>Otro telefono:</label><input required  class="form-control  " type=text name=otro placeholder="9999999"/></div>
 				<div  ><label>Email:</label><input required  class="form-control  " type=mail name=mail placeholder="ejemplo@hotmail.es"/></div>
-				<div  > </div> <label>Genero:</label><select required  class="form-control  " name=genero> <option value=''>--</option><option value=F>Mujer</option><option value=H>Hombre</option></select></div>
+				<div  > </div> <label>Genero:</label><select required  class="form-control  " name=genero> <option value=''>--</option><option value='Mujer'>Mujer</option><option value='Hombre'>Hombre</option></select></div>
 				<div  ><label>Fecha de nacimiento:</label><input required  class="form-control  " type=date name=date></div>
 				<!-- Tipo:(TARIFA) -->
 				<div  ><label>Dirección:</label><input required  class="form-control  " type=text name=direccion placeholder="SORIA"></div>

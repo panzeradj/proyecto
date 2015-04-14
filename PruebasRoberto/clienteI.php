@@ -77,6 +77,7 @@
     </nav>
 </nav>
 		<?php 
+		/*Eliminar WARNING*/ error_reporting(0);
 		$sql="select nombre, dni, genero,fecha_nacimiento, telefono, telefono2,email,fecha_alta, fecha_baja,objetivos,comentarios,medicacion 
 			  from clientes where id_cliente=".$id_cliente;
 			$cho=ordensql($sql);

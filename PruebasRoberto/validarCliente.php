@@ -35,11 +35,11 @@
 	if($bandera)
 	{
 		echo "Creacion de cliente correcta";
-		header("refresh:;url=clientes.php");
+		header("refresh:3;url=clientes.php");
 	}
 	else
 	{
 		echo "Error en la creación de usuario";
-		header("refresh:;url=clientes.php");
+		header("refresh:3;url=clientes.php");
 	}
 ?>

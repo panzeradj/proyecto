@@ -7,7 +7,7 @@
 
 		
 		$dia=$_POST['dia'];
-		echo $dia;
+		//echo $dia;
 		$hora=$_POST['hora'];
 		$horass=explode("*", $_SESSION['hora']);
 		$diass=explode("*", $_SESSION['dia']);
@@ -16,7 +16,7 @@
 		for($i=1;$i<sizeof($diass);$i++ ) {
 			if((strcmp ($diass[$i] , $dia ) == 0) && $horass[$i]==$hora)
 			{
-				echo "hola";
+				//echo "hola";
 				$diass[$i]="";
 				$horass[$i]="";
 			}

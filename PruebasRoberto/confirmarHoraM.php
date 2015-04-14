@@ -18,6 +18,7 @@
 </head>
 <body>
 <?php
+/*Eliminar WARNING*/ error_reporting(0);
 	session_start();
 	include("/php/funciones/function.php");
 	if(!empty($_POST['cliente']))
