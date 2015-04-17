@@ -7,7 +7,6 @@
 	<title>Training manager</title>
 	<link rel="stylesheet" href="estilo.css"/>
 	<script src="js/javaScript.js"></script>
-	<script src="js/actualizarprecio.js" language="JavaScript"></script>
 </head>
 <body>
 	<header>
@@ -42,21 +41,8 @@
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
 	<article id="zona">
-		<h1>Nueva tarifa</h1>
-		<br/>
-		<br/>
-		<form name="datostarifa" action="compruebatarifa.php" method="post">
-			<fieldset>
-				<label for="nombre">Nombre:</label> <input type="text" name="nombre" required/>
-				<br/>
-				<label for="descripcion">Descripción de la tarifa:</label> <input type="fieldtext" name="descripcion" required/>
-				<br/>
-				<label for="valor">Precio por clase sin IVA:</label> <input type="text" name="valor" id="valor" required/> <div id="precioconiva"> </div>
-				<br/>
-				<input type="submit" name="crear" value="Crear tarifa">
-			</fieldset>
-		</form>
-		<button onclick="location.href='tarifas.php'">Volver</button>
+		<p id="mensaje">Archivo terminado.</p>
+		<button onclick="location.href='facturacion.php'">Volver</button>
 	</article>
 	</section>
 </body>
