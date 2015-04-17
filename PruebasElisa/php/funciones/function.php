@@ -47,7 +47,7 @@
 		if (mysql_num_rows($lista)==0){
 			//EMISIÓN DE PAGOS
 			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores (teniendo 
-			//	en cuenta que para calcular el final del mes habrá que distinguir entre 28[29],30 y 31)
+			//	en cuenta que para las fechas simplemente se hará con mes<$mes+1 y anyo=$anyo")
 				//1.1. Mirar clientes con reservas sin pagar
 				//1.2. En los clientes que las tengan, empezar una nueva factura (que empieza como emitida, 0 si no me equivoco)
 				//1.3. Añadir cada clase como línea de factura y marcarla como pagada en reservas
