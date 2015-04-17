@@ -37,4 +37,23 @@
 		$conexion->query($ordensql);
 		cerrarBBDD($conexion);
 	}
+
+	function comprobarpagos(){
+		//primero hay que mirar si en la tabla pagos hay entrada para este mes y este año
+		$anyo=date("Y");
+		$mes=date("m");
+		$lista = ordensql("SELECT * from pagos where mes=".$mes." and anyo=".$anyo.";");
+		
+		if (mysql_num_rows($lista)==0){
+			//EMISIÓN DE PAGOS
+			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores (teniendo 
+			//	en cuenta que para calcular el final del mes habrá que distinguir entre 28[29],30 y 31)
+				//1.1. Mirar clientes con reservas sin pagar
+				//1.2. En los clientes que las tengan, empezar una nueva factura (que empieza como emitida, 0 si no me equivoco)
+				//1.3. Añadir cada clase como línea de factura y marcarla como pagada en reservas
+				//1.4. Calcular el valor de la factura y meterlo
+			//2. Meter en pagos el mes y el año, para que se sepa que ya se han metido las facturas de ese mes
+			echo "no devuelve nada, hay que emitir";
+		}
+	}
 ?>
