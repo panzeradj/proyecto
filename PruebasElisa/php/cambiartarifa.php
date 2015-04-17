@@ -7,6 +7,7 @@
 	<title>Training manager</title>
 	<link rel="stylesheet" href="estilo.css"/>
 	<script src="js/javaScript.js"></script>
+	<script src="js/actualizarprecio.js" language="JavaScript"></script>
 </head>
 <body>
 	<header>
@@ -66,7 +67,7 @@
 				<br/>
 				<label for="descripcion">Descripción de la tarifa:</label> <input type='fieldtext' name='descripcion' value="<?php echo $descripcion;?>" required/>
 				<br/>
-				<label for="valor">Precio por clase sin IVA:</label> <input type='text' name='valor' value="<?php echo $valor;?>" required/> [quizás actualizar a un lado lo que vale con iva]
+				<label for="valor">Precio por clase sin IVA:</label> <input type='text' name='valor' value="<?php echo $valor;?>" id="valor" required/> <div id="precioconiva"> </div>
 				<br/>
 				<input type="hidden" name="anterior" value="<?php echo $tarifa;?>"/>
 				<input type="submit" name="cambiar" value="Guardar cambios"/>

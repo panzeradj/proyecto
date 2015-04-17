@@ -7,6 +7,7 @@
 	<title>Training manager</title>
 	<link rel="stylesheet" href="estilo.css"/>
 	<script src="js/javaScript.js"></script>
+	<script src="js/actualizarprecio.js" language="JavaScript"></script>
 </head>
 <body>
 	<header>
@@ -39,6 +40,7 @@
 			<li class="liMenu"><a href='tarifas.php' class="menu"><img src="imagenes/tarifas.png" id="icon" /><span id="contenidoMenu"> Tarifas</span></a></li>
 		</ul>
 		<img src="../logo/logoTM.png" class="logo">
+
 	</nav>
 	<article id="zona">
 		<h1>Nueva tarifa</h1>
@@ -50,7 +52,7 @@
 				<br/>
 				<label for="descripcion">Descripción de la tarifa:</label> <input type="fieldtext" name="descripcion" required/>
 				<br/>
-				<label for="valor">Precio por clase sin IVA:</label> <input type="text" name="valor" required/> [quizás actualizar a un lado lo que vale con iva]
+				<label for="valor">Precio por clase sin IVA:</label> <input type="text" name="valor" id="valor" required/> <div id="precioconiva"> </div>
 				<br/>
 				<input type="submit" name="crear" value="Crear tarifa">
 			</fieldset>
