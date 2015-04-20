@@ -49,7 +49,8 @@
 			$descripcionahora=$_POST['descripcion'];
 			$valorahora=$_POST['valor'];			
 			if (isset($_POST['crear'])){
-				ordensqlupdate("INSERT into tarifas (nombre, descripcion, valor_sin_iva, fecha_inicial, obsoleta) VALUES ('".$nombreahora."', '".$descripcionahora."', ".$valorahora.", now(), false);");
+				ordensqlupdate("INSERT into tarifas (nombre, descripcion) VALUES ('".$nombreahora."', '".$descripcionahora."');");
+				//Introducir en la tabla de precios con el id de la tarifa, la fecha de inicio y el precio.
 				echo "<h2>La tarifa ha sido creada satisfactoriamente</h2>
 					A continuación se redirigirá a la página principal de tarifas. ";
 			}
@@ -64,14 +65,9 @@
 					//2a (caso iguales): se hace un update del resto de los campos, y no hay que modificar nada más.
 					ordensqlupdate("UPDATE tarifas set descripcion='".$descripcionahora."', nombre='".$nombreahora."' where id_tarifa='".$idanterior."';");
 				}else{
-					//2b (caso diferentes): Se crea una nueva tarifa y la anterior se marca como finalizada. 
-					ordensqlupdate("INSERT into tarifas (nombre, descripcion, valor_sin_iva, fecha_inicial, obsoleta) VALUES ('".$nombreahora."', '".$descripcionahora."', ".$valorahora.", now(), false);");
-					ordensqlupdate("UPDATE tarifas set obsoleta=true, fecha_final=curdate() where id_tarifa='".$idanterior."';");
-					//Se actualizará la tabla de los contratos, marcando como finalizados los anteriores que se tuvieran.
-					//Por cada uno marcado, se hace uno nuevo con los mismos datos y que empiece en esa fecha.
-						//ordensqlupdate("UPDATE contratos set fecha_fin=curdate() where tarifa='".$idanterior."';");
-					
-
+					//2b (caso diferentes): Se genera en la tabla de precios de tarifas una nueva línea con el
+							//identificador de la tarifa a cambiar y la fecha desde la que es vigente (ahora).
+							//También habría que cambiar nombre y descripción por si son diferentes.
 				}
 				echo "<h2>La tarifa ha sido cambiada satisfactoriamente</h2>
 					A continuación se redirigirá a la página principal de tarifas. ";
