@@ -41,7 +41,11 @@
 		<img src="../logo/logoTM.png" class="logo">
 	</nav>
 	<article id="zona">
-		<button onclick="location.href='generarexcel.php'">Click aquí para generar archivo Excel</button>
+		<button onclick="location.href='generarexcel.php'">Click aquí para generar archivo Excel</button> 
+		<?php if (isset($_GET["generado"])){
+			echo "<p>Archivo generado. <a href='facturacion.xlsx'><button>Click aquí para abrirlo</button></a>";
+		}
+		?>
 	</article>
 	</section>
 </body>

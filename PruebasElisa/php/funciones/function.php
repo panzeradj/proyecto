@@ -53,7 +53,6 @@
 				//1.3. Añadir cada clase como línea de factura y marcarla como pagada en reservas
 				//1.4. Calcular el valor de la factura y meterlo
 			//2. Meter en pagos el mes y el año, para que se sepa que ya se han metido las facturas de ese mes
-			echo "no devuelve nada, hay que emitir";
 		}
 	}
 ?>
