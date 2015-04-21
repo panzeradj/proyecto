@@ -50,24 +50,21 @@
 			$valorahora=$_POST['valor'];			
 			if (isset($_POST['crear'])){
 				ordensqlupdate("INSERT into tarifas (nombre, descripcion) VALUES ('".$nombreahora."', '".$descripcionahora."');");
-				//Introducir en la tabla de precios con el id de la tarifa, la fecha de inicio y el precio.
+				$listaid=ordensql("SELECT MAX(id_tarifa) from tarifas;");
+				$resultadoid=$listaid->fetch_array();
+				$id=$resultadoid[0];
+				ordensqlupdate("INSERT into precios_tarifas (tarifa, fecha_inicial, valor_sin_iva) VALUES (".$id.",now(), '".$valorahora."');");
 				echo "<h2>La tarifa ha sido creada satisfactoriamente</h2>
 					A continuación se redirigirá a la página principal de tarifas. ";
 			}
 			if (isset($_POST['cambiar'])){
 				$idanterior=$_POST['anterior'];
-				//1- hay que hacer consulta de la tarifa que se va a cambiar, para eso se tiene el $idanterior, y se sacan todos los datos.
-				$lista=ordensql("SELECT valor_sin_iva from tarifas where id_tarifa=".$idanterior.";");
+				$lista=ordensql("SELECT valor_sin_iva from precios_tarifas where tarifa=".$idanterior." order by fecha_inicial desc;");
 				$resultado=$lista->fetch_array();
 				$valoranterior=$resultado[0];				
-				//2- comparar $valorahora y $valoranterior
-				if($valoranterior==$valorahora){
-					//2a (caso iguales): se hace un update del resto de los campos, y no hay que modificar nada más.
-					ordensqlupdate("UPDATE tarifas set descripcion='".$descripcionahora."', nombre='".$nombreahora."' where id_tarifa='".$idanterior."';");
-				}else{
-					//2b (caso diferentes): Se genera en la tabla de precios de tarifas una nueva línea con el
-							//identificador de la tarifa a cambiar y la fecha desde la que es vigente (ahora).
-							//También habría que cambiar nombre y descripción por si son diferentes.
+				ordensqlupdate("UPDATE tarifas set descripcion='".$descripcionahora."', nombre='".$nombreahora."' where id_tarifa='".$idanterior."';");
+				if($valoranterior!=$valorahora){
+					ordensqlupdate("INSERT into precios_tarifas (tarifa, fecha_inicial, valor_sin_iva) VALUES (".$idanterior.",now(), '".$valorahora."');");				
 				}
 				echo "<h2>La tarifa ha sido cambiada satisfactoriamente</h2>
 					A continuación se redirigirá a la página principal de tarifas. ";

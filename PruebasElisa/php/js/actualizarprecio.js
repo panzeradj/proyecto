@@ -29,7 +29,8 @@ function refrescaprecio(){
 			precio=document.getElementById("valor").value;
 			iva=objetoAjax1.responseText;
 			valor=precio*(1+iva/100);
-			document.getElementById(zona).innerHTML="Valor con IVA: "+valor+" €";
+			valorSalida=+(Math.round(valor + "e+2")  + "e-2");
+			document.getElementById(zona).innerHTML="Valor con IVA: "+valorSalida+" €";
 			setTimeout('refrescaprecio()',tiempo*1000);
 		}
 	}

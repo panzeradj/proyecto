@@ -49,12 +49,14 @@
 		include("funciones/function.php"); 
 		if(isset($_POST['cambiartarifa'])){
 		$tarifa=$_POST['tarifa'];
-		$lista=ordensql("select nombre, descripcion, valor_sin_iva from tarifas where id_tarifa=".$tarifa.";");
+		$lista=ordensql("select nombre, descripcion from tarifas where id_tarifa=".$tarifa.";");
+		$listavalor=ordensql("select valor_sin_iva from precios_tarifas where tarifa=".$tarifa." order by fecha_inicial desc;");
 		while ($resultado=$lista->fetch_array()){
+			$resultadovalor=$listavalor->fetch_array();
 			$id=$tarifa;
 			$nombre=$resultado[0];
 			$descripcion=$resultado[1];
-			$valor=$resultado[2];
+			$valor=$resultadovalor[0];
 		}
 		$listaiva=ordensql("select * from IVA;");
 		while ($resultado=$listaiva->fetch_array()){

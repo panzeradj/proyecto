@@ -42,6 +42,22 @@
 	</nav>
 	<article id="zona">
 		<h1>TARIFAS</h1>
+		<table>
+		<tr><th>Nombre</th> <th>Descripción</th> <th>Precio</th></tr>		
+		<?php
+		include("funciones/function.php"); 
+		$listatarifas=ordensql("select * from tarifas;");
+		while ($resultadotarifas=$listatarifas->fetch_array()){
+			$listaprecio=ordensql("select valor_sin_iva from precios_tarifas where tarifa=".$resultadotarifas[0]." order by fecha_inicial desc;");
+			$resultadoprecio=$listaprecio->fetch_array();
+			?>
+			<tr><td> <?php echo $resultadotarifas[1]?></td>
+			<td> <?php echo $resultadotarifas[2]?></td>
+			<td> <?php echo $resultadoprecio[0]?></td>
+			</tr><?php
+		}
+		?>
+		</table>
 		<br/>
 		<button onclick="location.href='nuevatarifa.php'">Crear nueva tarifa</button>
 		<br/>
@@ -50,8 +66,7 @@
 			Selecciona la tarifa: 
 			<select name="tarifa" size="1" required>
 			<option value="">Elige una tarifa</option>
-			<?php
-			include("funciones/function.php");
+			<?php			
 			$lista=ordensql("select id_tarifa, nombre from tarifas order by 1;");
 			while ($resultado=$lista->fetch_array()){
 				echo "<option value='".$resultado[0]."'>".$resultado[1]."</option>";
