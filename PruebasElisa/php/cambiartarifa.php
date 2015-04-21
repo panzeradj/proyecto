@@ -10,7 +10,8 @@
     <title>AC Wellness</title>
     <link href="bootstrap/bootstrap.min.css"s rel="stylesheet">
     <link href="bootstrap/logo-nav.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilos/stylesadmin.css">
+    <link rel="stylesheet" href="estilos/stylesadmin.css">    
+	<script src="js/actualizarprecio.js" language="JavaScript"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

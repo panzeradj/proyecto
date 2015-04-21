@@ -62,35 +62,38 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-            <h1>TARIFAS</h1>
+            <h3>TARIFAS</h3>
+            <br/>
+            <button onclick="location.href='nuevatarifa.php'">Crear nueva tarifa</button>
+            <br/>
+            <br/>
 			<table>
-			<tr>
-			<th><h4>Nombre de la tarifa</h4></th> 
-			<th><h4>Descripción</h4></th> 
-			<th><h4>Precio sin iva</h4></th>
-			</tr>		
+			<tr><th class="titulo"><h4>Nombre de la tarifa</h4></th> 
+			<th class="titulo"><h4>Descripción</h4></th> 
+			<th class="titulo"><h4>Precio sin IVA</h4></th>
+			<th class="titulo"><h4>Precio con IVA</h4></th></tr>		
 			<?php
 			include("funciones/function.php"); 
 			$listatarifas=ordensql("select * from tarifas;");
+			$lista=ordensql("select * from iva;");
+			$resultado=$lista->fetch_array();
+			$iva=$resultado[0];
 			while ($resultadotarifas=$listatarifas->fetch_array()){
 				$listaprecio=ordensql("select valor_sin_iva from precios_tarifas where tarifa=".$resultadotarifas[0]." order by fecha_inicial desc;");
 				$resultadoprecio=$listaprecio->fetch_array();
 				?>
 				<tr><td> <?php echo $resultadotarifas[1]?></td>
 				<td> <?php echo $resultadotarifas[2]?></td>
-				<td> <?php echo $resultadoprecio[0]?></td>
+				<td> <?php echo number_format($resultadoprecio[0],2)?>€</td>
+				<td> <?php echo number_format($resultadoprecio[0]*(($resultado[0]+100)/100),2)?>€</td>
 				</tr><?php
 			}
 			?>
 			</table>
-			<br/>
-			<button onclick="location.href='nuevatarifa.php'">Crear nueva tarifa</button>
-			<br/>
-			<br/>
-			<form name="cambiotarifa" action="cambiartarifa.php" method="post"> 
-				Selecciona la tarifa: 
+			<br/>			
+			<form name="cambiotarifa" action="cambiartarifa.php" method="post">
 				<select name="tarifa" size="1" required>
-				<option value="">Elige una tarifa</option>
+				<option value="">Elige una tarifa para modificar</option>
 				<?php			
 				$lista=ordensql("select id_tarifa, nombre from tarifas order by 1;");
 				while ($resultado=$lista->fetch_array()){
@@ -102,20 +105,19 @@
 			</form>
 			<br/>
 			<br/>
-			<h1>IVA</h1>
+			<hr/>
+			<h3>IVA</h3>
 			<br/>
 			<?php
-			$lista=ordensql("select * from iva;");
-			while ($resultado=$lista->fetch_array()){
-				$iva=$resultado[0];
-			}
+			
 
 			?>
 			El IVA actualmente es del <?php echo $iva; ?>%.
 			<br/>
+			<br/>
 			<form name="cambioiva" action="cambiariva.php" method="post"> 
 				Introduce el nuevo valor: <input type="text" name="iva" required/>
-				<input type="submit" name="cambiariva" value="Cambiar iva" />
+				<input type="submit" name="cambiariva" value="Cambiar IVA" />
 			</form>
 			<br/>
 			<br/>		
