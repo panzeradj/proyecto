@@ -45,6 +45,7 @@
 		$lista = ordensql("SELECT * from pagos where mes=".$mes." and anyo=".$anyo.";");
 		
 		if (mysql_num_rows($lista)==0){
+			echo "toca emitir";
 			//EMISIÓN DE PAGOS
 			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores (teniendo 
 			//	en cuenta que para las fechas simplemente se hará con mes<$mes+1 y anyo=$anyo")

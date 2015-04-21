@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-04-2015 a las 08:16:32
+-- Tiempo de generación: 21-04-2015 a las 15:33:18
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.10
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `fecha_nacimiento` date NOT NULL,
   `fecha_alta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `fecha_baja` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `domiciliado` tinyint(1) NOT NULL,
+  `domiciliado` tinyint(1) NOT NULL DEFAULT '0',
   `objetivos` varchar(45) NOT NULL,
   `comentarios` varchar(300) NOT NULL,
   `patologias` varchar(300) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `dni`, `telefono`, `telefono2`, `email`, `genero`, `fecha_nacimiento`, `fecha_alta`, `fecha_baja`, `domiciliado`, `objetivos`, `comentarios`, `patologias`, `medicacion`, `nombre`, `activo`) VALUES
-(0000000014, '666666666', '000000000', '111111111', 'nose@asd.es', 'H', '2014-12-31', '2015-04-11 17:24:29', '0000-00-00 00:00:00', 0, '', '', '', '', 'fernando alonso', '1'),
+(0000000014, '666666666', '000000000', '111111111', 'nose@asd.es', 'H', '2014-12-31', '2015-04-21 10:23:30', '0000-00-00 00:00:00', 1, '', '', '', '', 'fernando alonso', '1'),
 (0000000015, '5555555', '55555', '222222', 'asd', 'H', '2012-12-01', '2015-04-11 17:47:14', '0000-00-00 00:00:00', 0, 's', 's', '', '', 'matias', '0'),
 (0000000016, '', '654654654', '', 'algo@algo.algo', 'M', '1991-08-25', '2015-04-20 14:19:02', '0000-00-00 00:00:00', 0, '', '', '', '', 'Elisa Tarancon', '1'),
 (0000000017, '', '666555444', '', 'some@thi.n', 'H', '1996-12-31', '2015-04-20 14:26:06', '0000-00-00 00:00:00', 0, '', '', '', '', 'ALguien Apellida Algo', '1');
@@ -221,6 +221,19 @@ CREATE TABLE IF NOT EXISTS `login` (
   `entrenador` varchar(45) NOT NULL,
   `pass` varchar(45) NOT NULL,
   PRIMARY KEY (`entrenador`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pagos`
+--
+
+DROP TABLE IF EXISTS `pagos`;
+CREATE TABLE IF NOT EXISTS `pagos` (
+  `mes` int(11) NOT NULL,
+  `anyo` int(11) NOT NULL,
+  PRIMARY KEY (`mes`,`anyo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -413,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `tarifas` (
 INSERT INTO `tarifas` (`id_tarifa`, `nombre`, `descripcion`) VALUES
 (1, 'Tarifa 1/s', 'Una reserva individual por semana'),
 (4, 'Tarifa 2/s', 'Dos reservas individuales por semana'),
-(5, 'Tarifa 3/s', 'Tres entrenos individuales a la semana');
+(5, 'Tarifa 3/s', 'Tres entrenos individuales por semana');
 
 --
 -- Restricciones para tablas volcadas
