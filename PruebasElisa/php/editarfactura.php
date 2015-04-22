@@ -10,7 +10,8 @@
     <title>AC Wellness</title>
     <link href="bootstrap/bootstrap.min.css"s rel="stylesheet">
     <link href="bootstrap/logo-nav.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilos/stylesadmin.css">
+    <link rel="stylesheet" href="estilos/stylesadmin.css">    
+    <script src="js/actualizarprecio.js" language="JavaScript"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -62,61 +63,20 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-            <h3>TARIFAS</h3>
-            <br/>
-            <button onclick="location.href='nuevatarifa.php'">Crear nueva tarifa</button>
-            <br/>
-            <br/>
-			<table>
-			<tr><th class="titulo"><h4>Nombre</h4></th> 
-			<th class="titulo"><h4>Descripción</h4></th> 
-			<th class="titulo"><h4>Precio sin IVA</h4></th>
-			<th class="titulo"><h4>Precio con IVA</h4></th></tr>		
-			<?php
-			include("funciones/function.php"); 
-			$listatarifas=ordensql("select * from tarifas;");
-			$lista=ordensql("select * from iva;");
-			$resultado=$lista->fetch_array();
-			$iva=$resultado[0];
-			while ($resultadotarifas=$listatarifas->fetch_array()){
-				$listaprecio=ordensql("select valor_sin_iva from precios_tarifas where tarifa=".$resultadotarifas[0]." order by fecha_inicial desc;");
-				$resultadoprecio=$listaprecio->fetch_array();
-				?>
-				<tr><td> <?php echo $resultadotarifas[1]?></td>
-				<td> <?php echo $resultadotarifas[2]?></td>
-				<td> <?php echo number_format($resultadoprecio[0],2)?>€</td>
-				<td> <?php echo number_format($resultadoprecio[0]*(($resultado[0]+100)/100),2)?>€</td>
-				</tr><?php
-			}
-			?>
-			</table>
-			<br/>			
-			<form name="cambiotarifa" action="cambiartarifa.php" method="post">
-				<select name="tarifa" size="1" required>
-				<option value="">Elige una tarifa para modificar</option>
-				<?php			
-				$lista=ordensql("select id_tarifa, nombre from tarifas order by 1;");
-				while ($resultado=$lista->fetch_array()){
-					echo "<option value='".$resultado[0]."'>".$resultado[1]."</option>";
-				}
-				?>				
-				</select>
-				<input type="submit" name="cambiartarifa" value="Cambiar tarifa" />
-			</form>
-			<br/>
-			<br/>
-			<hr/>
-			<h3>IVA</h3>
-			<br/>
-			El IVA actualmente es del <?php echo $iva; ?>%.
-			<br/>
-			<br/>
-			<form name="cambioiva" action="cambiariva.php" method="post"> 
-				Introduce el nuevo valor: <input type="text" name="iva" required/>
-				<input type="submit" name="cambiariva" value="Cambiar IVA" />
-			</form>
-			<br/>
-			<br/>		
+                <?php
+                include("funciones/function.php");
+                $factura=$_GET["factura"];
+                ?>
+                <h3>Cambiar importe de la factura</h3>
+                <form name="nuevovalor" action="edicion.php" method="post">
+                    <fieldset>
+                        <label for="valor">Nuevo importe sin IVA:</label> <input type='text' name='valor' value="<?php echo $valor;?>" id="valor" required/> <div id="precioconiva"> </div>
+                        <br/>
+                        <input type="hidden" name="factura" value="<?php echo $factura;?>"/>
+                        <input type="hidden" name="accion" value=3 />
+                        <input type="submit" name="cambiar" value="Guardar cambios"/>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>

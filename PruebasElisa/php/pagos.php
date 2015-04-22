@@ -73,11 +73,11 @@
                 <table>
                     <tr>
                         <th class="titulo"><h4>Cliente</h4></th> 
-                        <th class="titulo"><h4>Fecha factura</h4></th>
+                        <th class="titulo"><h4>Fecha emisión</h4></th>
                         <th class="titulo"><h4>Precio sin IVA</h4></th>
                         <th class="titulo"><h4>Precio con IVA</h4></th>
-                        <th class="titulo"><h4>Descuento aplicado</h4></th>
-                        <th class="titulo"><h4>Estado factura</h4></th>
+                        <th class="titulo"><h4>Descuento</h4></th>
+                        <th class="titulo"><h4>Estado</h4></th>
                         <th class="titulo"><h4>Acciones</h4></th>
                     </tr>
                         <?php 
@@ -92,22 +92,20 @@
                                 <td><?php 
                                     switch ($resultado[5]) {
                                         case 0:
-                                            ?><span class="emitido">Emitida</span>
+                                            ?><span class="emitido">Emitida</span></td>
                                             <td><button onclick="location.href='tpv.php?factura=<?php echo $resultado[6];?>'">Pagar</button>
-                                            <button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>'">Anular</button>
-                                            <button onclick="location.href='editarfactura.php?factura=<?php echo $resultado[6];?>'">Editar</button></td>
+                                            <button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>&accion=0'">Anular</button>
+                                            <button onclick="location.href='editarfactura.php?factura=<?php echo $resultado[6];?>'">Editar</button>
                                             <?php
                                             break;
                                         case 1:
-                                            ?><span class="pagado">Pagada</span>
-                                            <td><button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>'">Anular pago</button></td>
+                                            ?><span class="pagado">Pagada</span></td>
+                                            <td><button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>&accion=1'">Anular pago</button>
                                             <?php
                                             break;
                                         case 2:
-                                            ?><span class="anulado">Anulada</span>
-                                            <td><button onclick="location.href='tpv.php?factura=<?php echo $resultado[6];?>'">Pagar</button>
-                                            <button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>'">Habilitar</button>
-                                            <button onclick="location.href='editarfactura.php?factura=<?php echo $resultado[6];?>'">Editar</button></td>
+                                            ?><span class="anulado">Anulada</span></td>
+                                            <td><button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>&accion=2'">Habilitar</button>
                                             <?php
                                             break;
                                     }?></td>
