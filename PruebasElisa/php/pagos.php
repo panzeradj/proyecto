@@ -67,20 +67,52 @@
                 comprobarpagos();
                 ?>
                 <h3>Pagos por cliente</h3>
-                <p>En la tabla de abajo se encuentra el listado de los pagos, ordenados por fecha. A saber: 
+                <p>En la tabla de abajo se encuentra el listado de los pagos, ordenados por fecha. </p>
+                <p class="leyenda">Leyenda: 
                 <span class="emitido">Emitido</span>, <span class="anulado">Anulado</span> y <span class="pagado">Pagado</span>.</p>
                 <table>
                     <tr>
                         <th class="titulo"><h4>Cliente</h4></th> 
-                        <th class="titulo"><h4>Fecha factura</h4></th> 
-                        <th class="titulo"><h4>Elementos a cobrar</h4></th>
+                        <th class="titulo"><h4>Fecha factura</h4></th>
                         <th class="titulo"><h4>Precio sin IVA</h4></th>
                         <th class="titulo"><h4>Precio con IVA</h4></th>
                         <th class="titulo"><h4>Descuento aplicado</h4></th>
                         <th class="titulo"><h4>Estado factura</h4></th>
+                        <th class="titulo"><h4>Acciones</h4></th>
                     </tr>
-            		<tr>
-                        <td colspan=7><?php echo "aquí iría la tabla y colorines";?></td>
+                        <?php 
+                        $lista=ordensql("SELECT c.nombre, f.fecha, f.valor, f.valor*(1+iva/100), f.descuento, f.estado, id_factura
+                                            from clientes c, facturas f,iva where c.id_cliente=f.cliente order by fecha desc;");
+                        while($resultado=$lista->fetch_array()){ ?>
+                            <tr><td><?php echo $resultado[0]?></td>
+                                <td><?php echo date("d-m-Y",strtotime($resultado[1]));?></td>
+                                <td><?php echo round($resultado[2],2)."€";?></td>
+                                <td><?php echo round($resultado[3],2)."€";?></td>
+                                <td><?php echo $resultado[4]."%";?></td>
+                                <td><?php 
+                                    switch ($resultado[5]) {
+                                        case 0:
+                                            ?><span class="emitido">Emitida</span>
+                                            <td><button onclick="location.href='tpv.php?factura=<?php echo $resultado[6];?>'">Pagar</button>
+                                            <button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>'">Anular</button>
+                                            <button onclick="location.href='editarfactura.php?factura=<?php echo $resultado[6];?>'">Editar</button></td>
+                                            <?php
+                                            break;
+                                        case 1:
+                                            ?><span class="pagado">Pagada</span>
+                                            <td><button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>'">Anular pago</button></td>
+                                            <?php
+                                            break;
+                                        case 2:
+                                            ?><span class="anulado">Anulada</span>
+                                            <td><button onclick="location.href='tpv.php?factura=<?php echo $resultado[6];?>'">Pagar</button>
+                                            <button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>'">Habilitar</button>
+                                            <button onclick="location.href='editarfactura.php?factura=<?php echo $resultado[6];?>'">Editar</button></td>
+                                            <?php
+                                            break;
+                                    }?></td>
+                            </tr>
+                        <?php } ;?>
                     </tr>
                 </table>
             </div>
