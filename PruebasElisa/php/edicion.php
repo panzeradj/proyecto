@@ -14,6 +14,16 @@ if (isset($_POST["accion"])){
 		case 3:
 			$factura=$_POST["factura"];
 			$valor=$_POST["valor"];
+			if (!isset($_POST["valor"])|| $_POST["valor"]==0){
+				ordensql("SELECT valor_sin_iva * COUNT( * ) 
+FROM precios_tarifas p, contratos c, tarifas t, facturas f, lineas_factura lf
+WHERE c.tarifa = p.tarifa
+AND p.tarifa = id_tarifa
+AND f.cliente = c.cliente
+AND f.id_factura = lf.factura
+AND id_factura =12");
+				ordensqlupdate("UPDATE facturas set valor=".$valor." where id_factura=".$factura.";");
+			}
 			ordensqlupdate("UPDATE facturas set valor=".$valor." where id_factura=".$factura.";");
 			break;
 	}

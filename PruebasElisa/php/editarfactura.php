@@ -68,6 +68,7 @@
                 $factura=$_GET["factura"];
                 ?>
                 <h3>Cambiar importe de la factura</h3>
+                <p>Si quieres devolver a la factura su valor por defecto, no introduzcas precio o introduce 0.</p>
                 <form name="nuevovalor" action="edicion.php" method="post">
                     <fieldset>
                         <label for="valor">Nuevo importe sin IVA:</label> <input type='text' name='valor' value="<?php echo $valor;?>" id="valor" required/> <div id="precioconiva"> </div>
