@@ -48,7 +48,7 @@
 			//EMISIÓN DE PAGOS
 			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores
 				//1.1. Mirar clientes con reservas sin pagar
-			$listaclientes=ordensql("SELECT id_cliente FROM clientes, reservas WHERE pagada =0 AND cliente = id_cliente and mes<=".$mes." and anyo=".$anyo." GROUP BY id_cliente");
+			$listaclientes=ordensql("SELECT id_cliente FROM clientes, reservas WHERE pagada =0 and (cancelada=0 or cancelada=2) AND cliente = id_cliente and mes<=".$mes." and anyo=".$anyo." GROUP BY id_cliente");
 			while ($resultadoclientes=$listaclientes->fetch_array()){
 				//1.2. En los clientes que las tengan, empezar una nueva factura (que empieza como emitida, 0)
 				ordensqlupdate("INSERT INTO facturas (cliente, fecha, estado) VALUES (".$resultadoclientes[0].", now(), 0);");
@@ -66,7 +66,7 @@
 							where c.tarifa=p.tarifa and p.tarifa=id_tarifa and f.cliente=c.cliente and f.id_factura=lf.factura	
 							and fecha_inicial=(select fecha_inicial
 							                    from precios_tarifas p,contratos c
-							                    where c.tarifa=p.tarifa and cliente=".$resultadoclientes[0]."
+							                    where c.tarifa=p.tarifa and cliente=".$resultadoclientes[0]." and factura=".$resultadoid[0]."
 							                    order by fecha_inicial desc limit 1);");
 				$resultadoprecio=$listaprecio->fetch_array();
 				ordensqlupdate("UPDATE facturas set valor=".$resultadoprecio[0]." where id_factura=".$resultadoid[0].";");

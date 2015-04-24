@@ -67,7 +67,7 @@
                 comprobarpagos();
                 ?>
                 <h3>Pagos por cliente</h3>
-                <p>En la tabla de abajo se encuentra el listado de los pagos, ordenados por fecha. </p>
+                <p>En la tabla de abajo se encuentra el listado de los pagos, ordenados por fecha de la última acción realizada sobre ellos. </p>
                 <p class="leyenda">Leyenda: 
                 <span class="emitido">Emitido</span>, <span class="anulado">Anulado</span> y <span class="pagado">Pagado</span>.</p>
                 <table>
