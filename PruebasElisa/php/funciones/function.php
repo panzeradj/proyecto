@@ -1,7 +1,7 @@
 <?php
 	function abrirBBDD()
 	{
-			$conexion = new mysqli("127.0.0.1", "root", /*"root"*/"", "trainningmanager");
+			$conexion = new mysqli("127.0.0.1", "root", "root"/*""*/, "trainningmanager");
 			$conexion->Set_charset("UTF8");
 
 			if (mysqli_connect_errno()) 
@@ -48,10 +48,12 @@
 			//EMISIÓN DE PAGOS
 			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores
 				//1.1. Mirar clientes con reservas sin pagar
-			$listaclientes=ordensql("SELECT id_cliente FROM clientes, reservas WHERE pagada =0 and (cancelada=0 or cancelada=2) AND cliente = id_cliente and mes<=".$mes." and anyo=".$anyo." GROUP BY id_cliente");
+			$listaclientes=ordensql("SELECT id_cliente FROM clientes, reservas WHERE pagada =0 and (cancelada=0 or cancelada=2) AND cliente = id_cliente and mes<=".$mes." and anyo=".$anyo." GROUP BY id_cliente;");
+			echo "llega";
 			while ($resultadoclientes=$listaclientes->fetch_array()){
+				echo "entra";
 				//1.2. En los clientes que las tengan, empezar una nueva factura (que empieza como emitida, 0)
-				ordensqlupdate("INSERT INTO facturas (cliente, fecha, estado) VALUES (".$resultadoclientes[0].", now(), 0);");
+				ordensqlupdate("INSERT INTO facturas (cliente, fecha, estado,valor,descuento) VALUES (".$resultadoclientes[0].", now(), 0, 0, 0);");
 				$listaid=ordensql("SELECT MAX(id_factura) FROM facturas");
 				$resultadoid=$listaid->fetch_array();
 				//1.3. Añadir cada clase como línea de factura y marcarla como pagada en reservas
