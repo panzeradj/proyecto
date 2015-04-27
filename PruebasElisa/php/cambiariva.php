@@ -70,7 +70,7 @@
 				if($iva==0){
 					echo "No es un valor de IVA válido";
 				}else{
-					ordensqlupdate("DELETE * from iva;");
+					ordensqlupdate("DELETE from iva;");
 					ordensqlupdate("INSERT into iva (iva) VALUES (".$iva.");");
 					echo "Cambio efectuado con éxito, el nuevo valor del IVA es ".$iva."%.";	
 				}

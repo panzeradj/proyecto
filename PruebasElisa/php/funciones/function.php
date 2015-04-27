@@ -1,7 +1,7 @@
 <?php
 	function abrirBBDD()
 	{
-			$conexion = new mysqli("127.0.0.1", "root", "root"/*""*/, "trainningmanager");
+			$conexion = new mysqli("127.0.0.1", "root", /*"root"*/"", "trainningmanager");
 			$conexion->Set_charset("UTF8");
 
 			if (mysqli_connect_errno()) 
@@ -49,9 +49,7 @@
 			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores
 				//1.1. Mirar clientes con reservas sin pagar
 			$listaclientes=ordensql("SELECT id_cliente FROM clientes, reservas WHERE pagada =0 and (cancelada=0 or cancelada=2) AND cliente = id_cliente and mes<=".$mes." and anyo=".$anyo." GROUP BY id_cliente;");
-			echo "llega";
 			while ($resultadoclientes=$listaclientes->fetch_array()){
-				echo "entra";
 				//1.2. En los clientes que las tengan, empezar una nueva factura (que empieza como emitida, 0)
 				ordensqlupdate("INSERT INTO facturas (cliente, fecha, estado,valor,descuento) VALUES (".$resultadoclientes[0].", now(), 0, 0, 0);");
 				$listaid=ordensql("SELECT MAX(id_factura) FROM facturas");
@@ -63,18 +61,40 @@
 					ordensqlupdate("UPDATE reservas set pagada=1 where id_reserva=".$resultadoclases[0].";");
 				}
 				//1.4. Calcular el valor de la factura y meterlo
-				$listaprecio= ordensql("SELECT valor_sin_iva*count(*)
-							from precios_tarifas p, contratos c, tarifas t, facturas f, lineas_factura lf 
-							where c.tarifa=p.tarifa and p.tarifa=id_tarifa and f.cliente=c.cliente and f.id_factura=lf.factura	
-							and fecha_inicial=(select fecha_inicial
-							                    from precios_tarifas p,contratos c
-							                    where c.tarifa=p.tarifa and cliente=".$resultadoclientes[0]." and factura=".$resultadoid[0]."
-							                    order by fecha_inicial desc limit 1);");
-				$resultadoprecio=$listaprecio->fetch_array();
-				ordensqlupdate("UPDATE facturas set valor=".$resultadoprecio." where id_factura=".$resultadoid[0].";");
+				$valorfactura=preciofactura($resultadoid[0]);
+				ordensqlupdate("UPDATE facturas set valor=".$valorfactura." where id_factura=".$resultadoid[0].";");
 			}				
 			//2. Meter en pagos el mes y el año, para que se sepa que ya se han metido las facturas de ese mes
 			ordensqlupdate("INSERT INTO pagos VALUES(".$mes.",".$anyo.");");				
 		}
+	}
+
+	function preciofactura($factura){
+		$listaelementos=ordensql("SELECT producto from lineas_factura where factura=".$factura.";");
+		$precio=0;
+		while ($resultado=$listaelementos->fetch_array()){
+			$listafecha=ordensql("SELECT anyo, mes, dia, cliente from reservas where id_reserva=".$resultado[0]);
+			$fecha=$listafecha->fetch_array();
+			if ($fecha[1]<10){
+				if ($fecha[2]<10) {
+					$dia=$fecha[0]."-0".$fecha[1]."-0".$fecha[2];
+				}else{
+					$dia=$fecha[0]."-0".$fecha[1]."-".$fecha[2];
+				}				
+			}else{
+				if ($fecha[2]<10) {
+					$dia=$fecha[0]."-".$fecha[1]."-0".$fecha[2];
+				}else{
+					$dia=$fecha[0]."-".$fecha[1]."-".$fecha[2];
+				}
+			}
+			$listavalor=ordensql("SELECT valor_sin_iva from precios_tarifas p,contratos c
+							    	where c.tarifa=p.tarifa and cliente=".$fecha[3]."
+							    	and fecha_inicial<'".$dia."'
+							    	order by fecha_inicial desc limit 1;");
+			$resultadoprecio=$listavalor->fetch_array();
+			$precio=$precio+$resultadoprecio[0];
+		}
+		return $precio;
 	}
 ?>
