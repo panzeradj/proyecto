@@ -1,6 +1,5 @@
 Nombre,Genero,edad,horas totales,tarifa,fecha alta,fecha baja,domiciliado,telefono,email
 fernando alonso, H, Edad, Horas totales, Tarifa 1/s, 2015-04-21 12:23:30, 0000-00-00 00:00:00, SI, 000000000, nose@asd.es 
 matias, H, Edad, Horas totales, , 2015-04-11 19:47:14, 0000-00-00 00:00:00, NO, 55555, asd 
-Elisa Tarancon, M, Edad, Horas totales, , 2015-04-20 16:19:02, 0000-00-00 00:00:00, NO, 654654654, algo@algo.algo 
+Elisa Tarancon, M, Edad, Horas totales, Tarifa 1/s, 2015-04-20 16:19:02, 0000-00-00 00:00:00, NO, 654654654, algo@algo.algo 
 ALguien Apellida Algo, H, Edad, Horas totales, , 2015-04-20 16:26:06, 0000-00-00 00:00:00, NO, 666555444, some@thi.n 
-Ser Alguien, M, Edad, Horas totales, , 2015-04-26 10:40:45, 0000-00-00 00:00:00, SI, 666777888, a@lg.o 
