@@ -71,7 +71,7 @@
 							                    where c.tarifa=p.tarifa and cliente=".$resultadoclientes[0]." and factura=".$resultadoid[0]."
 							                    order by fecha_inicial desc limit 1);");
 				$resultadoprecio=$listaprecio->fetch_array();
-				ordensqlupdate("UPDATE facturas set valor=".$resultadoprecio[0]." where id_factura=".$resultadoid[0].";");
+				ordensqlupdate("UPDATE facturas set valor=".$resultadoprecio." where id_factura=".$resultadoid[0].";");
 			}				
 			//2. Meter en pagos el mes y el año, para que se sepa que ya se han metido las facturas de ese mes
 			ordensqlupdate("INSERT INTO pagos VALUES(".$mes.",".$anyo.");");				
