@@ -93,13 +93,12 @@
 			<br/>			
 			<form name="cambiotarifa" action="cambiartarifa.php" method="post">
 				<select name="tarifa" size="1" required>
-				<option value="">Elige una tarifa para modificar</option>
-				<?php			
-				$lista=ordensql("select id_tarifa, nombre from tarifas order by 1;");
-				while ($resultado=$lista->fetch_array()){
-					echo "<option value='".$resultado[0]."'>".$resultado[1]."</option>";
-				}
-				?>				
+    				<option value="">Elige una tarifa para modificar</option>
+    				<?php			
+    				$lista=ordensql("select id_tarifa, nombre from tarifas order by 1;");
+    				while ($resultado=$lista->fetch_array()){?>
+                        <option value='<?php echo $resultado[0];?>'><?php echo $resultado[1];?></option>
+    				<?php }?>				
 				</select>
 				<input type="submit" name="cambiartarifa" value="Cambiar tarifa" />
 			</form>

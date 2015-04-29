@@ -89,23 +89,39 @@
                                 <td><?php echo round($resultado[2],2)."€";?></td>
                                 <td><?php echo round($resultado[3],2)."€";?></td>
                                 <td><?php echo $resultado[4]."%";?></td>
-                                <td><?php 
+                                <td id="acciones"><?php 
                                     switch ($resultado[5]) {
                                         case 0:
                                             ?><span class="emitido">Emitida</span></td>
-                                            <td><button onclick="location.href='tpv.php?factura=<?php echo $resultado[6];?>'">Pagar</button>
-                                            <button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>&accion=0'">Anular</button>
-                                            <button onclick="location.href='editarfactura.php?factura=<?php echo $resultado[6];?>'">Editar</button>
+                                            <td>
+                                            <form name="cambioiva" action="tpv.php" method="post" style="display:inline-block"> 
+                                                <input type="submit" name="pagar" value="Pagar"/>
+                                                <input type="hidden" name="factura" value="<?php echo $resultado[6];?>"/>
+                                            </form>
+                                            <form name="anular" action="anular.php" method="post" style="display:inline-block">
+                                                <input type="submit" name="anular" value="Anular"/>
+                                                <input type="hidden" name="factura" value="<?php echo $resultado[6];?>"/>
+                                                <input type="hidden" name="accion" value="0"/>
+                                            </form>
+                                            <form name="anular" action="editarfactura.php" method="post" style="display:inline-block">
+                                                <input type="submit" name="anular" value="Editar"/>
+                                                <input type="hidden" name="factura" value="<?php echo $resultado[6];?>"/>
+                                            </form>
                                             <?php
                                             break;
                                         case 1:
                                             ?><span class="pagado">Pagada</span></td>
-                                            <td><button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>&accion=1'">Anular pago</button>
+                                            <td>
                                             <?php
                                             break;
                                         case 2:
                                             ?><span class="anulado">Anulada</span></td>
-                                            <td><button onclick="location.href='anular.php?factura=<?php echo $resultado[6];?>&accion=2'">Habilitar</button>
+                                            <td>
+                                            <form name="anular" action="anular.php" method="post">
+                                                <input type="submit" name="anular" value="Habilitar"/>
+                                                <input type="hidden" name="factura" value="<?php echo $resultado[6];?>"/>
+                                                <input type="hidden" name="accion" value="2"/>
+                                            </form>
                                             <?php
                                             break;
                                     }?></td>

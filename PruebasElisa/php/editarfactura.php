@@ -65,7 +65,10 @@
             <div class="col-lg-12">
                 <?php
                 include("funciones/function.php");
-                $factura=$_GET["factura"];
+                if(!isset($_POST["factura"])){
+                    header("location:pagos.php");
+                }
+                $factura=$_POST["factura"];
                 ?>
                 <h3>Cambiar importe de la factura</h3>
                 <p>Si quieres devolver a la factura su valor por defecto, introduce 0.</p>

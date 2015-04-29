@@ -65,9 +65,9 @@
             <div class="col-lg-12">
                 <?php
                 include("funciones/function.php");
-                if (isset($_GET["accion"])){
-                    $factura=$_GET["factura"];
-                    $accion=$_GET["accion"];
+                if (isset($_POST["accion"])){
+                    $factura=$_POST["factura"];
+                    $accion=$_POST["accion"];
                     if($accion==0){?>
                         <h3>Estás a punto de anular una factura</h3>
                         <form name="nuevovalor" action="edicion.php" method="post">
@@ -78,18 +78,7 @@
                                 <input type="submit" name="cambiar" value="Sí, deseo anular la factura"/>
                             </fieldset>
                         </form>
-                    <?php }else{
-                        if ($accion==1) { ?>
-                            <h3>Estás a punto de anular un pago</h3>
-                            <form name="nuevovalor" action="edicion.php" method="post">
-                                <fieldset>
-                                    <p>La factura volverá a aparecer como emitida. ¿Estás seguro?</p>
-                                    <input type="hidden" name="factura" value="<?php echo $factura;?>"/>
-                                    <input type="hidden" name="accion" value="<?php echo $accion;?>"/>
-                                    <input type="submit" name="cambiar" value="Sí, deseo anular el pago"/>
-                                </fieldset>
-                            </form>
-                        <?php }else{?>
+                    <?php }else{?>
                             <h3>Vas a habilitar una factura anulada</h3>
                             <form name="nuevovalor" action="edicion.php" method="post">
                                 <fieldset>
@@ -99,7 +88,7 @@
                                     <input type="submit" name="cambiar" value="Sí, deseo habilitar la factura"/>
                                 </fieldset>
                             </form>
-                        <?php }} ?>
+                        <?php } ?>
                      <button onclick="location.href='pagos.php'">No, deseo volver</button>
                 <?php }else{
                     header("location:pagos.php");
