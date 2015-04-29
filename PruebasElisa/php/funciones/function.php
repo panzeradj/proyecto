@@ -97,4 +97,21 @@
 		}
 		return $precio;
 	}
+	function calculaedad($cliente){
+		$lista=ordensql("SELECT fecha_nacimiento from clientes where id_cliente=".$cliente.";");
+		$resultado=$lista->fetch_array();
+		$diacli=date("d", strtotime($resultado[0]));
+		$mescli=date("m", strtotime($resultado[0]));
+		$anyocli=date("Y", strtotime($resultado[0]));
+		$diahoy=date("d");
+		$meshoy=date("m");
+		$anyohoy=date("Y");
+		$edad=$anyohoy-$anyocli;
+		if ($mescli>$meshoy){
+			$edad=$edad-1;
+		}elseif ($mescli==$meshoy && $diacli>$diahoy) {
+			$edad=$edad-1;
+		}
+		return $edad;
+	}
 ?>

@@ -41,12 +41,13 @@ while ($resultado=$listacliente->fetch_array()){
 	}else{
 		$fechabaja=$resultado[3];
 	}
-	$listatarifa=ordensql("SELECT nombre from contratos, tarifas where cliente=".$resultado[7].";");
+	$listatarifa=ordensql("SELECT nombre from contratos, tarifas where cliente=".$resultado[7]." and tarifa=id_tarifa;");
 	$resultadotarifa=$listatarifa->fetch_array();
+	$edad=calculaedad($resultado[7]);
 	$objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('A'.$cont, $resultado[0]) //Nombre
 	->setCellValue('B'.$cont, $resultado[1]) //genero
-	->setCellValue('C'.$cont, /*$resultado[1].*/"Edad") //edad
+	->setCellValue('C'.$cont, $edad) //edad
 	->setCellValue('D'.$cont, /*$resultado[1].*/"Horas totales") //horas hechas
 	->setCellValue('E'.$cont, $resultadotarifa[0]) //tarifa
 	->setCellValue('F'.$cont, date("Y-m-d",strtotime($resultado[2]))) //fecha alta
