@@ -62,11 +62,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-            <button onclick="location.href='generarexcel.php'">Click aquí para generar archivo Excel</button> 
-		<?php if (isset($_GET["generado"])){
-			echo "<p>Archivo generado. <a href='facturacion.xlsx'><button>Click aquí para abrirlo</button></a>";
-		}
-		?>
+            <button onclick="location.href='generarexcel.php'">Click aquí para generar archivo Excel</button>
             </div>
         </div>
     </div>
