@@ -1,3 +1,9 @@
+<?php
+include("php/funciones/function.php");
+comprobarpagos();
+session_start();
+$_SESSION["login"]="no";
+?>
 <html lang="es">
 
 <head>
@@ -21,8 +27,8 @@
                     <div class="text-center">
                         <img id="avatar" src="imagenes/logos.png" >
                     </div>
-                    <input id="txtEmail" class="form-control" placeholder="Usuario">
-                    <input type="password" class="form-control" placeholder="Contraseña">
+                    <input id="txtEmail" class="form-control" placeholder="Usuario" name="us">
+                    <input type="password" class="form-control" placeholder="Contraseña" name="pass">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
                 </form>
             </div>
