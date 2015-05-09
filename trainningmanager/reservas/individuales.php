@@ -1,5 +1,5 @@
 <?php 
-/*Eliminar WARNING*/ error_reporting(0);
+
 	 session_destroy();
 	 $_SESSION['hora']='';
 	 $_SESSION['dia']='';
@@ -31,14 +31,47 @@
 	<article id="zona">
 		<button onClick=semanaMenos()>Semana menos</button>
 		<button onClick=semanaMas()>Semana mas</button>
-				
+		
 	<?php
 		if(!empty($_GET['calendario']))
 		{
 			echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
-				echo "<input type=text name=cliente[1]>";
-				echo "<input type=text name=cliente[2]>";
-				echo "<input type=text name=cliente[3]>";
+				echo '
+			      <select name="cliente[0]" ><option>--</option>';
+			      $sql="select id_cliente, nombre from clientes order by 2";
+		     	 $cho=ordensql($sql);
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							echo "<option value=".$regi[1].">".$regi[1]."</option>";
+						}
+					}
+					echo '  </select></input>
+	     				 <div id="hidden"></div>';
+	     				 echo '
+			      <select name="cliente[1]" ><option>--</option>';
+			      $sql="select id_cliente, nombre from clientes order by 2";
+		     	 $cho=ordensql($sql);
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							echo "<option value=".$regi[1].">".$regi[1]."</option>";
+						}
+					}
+					echo '  </select></input>
+	     				 <div id="hidden"></div>';
+	     				 echo '
+			      <select name="cliente[2]" ><option>--</option>';
+			      $sql="select id_cliente, nombre from clientes order by 2";
+		     	 $cho=ordensql($sql);
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							echo "<option value=".$regi[1].">".$regi[1]."</option>";
+						}
+					}
+					echo '  </select></input>
+	     				 <div id="hidden"></div>';
 				echo "<input type=hidden name=dia value=$dia>";
 				echo "<input type=hidden name=hora value=$hora>";
 				echo "<input type=submit name=Aceptar value=Aceptar>";
@@ -48,9 +81,42 @@
 		{
 
 				echo "<form name=a method=post action=confirmarHora.php>Nombre del cliente:";
-					echo "<input type=text name=cliente[1]>";
-					echo "<input type=text name=cliente[2]>";
-					echo "<input type=text name=cliente[3]>";
+					echo '
+			      <select name="cliente[0]" ><option>--</option>';
+			      $sql="select id_cliente, nombre from clientes order by 2";
+		     	 $cho=ordensql($sql);
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							echo "<option value=".$regi[0].">".$regi[1]."</option>";
+						}
+					}
+					echo '  </select></input>
+	     				 <div id="hidden"></div>';
+	     				 echo '
+			      <select name="cliente[1]" ><option>--</option>';
+			      $sql="select id_cliente, nombre from clientes order by 2";
+		     	 $cho=ordensql($sql);
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							echo "<option value=".$regi[0].">".$regi[1]."</option>";
+						}
+					}
+					echo '  </select></input>
+	     				 <div id="hidden"></div>';
+	     				 echo '
+			      <select name="cliente[2]" ><option>--</option>';
+			      $sql="select id_cliente, nombre from clientes order by 2";
+		     	 $cho=ordensql($sql);
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							echo "<option value=".$regi[0].">".$regi[1]."</option>";
+						}
+					}
+					echo '  </select></input>
+	     				 <div id="hidden"></div>';
 					echo "<input type=hidden name=dia value=".$dia.">";
 					echo "<input type=hidden name=hora value=$hora>";
 					echo "<input type=submit name=Aceptar value=Aceptar>

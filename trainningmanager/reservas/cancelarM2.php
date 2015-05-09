@@ -1,4 +1,5 @@
 <?php
+session_start();
 	include("../php/funciones/function.php");
 	$id=$_GET['id'];
 

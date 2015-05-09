@@ -1,3 +1,6 @@
+<?php
+ session_start();
+?>
 <html>
 <head>
 <script src="http://localhost/trainningmanager/js/javaScript.js"></script>

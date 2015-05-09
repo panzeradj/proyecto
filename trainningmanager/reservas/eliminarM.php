@@ -16,7 +16,7 @@
 		for($i=1;$i<sizeof($diass);$i++ ) {
 			if((strcmp ($diass[$i] , $dia ) == 0) && $horass[$i]==$hora)
 			{
-				//echo "hola";
+				
 				$diass[$i]="";
 				$horass[$i]="";
 			}
@@ -24,10 +24,7 @@
 			$_SESSION['dia']=$_SESSION['dia']."*".$diass[$i];
 		}
 	}
-	// else
-	// {
-	// 	echo "fuera";
-	// }	
+	
 	horarioReservaM($_SESSION['hora'], $_SESSION['dia']);
 
 ?>

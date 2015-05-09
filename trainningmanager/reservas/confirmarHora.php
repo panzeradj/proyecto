@@ -1,11 +1,8 @@
-<html>
-<head>
-	<link rel="stylesheet" href="estilo.css"/>
-</head>
-<body>
+
 <?php
 	session_start();
 	include("../php/funciones/function.php");
+	//cabecera();
 	if(!empty($_POST['cliente']))
 	{
 		$cliente=$_POST['cliente'];
@@ -20,15 +17,16 @@
 		{
 			for($a=0;$a<4;$a++)
 			{
-				if(!empty($cliente[$a]))
+				if(strcmp($cliente[$a],"--")!=0 && !empty($cliente[$a]))
 				{
 					
 					$fecha=explode("*", $diass[$i]);
 						$cli=$cliente[$a];
+						//echo $cli;
 						$fech=("".$fecha[0]."-".$fecha[1]."-".$fecha[2]);
-						$cli=1;//CAMBIAR CUANDO SALGA A EXPLOTACION O SE TENGA LOS CLIETNES 
+						//$cli=1;//CAMBIAR CUANDO SALGA A EXPLOTACION O SE TENGA LOS CLIETNES 
 						$orden="insert into reservas(cliente,anyo,mes,dia, hora, semana , pagada) values('".$cli."', $fecha[0] , $fecha[1] ,$fecha[2] ,$horass[$i] ,'".diaDeLaSemana($fech)."',0);";
-
+						//echo $orden;
 						ordensqlupdate($orden);
 						$orden="select * from reservas where hora=$horass[$i] and anyo = $fecha[0] and mes=$fecha[1] and dia=$fecha[2]  and cliente='".$cli."' and cancelada=0";
 						$cho=ordensql($orden);

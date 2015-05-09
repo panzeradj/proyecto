@@ -12,8 +12,7 @@
 		$_SESSION['semanas']=0;
 	}
 	cabecera();
-?>
-<script src="http://localhost/trainningmanager/js/javaScript.js"></script>
+?><script src="http://localhost/trainningmanager/js/javaScript.js"></script>
 </head>
 <body>
 <?php menu();?>
@@ -44,8 +43,6 @@
 	  initStatus: 'Selecciona la fecha', isRTL: false,
 	  onSelect: function(dateText) { 
 	          $('#fecha').val(dateText);
-	          alert("enviar a un nuevo lugar");
-	          alert( dateText);
 	         	location="http://localhost/trainningmanager/reservas/calcularSemanas.php?semana="+dateText;
 	       
 	      },

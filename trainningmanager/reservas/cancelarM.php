@@ -1,12 +1,13 @@
+<?php
+	session_start();
+	include("../php/funciones/function.php");
+?>
 <html>
 	<head>
 		<link rel="stylesheet" href="estilo.css"/>
 	</head>
 	<body>
-		<?php
-			session_start();
-			include("../php/funciones/function.php");
-		?>
+
 		<table >
 			<tr><td>Cliente</td><td>Fecha Inicio</td><td>Fecha Fin</td> <td> Cancelar</td></tr>
 			<?php 

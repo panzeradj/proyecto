@@ -1,3 +1,6 @@
+<?php session_start();
+	include("../php/funciones/function.php");
+?>
 <!DOCTYPE html>
 <html lang='es' xml:lang='es' xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -17,10 +20,7 @@
 	<link rel="stylesheet" href="estilo.css"/>
 </head>
 <body>
-<?php
-/*Eliminar WARNING*/ error_reporting(0);
-	session_start();
-	include("../php/funciones/function.php");
+<?php	
 	if(!empty($_POST['cliente']))
 	{
 		$cliente=$_POST['cliente'];
