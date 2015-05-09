@@ -3,7 +3,7 @@
 	cabecera();
 ?>
 
-		 <style>
+			 <style>
 		 	.contenedor{
 		 		max-width: 50em;
 		 	}
@@ -13,10 +13,12 @@
 	</head>
 	<body>
 		<?php 
+		$id_cliente=$_GET['cliente'];
 		menu();
 		
-		$sql="select nombre, dni, genero,fecha_nacimiento, telefono, telefono2,email,fecha_alta, fecha_baja,objetivos,comentarios,medicacion 
+		$sql="select nombre, dni, genero,fecha_nacimiento, telefono, telefono2,email,fecha_alta, fecha_baja,objetivos,comentarios,medicacion  , activo
 			  from clientes where id_cliente=".$id_cliente;
+			
 			$cho=ordensql($sql);
 		
 			$datos=array();
@@ -35,6 +37,7 @@
 					$datos['objetivos']=$regi[9];
 					$datos['comentarios']=$regi[10];
 					$datos['mediccion']=$regi[11];
+					$datos['estado']=$regi[12];
 					
 				}
 			}
@@ -143,13 +146,25 @@
 					}
 				?></div>
 			</div>
-			<div class='col-lg-12'>
+			<div class='col-lg-6'>
 				<label>Horas totales</label>
 				<!-- Select con las horas totales -->
 			</div>
+			<div class='col-lg-6'>
+				<label>Estado</label>
+				<?php 
+					if($datos['activo']==1)
+					{
+						echo "Activo";
+					}
+					else
+					{
+						echo "Inactivo";
+					}
+				?>
+			</div>
 		</div>
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<?php  if($datos['estado']==1){$datos['estado']=0; $boton='Dar de baja';}else{$datos['estado']=1; $boton='Dar de alta';} echo "<form action=clienteBaja.php method=post><input type=hidden name=cliente value=".$id_cliente."><input type=hidden name=estado value=".$datos['estado']."><input type=submit value='".$boton."'></form>";?>
 </body>
 
 </html>

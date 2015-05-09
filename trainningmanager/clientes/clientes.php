@@ -67,7 +67,7 @@ $banderaBaja=false;
 	}
 	echo "<div class='col-lg-4 cabecera'><h4>Nombre</h4></div>";
     echo "<div class='col-lg-4 cabecera'><h4>Genero</h4></div>";
-    echo "<div class='col-lg-2 cabecera'><h4>Fecha de nacimiento</h4></div>";
+    echo "<div class='col-lg-2 cabecera'><h4>Edad</h4></div>";
     echo "<div class='col-lg-2 cabecera'><h4>Correo electronico</h4></div>";
 
 	if(isset($_POST['busqueda']) && $_POST['busqueda']!="")
@@ -99,7 +99,7 @@ $banderaBaja=false;
 	   
 	
 	}
-		
+	
 	$cho=ordensql($sql);
 	$contador=0;
 	if($cho!=false)
@@ -113,13 +113,9 @@ $banderaBaja=false;
 			{
 				$class="letraOscura";
 			}
-			if($regi[3]=="H")
-			{
-				$genero="Hombre";
-			}
-			else if ($regi[3]=="M"){
-				$genero="Mujer";
-			}
+			
+			$genero=$regi[3];
+			
 			echo "<a href='clienteI.php?cliente=".$regi[0]."'><div class='col-lg-4 tamano ".$class."'>".$regi[1]."</div>";
 	      	echo "<div class='col-lg-4 tamano ".$class."'>".$genero."</div>";
 	      	echo "<div class='col-lg-2  tamano ".$class."'>".calcularEdad($regi[4])."</div>";
