@@ -1,7 +1,8 @@
 <?php
+
 include("php/funciones/function.php");
-comprobarpagos();
-session_start();
+//comprobarpagos();
+
 $_SESSION["login"]="no";
 ?>
 <html lang="es">
