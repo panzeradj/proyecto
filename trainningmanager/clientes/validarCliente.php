@@ -1,4 +1,5 @@
 <?php
+session_start();
 	include("php/funciones/function.php");
 		$nombre=$_POST['nombre'];
 	$movil=$_POST['movil'];
