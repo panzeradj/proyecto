@@ -1,5 +1,6 @@
 <?php
 session_start();
+comprueba();
 	include("php/funciones/function.php");
 		$nombre=$_POST['nombre'];
 	$movil=$_POST['movil'];
