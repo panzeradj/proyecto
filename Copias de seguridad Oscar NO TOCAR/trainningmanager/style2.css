@@ -1,0 +1,57 @@
+/*@import url(http://reset5.googlecode.com/hg/reset.min.css);*/
+@import url(http://fonts.googleapis.com/css?family=Fredoka+One);
+#zona{
+	background-color: #fff;
+	display: block;
+	position: relative;
+	width: 100%;
+	height: auto;
+} 
+/*Calendario*/
+#calendario{
+	margin-left: 0.5%;
+	margin-top: 2%;
+	margin-right: 0.5%;
+	border: inset 0pt
+}
+#campo{
+	font-family: 'Fredoka One', cursive;
+	padding: 0.7em 2em;
+	background-color: #D8F678;
+	border:1px solid #fff;
+}
+#campo:hover{
+	background-color: #BADA99;
+}
+#diaSemana{
+	font-weight: bold;
+	text-align: center;
+	background-color: #222222;
+	border-bottom: 5px solid #1D99D6;
+	color:#fff;
+	width: 350px;
+
+}
+#hora{
+	border-bottom: 0px;
+	font-weight: bold;
+	background-color: #222222;
+	border-right: 5px solid #273481;
+	padding: 0.6em 0.6em;
+	color:#fff;
+}
+/*Botones calendario*/
+#mas{
+	display: inline-block;
+}
+#menos{
+	display: inline-block;
+}
+#cal{
+	display: inline-block;
+}
+/*Entrada*/
+input{
+	display: inline-block;
+	position: relative;
+}
