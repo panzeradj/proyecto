@@ -2,7 +2,7 @@
     include("php/funciones/function.php");
     session_start();
     login($_POST["pass"],$_POST["us"]);
-    cabeceraAdmin();
+    cabecera();
 ?>
 
     </head>

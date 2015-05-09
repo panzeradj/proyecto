@@ -852,7 +852,7 @@
 
 	function cabecera()
 	{
-	session_start();
+
 	comprueba();
 
 	echo '<!DOCTYPE html>
