@@ -16,7 +16,7 @@ $objPHPExcel->getProperties()
 ->setCategory("Pruebas de Excel");
 
 //Orden para los datos csv
-$listacliente=ordensql("SELECT nombre, genero, fecha_alta, fecha_baja, domiciliado, telefono, email,id_cliente from clientes;");
+$listacliente=ordensql("SELECT nombre, genero, fecha_alta, fecha_baja, domiciliado, telefono, email,id_cliente,fecha_nacimiento, apellido from clientes;");
 $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('A1', 'Nombre')
 ->setCellValue('B1', 'Género')
@@ -26,8 +26,10 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('F1', 'Fecha alta')
 ->setCellValue('G1', 'Fecha baja')
 ->setCellValue('H1', 'Domiciliado')
-->setCellValue('I1', 'Teléfono')
-->setCellValue('J1', 'email');
+->setCellValue('I1', 'Pagado €')
+->setCellValue('J1', 'Pendiente €')
+->setCellValue('K1', 'Teléfono')
+->setCellValue('L1', 'email');
 $cont=2;
 while ($resultado=$listacliente->fetch_array()){
 	if($resultado[4]==0){
@@ -43,23 +45,37 @@ while ($resultado=$listacliente->fetch_array()){
 	}
 	$listatarifa=ordensql("SELECT nombre from contratos, tarifas where cliente=".$resultado[7]." and tarifa=id_tarifa;");
 	$resultadotarifa=$listatarifa->fetch_array();
-	$edad=calculaedad($resultado[7]);
+	$listapagado=ordensql("SELECT sum(valor)*(1+iva/100) from facturas, iva where cliente=".$resultado[7]." and estado=1");
+	$resultadopagado=$listapagado->fetch_array();	
+	$pagado=$resultadopagado[0];
+	if ($pagado<=0){
+		$pagado=0;
+	}
+	$listapendiente=ordensql("SELECT sum(valor)*(1+iva/100) from facturas, iva where cliente=".$resultado[7]." and estado=0");
+	$resultadopendiente=$listapendiente->fetch_array();
+	$pendiente=$resultadopendiente[0];
+	if ($pendiente<=0){
+		$pendiente=0;
+	}
+	$edad=calcularEdad($resultado[8]);
 	$objPHPExcel->setActiveSheetIndex(0)
-	->setCellValue('A'.$cont, $resultado[0]) //Nombre
+	->setCellValue('A'.$cont, $resultado[0]." ".$resultado[9]) //Nombre y apellidos
 	->setCellValue('B'.$cont, $resultado[1]) //genero
 	->setCellValue('C'.$cont, $edad) //edad
-	->setCellValue('D'.$cont, /*$resultado[1].*/"Horas totales") //horas hechas
+	->setCellValue('D'.$cont, calcularHoras($resultado[7])) //horas hechas
 	->setCellValue('E'.$cont, $resultadotarifa[0]) //tarifa
 	->setCellValue('F'.$cont, date("Y-m-d",strtotime($resultado[2]))) //fecha alta
 	->setCellValue('G'.$cont, $fechabaja) //fecha baja
 	->setCellValue('H'.$cont, $domiciliado) //domiciliado
-	->setCellValue('I'.$cont, $resultado[5]." ") //telefono
-	->setCellValue('J'.$cont, $resultado[6]); //email
+	->setCellValue('I'.$cont, round($pagado,2)."€") //pagado
+	->setCellValue('J'.$cont, round($pendiente,2)."€") //pendiente
+	->setCellValue('K'.$cont, $resultado[5]." ") //telefono
+	->setCellValue('L'.$cont, $resultado[6]); //email
 	$cont++;
 }
 $objPHPExcel->getActiveSheet()->setAutoFilter("A1:H".$cont);
 $objPHPExcel->getActiveSheet()
-	->getStyle('A1:J1')
+	->getStyle('A1:L1')
 	->applyFromArray(
 	    array(
 	        'fill' => array(

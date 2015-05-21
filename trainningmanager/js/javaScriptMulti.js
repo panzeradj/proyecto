@@ -29,13 +29,13 @@ var misdatos="?hora="+hora+"&dia="+dia;
 		{
 			alert("cancelada con recargo");
 			misdatos=misdatos+"&can=2";
-			location="http://localhost/trainningmanager/reservas/cancelarI.php"+misdatos;
+			location="http://acwellness.es/trainningmanager/reservas/cancelarI.php"+misdatos;
 		}
 		else		
 		{
 			alert("cancelada sin recargo");
 			misdatos=misdatos+"&can=1";
-			location="http://localhost/trainningmanager/reservas/cancelarI.php"+misdatos;
+			location="http://acwellness.es/trainningmanager/reservas/cancelarI.php"+misdatos;
 		}
 	}
 	else		
@@ -66,14 +66,14 @@ function enviarCalen(dia, hora){
 	// Datos para el envio por POST:
 	//alert("melonazo");
 	var misdatos="?hora="+hora+"&dia="+dia+"&calendario=1";
-	location="http://localhost/trainningmanager/reservas/individuales.php"+misdatos;
+	location="http://acwellness.es/trainningmanager/reservas/individuales.php"+misdatos;
 }
 function enviar(dia, hora){
 	// Datos para el envio por POST:
 	//alert("Hola");
 	var misdatos="hora="+hora+"&dia="+dia+"";	
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/multi.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/multi.php",true);
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
@@ -87,7 +87,7 @@ function eliminar(dia, hora){
 	//alert("Hola");
 	var misdatos="hora="+hora+"&dia="+dia;
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/eliminarM.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/eliminarM.php",true);
 
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

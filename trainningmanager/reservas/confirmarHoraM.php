@@ -7,7 +7,7 @@
 		 <meta charset="utf-8">
 		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		 
+
 		  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 		  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 		 <style>
@@ -20,37 +20,49 @@
 	<link rel="stylesheet" href="estilo.css"/>
 </head>
 <body>
-<?php	
-	if(!empty($_POST['cliente']))
+<?php
+	if(!empty($_POST['clientes']))
 	{
-		$cliente=$_POST['cliente'];
-		
+		$cliente=$_POST['clientes'];
+
 	}
-	
+
 	$horass=explode("*", $_SESSION['hora']);
 	$diass=explode("*", $_SESSION['dia']);
 	$bandera=false;
 	for($i=1;$i<sizeof($diass);$i++ ) {
 		if(!empty($diass[$i]))
 		{
-			
+
 			for($a=0;$a<4;$a++)
 			{
 				if(!empty($cliente[$a]))
 				{
+					$id=0;
+					$clieNomb=explode(",",$cliente[$a]);
+					$sql="select id_cliente from clientes where apellido like '".$clieNomb[1]."' and nombre like '".$clieNomb[0]."'";
+					echo $sql;
+					$cho=ordensql($sql);
+					if($cho!=false)
+					{
+						while ($regi = $cho->fetch_array()) {
+							$id=$regi[0];
+						}
+					}
+					//echo $cliente[$a]." n* ".$a;
 					$fecha=explode("/", $diass[$i]);
-					reservas($fecha[0],$fecha[1],$fecha[2],$horass[$i], $cliente[$a]);
+					reservas($fecha[0],$fecha[1],$fecha[2],$horass[$i], $id);
 				}
-				
+
 			}
 		}
 	}
 
 		echo "<script>alert('orden realizada con exito');</script>";
 		echo "<img src=imagenes/2F7864BDA.gif id=cargando/>";
-		header("refresh:0;url=http://localhost/trainningmanager/reservas/calendario.php");
+//		echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php">';
 
-	
+
 ?>
 </body>
 </html>

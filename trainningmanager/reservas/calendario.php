@@ -3,6 +3,7 @@
 	$_SESSION['hora']='';
 	$_SESSION['dia']='';
 	include("../php/funciones/function.php");
+	include ('../Mobile-Detect/Mobile_Detect.php');
 	$Semana=$_GET['semana'];
 	if(!empty($Semana))
 	{
@@ -12,16 +13,66 @@
 		$_SESSION['semanas']=0;
 	}
 	cabecera();
-?><script src="http://localhost/trainningmanager/js/javaScript.js"></script>
+?>
+<script type="text/javascript" src="../alertify/lib/alertify.js"></script>
+<link rel="stylesheet" href="../alertify/themes/alertify.core.css" />
+<link rel="stylesheet" href="../alertify/themes/alertify.default.css" />
+<script type="text/javascript">
+    function alerta(){
+        alertify.alert("(Notificación temporal)<br/>Leyenda:<span style=color:#ff34b3;font-size:160%>Uno</span>&nbsp;&nbsp;<span style=color:#ff3030;font-size:160%>Dos</span>&nbsp;&nbsp;<span style=color:#ffae1a;font-size:160%>Tres</span>", function () {
+                //aqui introducimos lo que haremos tras cerrar la alerta.
+            });
+    }
+</script>
+<script type="text/javascript">
+        function semanaMasN(){
+            alertify.log("Semana mas"); 
+            return false;
+        }
+        function semanaMenosN(){
+            alertify.log("Semana menos"); 
+            return false;
+        }
+       	function reservaOk(){
+            alertify.success("Reserva efectuada"); 
+            return false;
+        }
+        function reservaError(){
+            alertify.error("Ha ocurrido un error al efectuar la reserva"); 
+            return false;
+        }
+    </script>
 </head>
 <body>
-<?php menu();?>
-<h1>Calendario</h1>
+<?php menu();
+if(!(empty($_GET["mensaje"]))){
+    if($_GET["mensaje"]=="bien"){
+        echo "<script type=text/javascript>reservaOk();</script>";
+    }
+    if($_GET["mensaje"]=="mal"){
+         echo "<script type=text/javascript>reservaError();</script>";
+    }
+}
+?>
+<div style="text-align: center; width: 100%;"><h1>Calendario&nbsp;&nbsp;<img class="img-rounded" src='../iconos/calendario.png'></h1></div>
+<p id="leyenda">Leyenda:&nbsp;<span style=color:#ff34b3;>Uno</span>&nbsp;&nbsp;<span style=color:#ff3030;>Dos</span>&nbsp;&nbsp;<span style=color:#ffae1a;>Tres</span></p>
+
+	<script type="text/javascript" src="../alertify/lib/alertify.js"></script>
+	<link rel="stylesheet" href="../alertify/themes/alertify.core.css" />
+	<link rel="stylesheet" href="../alertify/themes/alertify.default.css" />
+	
+
+	<script src="http://acwellness.es/trainningmanager/js/javaScript.js"></script>
 	<article id="zona">
-		<button id="menos" onClick=semanaMenos()>Semana menos</button>
-		<form class="form_login" id="cal"> <input type="text" id="datepicker" /></form>
-		<button id="mas" onClick=semanaMas()>Semana mas</button>
-		<div id='calendario'></div></article>
+		<div id="botones">
+			<button id="menos" class="baja" onClick="semanaMenos();semanaMenosN();">Semana menos</button>
+			<button id="mas" class="baja" onClick="semanaMas();semanaMasN();">Semana mas</button>
+		</div>
+		<div id="calendarioJQuery">
+			<form class="form_login" id="cal"> <input type="text" id="datepicker" /></form>
+		</div>
+		<div id='calendario'></div>
+	</article>
 	</section>
 	<script type="text/javascript">
 
@@ -43,7 +94,7 @@
 	  initStatus: 'Selecciona la fecha', isRTL: false,
 	  onSelect: function(dateText) { 
 	          $('#fecha').val(dateText);
-	         	location="http://localhost/trainningmanager/reservas/calcularSemanas.php?semana="+dateText;
+	         	location="http://acwellness.es/trainningmanager/reservas/calcularSemanas.php?semana="+dateText;
 	       
 	      },
 	  
@@ -59,6 +110,5 @@
 
 	  });
 	</script>
-
 </body>
 </html>

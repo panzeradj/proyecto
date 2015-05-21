@@ -1,4 +1,4 @@
-<script src="http://localhost/trainningmanager/js/javaScript.js"></script>
+<script src="http://acwellness.es/trainningmanager/js/javaScript.js"></script>
 
 <?php 
 //muestra el calendario en la pestaña calendario
@@ -13,7 +13,7 @@
 	{
 		$_SESSION['semanas']=$_SESSION['semanas']+1;
 	}
-	IF($_SESSION['semanas']>1)
+	if($_SESSION['semanas']>1)
 	$_SESSION['semanas']=$_SESSION['semanas']-1;
 	horarioSemana($_SESSION['semanas']);
 

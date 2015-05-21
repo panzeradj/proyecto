@@ -28,7 +28,7 @@ session_start();
 		ordensqlupdate($orden);
 		$orden="update reservasmultiples set cancelada=1 where  id=".$id.";";
 		ordensqlupdate($orden);
-	header("refresh:0;url=http://localhost/trainningmanager/reservas/calendario.php");
+	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php">';
 	}
 
 ?>

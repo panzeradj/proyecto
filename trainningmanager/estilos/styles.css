@@ -3,7 +3,7 @@
     height: 200px;
 }
 body {
-    background-image: url(../imagenes/fondo.jpg);
+    background-image: url(../imagenes/fondo.jpg) !important;
 }
 form,
 input,
