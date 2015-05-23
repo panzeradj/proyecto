@@ -1090,7 +1090,7 @@
                         </ul>
                     </li>';
                     
-
+                    
                     $detect = new Mobile_Detect();
                     if ($detect->isMobile()) {
 
