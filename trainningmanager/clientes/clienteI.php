@@ -39,12 +39,17 @@ session_start();
 			   echo "<script type=text/javascript>errcambio();</script>";
 			  }
 		}
+		
 		$sql="select nombre, dni, genero,fecha_nacimiento, telefono, telefono2,email,fecha_alta, fecha_baja,objetivos,comentarios,medicacion  , activo , id_cliente ,apellido , patologias ,domiciliado,direccion, poblacion,provincia,c_p
 			  from clientes  where id_cliente=".$id_cliente;
 			//echo $sql;
 			$cho=ordensql($sql);
 
 			$datos=array();
+			$datos['medicacion']="";
+			$datos['objetivos']="";
+			$datos['patologias']="";
+			$datos['comentarios']="";
 			if($cho!=false)
 			{
 				while ($regi = $cho->fetch_array()) {
@@ -202,17 +207,12 @@ session_start();
 				</div>
 
 			</div>
-
-<div class='col-lg-12'>
-			</div>
-			<div class='col-lg-12'>
-			</div>
-<div class='col-lg-12'>
-			</div>
+ 
 			<div class='col-lg-12'>
 				<div class='col-lg-12'>
 					<label>Patologías:</label>
 					<div><?php
+				 
 						if($datos['patologia']=="")
 						{
 							echo "--";
@@ -228,7 +228,7 @@ session_start();
 			<div class='col-lg-12'>
 				<div class='col-lg-12'>
 					<label>Objetivos</label>
-					<div><?php
+					<div><?php 
 						if($datos['objetivos']=="")
 						{
 							echo "--";
@@ -244,7 +244,7 @@ session_start();
 				<div class='col-lg-12'>
 					<label>Comentarios</label>
 					<div><?php
-
+				 
 						if($datos['comentarios']=="")
 						{
 							echo "--";
@@ -262,6 +262,7 @@ session_start();
 				<div class='col-lg-12'>
 					<label>Medicación</label>
 					<div><?php
+					 
 						if($datos['medicacion']=="")
 						{
 							echo "--";

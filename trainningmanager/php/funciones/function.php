@@ -232,7 +232,7 @@
 			while ($reg = $c->fetch_array()) {
 
 				$contador=$contador+$reg[0];
-				$edad=$reg[1];
+			 
 			}
 		}
 		$sql="select count(id_reserva) from reservas where anyo=".anyo()." and mes <".mes()." and cliente=".$id_cliente;
@@ -243,7 +243,7 @@
 			while ($reg = $c->fetch_array()) {
 
 				$contador=$contador+$reg[0];
-				$edad=$reg[1];
+				 
 			}
 		}
 		$sql="select count(id_reserva) from reservas where anyo=".anyo()." and mes <=".mes()." and dia<=".dia()." and cliente=".$id_cliente;
@@ -254,7 +254,7 @@
 			while ($reg = $c->fetch_array()) {
 
 				$contador=$contador+$reg[0];
-				$edad=$reg[1];
+ 
 			}
 		}
 		return $contador;
