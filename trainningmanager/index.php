@@ -68,7 +68,7 @@ $_SESSION["us"]="no";
     $('#form').submit(function(event){
         $('#boton').attr("disabled", true);
         event.preventDefault();
-        ruta='http://localhost/trainningmanager/comprobador.php';
+        ruta='comprobador.php';
         $.ajax({
             url:ruta,
             data:$(this).serialize(),
@@ -79,7 +79,7 @@ $_SESSION["us"]="no";
                 //ir a administrador
                 console.dir(data);
                 if(data=='1'){
-                   window.location.href="http://localhost/trainningmanager/administrador.php";
+                   window.location.href="administrador.php";
                 }else{
                     $('#boton').attr("disabled", false);
                     error();

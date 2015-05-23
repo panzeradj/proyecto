@@ -6,10 +6,10 @@
 
 	function abrirBBDD()
 	{
-		 $host_name  = "localhost";
-    $database   = "db574957313";
-    $user_name  = "dbo574957313";
-			$conexion = new mysqli($host_name, $user_name, 'pP1@@8*=hnd"siuy:8DX', $database);
+		 $host_name  = "127.0.0.1";
+    $database   = "trainningmanager";
+    $user_name  = "root";
+			$conexion = new mysqli($host_name, $user_name, 'root', $database);
 		//$conexion = new mysqli("127.0.0.7", "root", "root", "trainningmanager");
 
 			$conexion->Set_charset("UTF8");
@@ -74,6 +74,12 @@
 		}else{
 			return '0';
 		}
+	}
+	function rol($user){
+		$sql="SELECT id_rol from login WHERE entrenador='".$user."'";
+		$lista = ordensql($sql);
+		$resultado = $lista->fetch_array(MYSQLI_ASSOC);
+		return $resultado['id_rol'];
 	}
 	function comprueba(){
 		if((strcmp($_SESSION["login"],"yes")!=0)){
@@ -1071,7 +1077,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="http://localhost/trainningmanager/administrador.php">
-                    <img src="http://localhost/trainningmanager/imagenes/e3.png" id="logo">
+                    <img src="http://localhost/trainningmanager/imagenes/logoTM.png" id="logo">
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -1083,7 +1089,7 @@
                             <li><a href="http://localhost/trainningmanager/clientes/nuevoCliente.php">Nuevo Cliente</a></li>
                         </ul>
                     </li>';
-                    include ('../../Mobile-Detect/Mobile_Detect.php');
+                    
 
                     $detect = new Mobile_Detect();
                     if ($detect->isMobile()) {
@@ -1146,8 +1152,11 @@
                     if ($detect->isMobile()) {
 
                     }else{
-                      echo '<li><a href="http://localhost/trainningmanager/entrenadores/masEntrenador.php">Añadir entrenador</a></li>
+                    	$rol = rol($_SESSION["us"]);
+                    	if($rol==1){
+                      		echo '<li><a href="http://localhost/trainningmanager/entrenadores/masEntrenador.php">Añadir entrenador</a></li>
                             <li><a href="http://localhost/trainningmanager/entrenadores/entrenadores.php">Listado de entrenadores</a></li>';
+                    	}
                     }
 
                      echo '<li role="presentation" class="divider"></li>

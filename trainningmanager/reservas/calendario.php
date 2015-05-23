@@ -1,8 +1,10 @@
 <?php
 	session_start();
+	include("../php/funciones/function.php");
+	cabecera();
 	$_SESSION['hora']='';
 	$_SESSION['dia']='';
-	include("../php/funciones/function.php");
+
 	include ('../Mobile-Detect/Mobile_Detect.php');
 	$Semana=$_GET['semana'];
 	if(!empty($Semana))
@@ -12,7 +14,7 @@
 	else {
 		$_SESSION['semanas']=0;
 	}
-	cabecera();
+
 ?>
 <script type="text/javascript" src="../alertify/lib/alertify.js"></script>
 <link rel="stylesheet" href="../alertify/themes/alertify.core.css" />
@@ -26,21 +28,25 @@
 </script>
 <script type="text/javascript">
         function semanaMasN(){
-            alertify.log("Semana mas"); 
+            alertify.log("Semana mas");
             return false;
         }
         function semanaMenosN(){
-            alertify.log("Semana menos"); 
+            alertify.log("Semana menos");
             return false;
         }
        	function reservaOk(){
-            alertify.success("Reserva efectuada"); 
+            alertify.success("Reserva efectuada");
             return false;
         }
         function reservaError(){
-            alertify.error("Ha ocurrido un error al efectuar la reserva"); 
+            alertify.error("Ha ocurrido un error al efectuar la reserva");
             return false;
         }
+				function reservaCancelarM(){
+						alertify.success("Reserva múltiple cancelada");
+						return false;
+				}
     </script>
 </head>
 <body>
@@ -52,6 +58,9 @@ if(!(empty($_GET["mensaje"]))){
     if($_GET["mensaje"]=="mal"){
          echo "<script type=text/javascript>reservaError();</script>";
     }
+		if($_GET["mensaje"]=="cancelarM"){
+			echo "<script type=text/javascript>reservaCancelarM();</script>";
+		}
 }
 ?>
 <div style="text-align: center; width: 100%;"><h1>Calendario&nbsp;&nbsp;<img class="img-rounded" src='../iconos/calendario.png'></h1></div>
@@ -60,7 +69,7 @@ if(!(empty($_GET["mensaje"]))){
 	<script type="text/javascript" src="../alertify/lib/alertify.js"></script>
 	<link rel="stylesheet" href="../alertify/themes/alertify.core.css" />
 	<link rel="stylesheet" href="../alertify/themes/alertify.default.css" />
-	
+
 
 	<script src="http://acwellness.es/trainningmanager/js/javaScript.js"></script>
 	<article id="zona">
@@ -76,12 +85,12 @@ if(!(empty($_GET["mensaje"]))){
 	</section>
 	<script type="text/javascript">
 
-	 $.datepicker.regional['es'] = 
+	 $.datepicker.regional['es'] =
 	  {
-	  closeText: 'Cerrar', 
-	  prevText: 'Previo', 
+	  closeText: 'Cerrar',
+	  prevText: 'Previo',
 	  nextText: 'Próximo',
-	   
+
 	  monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
 	  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
 	  monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
@@ -90,22 +99,22 @@ if(!(empty($_GET["mensaje"]))){
 	  dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
 	  dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'],
 	  dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
-	  dateFormat: 'dd/mm/yy', firstDay: 1, 
+	  dateFormat: 'dd/mm/yy', firstDay: 1,
 	  initStatus: 'Selecciona la fecha', isRTL: false,
-	  onSelect: function(dateText) { 
+	  onSelect: function(dateText) {
 	          $('#fecha').val(dateText);
 	         	location="http://acwellness.es/trainningmanager/reservas/calcularSemanas.php?semana="+dateText;
-	       
+
 	      },
-	  
+
 	};
 
 	 $.datepicker.setDefaults($.datepicker.regional['es']);
-	  
+
 
 	    $( "#datepicker" ).datepicker({ minDate: "-1Y", maxDate: "  +1Y" });
 	    	$(document).ready(function(){
-	
+
 			$('#datepicker').datepicker();
 
 	  });

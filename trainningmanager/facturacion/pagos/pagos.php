@@ -93,7 +93,7 @@ if(isset($_GET["mensaje"])){
                     <p>En la tabla de abajo se encuentra el listado de los pagos, ordenados por la fecha en la que se emitieron. </p>
                     <p class="leyenda">Leyenda:&nbsp; 
                     <span class="emitido">Emitido&nbsp;</span>, <span class="anulado">&nbsp;Anulado</span>&nbsp;y&nbsp;<span class="pagado">Pagado </span>.</p>
-                    <table class='table table-bordered'>
+                    <table class='table table-hover'>
                         <tr>
                             <th class="titulo"><h4>Cliente</h4></th> 
                             <th class="titulo"><h4>Fecha emisión</h4></th>

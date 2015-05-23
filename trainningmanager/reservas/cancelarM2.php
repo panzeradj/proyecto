@@ -19,7 +19,7 @@ session_start();
 		//mes actual
 		$orden="update reservas set cancelada=1  where  mes=".mes()."  and Semana='".$diaSemana."' and hora=".$hora." and dia>=".dia().";";
 		ordensqlupdate($orden);
-		//mes del medio 
+		//mes del medio
 		$orden="update  reservas set cancelada=1 where  mes<".$mes_fin." and mes>".mes()."  and Semana='".$diaSemana."' and hora=".$hora.";";
 		ordensqlupdate($orden);
 		//Mesfin
@@ -28,7 +28,7 @@ session_start();
 		ordensqlupdate($orden);
 		$orden="update reservasmultiples set cancelada=1 where  id=".$id.";";
 		ordensqlupdate($orden);
-	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php">';
+	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php?mensaje=cancelarM">';
 	}
 
 ?>

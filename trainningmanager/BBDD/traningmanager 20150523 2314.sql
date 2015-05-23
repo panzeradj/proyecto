@@ -22,6 +22,25 @@ CREATE DATABASE IF NOT EXISTS trainningmanager;
 USE trainningmanager;
 
 --
+-- Definition of table `cajas`
+--
+
+DROP TABLE IF EXISTS `cajas`;
+CREATE TABLE `cajas` (
+  `fecha_apertura` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `importe` float NOT NULL,
+  PRIMARY KEY (`fecha_apertura`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cajas`
+--
+
+/*!40000 ALTER TABLE `cajas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cajas` ENABLE KEYS */;
+
+
+--
 -- Definition of table `clientes`
 --
 
@@ -123,6 +142,31 @@ INSERT INTO `correo` (`correo`,`pass`,`servidor`,`puerto`) VALUES
 
 
 --
+-- Definition of table `direcciones`
+--
+
+DROP TABLE IF EXISTS `direcciones`;
+CREATE TABLE `direcciones` (
+  `id_cliente` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `calle` varchar(45) NOT NULL,
+  `numero` varchar(45) NOT NULL,
+  `piso` varchar(45) NOT NULL,
+  `letra` varchar(45) NOT NULL,
+  `poblacion` varchar(45) NOT NULL,
+  `provincia` varchar(45) NOT NULL,
+  `cp` varchar(5) NOT NULL,
+  PRIMARY KEY (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `direcciones`
+--
+
+/*!40000 ALTER TABLE `direcciones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `direcciones` ENABLE KEYS */;
+
+
+--
 -- Definition of table `entrenadores`
 --
 
@@ -141,7 +185,8 @@ CREATE TABLE `entrenadores` (
 
 /*!40000 ALTER TABLE `entrenadores` DISABLE KEYS */;
 INSERT INTO `entrenadores` (`id_entrenador`,`nombre`,`apellidos`,`email`) VALUES 
- ('adriancarnicero','Adrian','Carnicero','adrian@acwellness.es');
+ ('adriancarnicero','Adrian','Carnicero','adrian@acwellness.es'),
+ ('oscarromero','Oscar','Romero','oscar@romero.com');
 /*!40000 ALTER TABLE `entrenadores` ENABLE KEYS */;
 
 
@@ -152,7 +197,7 @@ INSERT INTO `entrenadores` (`id_entrenador`,`nombre`,`apellidos`,`email`) VALUES
 DROP TABLE IF EXISTS `externas`;
 CREATE TABLE `externas` (
   `cod_externas` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `local` varchar(45) NOT NULL,
+  `id_loca` int(10) unsigned NOT NULL,
   `cod_cliente` int(10) unsigned NOT NULL,
   `horas` int(10) unsigned NOT NULL,
   `precio` float NOT NULL,
@@ -220,6 +265,28 @@ INSERT INTO `iva` (`iva`) VALUES
 
 
 --
+-- Definition of table `lineas_caja`
+--
+
+DROP TABLE IF EXISTS `lineas_caja`;
+CREATE TABLE `lineas_caja` (
+  `num_linea` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_factura` varchar(45) NOT NULL,
+  `medio` int(10) unsigned NOT NULL,
+  `valor` float NOT NULL,
+  `comentario` varchar(45) NOT NULL,
+  PRIMARY KEY (`num_linea`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lineas_caja`
+--
+
+/*!40000 ALTER TABLE `lineas_caja` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lineas_caja` ENABLE KEYS */;
+
+
+--
 -- Definition of table `lineas_factura`
 --
 
@@ -253,6 +320,25 @@ INSERT INTO `lineas_factura` (`factura`,`producto`,`cantidad`) VALUES
 
 
 --
+-- Definition of table `locales`
+--
+
+DROP TABLE IF EXISTS `locales`;
+CREATE TABLE `locales` (
+  `id_local` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_local`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `locales`
+--
+
+/*!40000 ALTER TABLE `locales` DISABLE KEYS */;
+/*!40000 ALTER TABLE `locales` ENABLE KEYS */;
+
+
+--
 -- Definition of table `log_notificaciones`
 --
 
@@ -281,7 +367,10 @@ DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `entrenador` varchar(45) NOT NULL,
   `pass` varchar(45) NOT NULL,
-  PRIMARY KEY (`entrenador`)
+  `id_rol` int(10) unsigned NOT NULL DEFAULT '2',
+  PRIMARY KEY (`entrenador`),
+  KEY `FK_login_1` (`id_rol`),
+  CONSTRAINT `FK_login_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -289,9 +378,30 @@ CREATE TABLE `login` (
 --
 
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` (`entrenador`,`pass`) VALUES 
- ('adriancarnicero','e491ecb8613adf4e966a11c9c7f3e396');
+INSERT INTO `login` (`entrenador`,`pass`,`id_rol`) VALUES 
+ ('adriancarnicero','e491ecb8613adf4e966a11c9c7f3e396',1),
+ ('oscarromero','15fa672549a3c6bb57af22fbb5bc73ba',2);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
+
+
+--
+-- Definition of table `mensajes`
+--
+
+DROP TABLE IF EXISTS `mensajes`;
+CREATE TABLE `mensajes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `notificacion` varchar(45) NOT NULL,
+  `texto` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mensajes`
+--
+
+/*!40000 ALTER TABLE `mensajes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mensajes` ENABLE KEYS */;
 
 
 --
@@ -528,6 +638,28 @@ CREATE TABLE `reservasmultiples` (
 
 /*!40000 ALTER TABLE `reservasmultiples` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reservasmultiples` ENABLE KEYS */;
+
+
+--
+-- Definition of table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles` (
+  `id_rol` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_rol`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `roles`
+--
+
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` (`id_rol`,`nombre`) VALUES 
+ (1,'Administrador'),
+ (2,'Usuario');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 
 --

@@ -53,6 +53,7 @@ cabecera();
     } 
     td{
         background-color: #ffffff;
+        vertical-align: middle !important;
     }  
 </style>
 
@@ -92,7 +93,7 @@ cabecera();
                 <button class=" anchoMax  PATEON btn btn-success btn-block  RESET" onclick="location.href='nuevatarifa.php'">Crear nueva tarifa</button>
                 <br/>
                 <br/>
-    			<table class='table table-bordered'>
+    			<table class='table table-hover'>
     			<tr><th class="titulo"><h4>Nombre</h4></th> 
     			<th class="titulo"><h4>Descripción</h4></th> 
     			<th class="titulo"><h4>Precio sin IVA</h4></th>

@@ -27,7 +27,7 @@ function listarEntrenadores(){
 	            <td>".$resultado['nombre']."</td>
 	            <td>".$resultado['apellidos']."</td>
 	            <td>".$resultado['email']."</td>
-	            <td><form name='borrar' action='borrarEntrenador.php' method='post' style='display:inline-block'><input class='btn btn-danger' type='submit' name='Borrar' value='borrar'/><input type='hidden' name='entrenador' value='".$resultado['id_entrenador']."''></form>&nbsp;<form name='modificar' action='modificarEntrenador.php' method='post' style='display:inline-block'><input class='btn btn-warning' type='submit' name='Modificar' value='modificar'/><input type='hidden' name='entrenador' value=".$resultado['id_entrenador']."></form>&nbsp;<button style='display:inline-block' class='btn btn-info' name='sesion' onclick='version();'>Sesión</button></td>
+	            <td><form name='borrar' action='borrarEntrenador.php' method='post' style='display:inline-block'><input class='btn btn-danger' type='submit' name='Borrar' value='borrar'/><input type='hidden' name='entrenador' value='".$resultado['id_entrenador']."''></form>&nbsp;<form name='modificar' action='modificarEntrenador.php' method='post' style='display:inline-block'><input class='btn btn-warning' type='submit' name='Modificar' value='modificar'/><input type='hidden' name='entrenador' value=".$resultado['id_entrenador']."></form>&nbsp;<form name='borrar' action='sesionentrenador.php' method='post' style='display:inline-block'><input type='hidden' name='entrenador' value=".$resultado['id_entrenador']."><input class='btn btn-info' type='submit' name='Sesión' value='Sesión'/</td>
 	        </tr>";
 		}
 		echo "</tbody></table>";

@@ -69,7 +69,7 @@ session_start();
             alertify.confirm("<p>No hay notificaciones ¿Configurarlas ahora? <br><br><b>ENTER</b> y <b>ESC</b> corresponden a <b>Aceptar</b> o <b>Cancelar</b></p>", function (e) {
                 if (e) {
                     
-                    window.location.href="http://localhost/trainningmanager/notificaciones/configuraNotificacion.php";
+                    window.location.href="http://acwellness.es/trainningmanager/notificaciones/configuraNotificacion.php";
                 } else { alertify.error("Has cancelado la acción");
                 }
             }); 
@@ -79,7 +79,7 @@ session_start();
             alertify.confirm("<p>Es el cumpleaños de "+nombre+" "+apellidos+" al correo "+email+" <br/>¿Desea enviarle un correo?<br><br><b>ENTER</b> y <b>ESC</b> corresponden a <b>Aceptar</b> o <b>Cancelar</b></p>", function (e) {
                 if (e) {
             $.ajax({
-                url:   'http://localhost/trainningmanager/notificaciones/correo.php',
+                url:   'http://acwellness.es/trainningmanager/notificaciones/correo.php',
                 type:  'post',
                 data: { email : email1 },
                 error:function(error){
@@ -224,7 +224,7 @@ session_start();
         font-weight: bold;
     } 
 </style>
- <script src="http://localhost/trainningmanager/js/jsadministradore.js"></script>
+ <script src="http://acwellness.es/trainningmanager/js/jsadministradore.js"></script>
 </head>
 <body>
 

@@ -1,7 +1,7 @@
 <?php
 	function abre(){
 		// Conectando con la BBDD
-		$conexion = new mysqli("localhost", "dbo574957313", 'pP1@@8*=hnd"siuy:8DX', "db574957313");
+		$conexion = new mysqli("db574957313.db.1and1.com", "dbo574957313", 'pP1@@8*=hnd"siuy:8DX', "db574957313");
 		if (mysqli_connect_errno()) {
     		die("Error grave: " . mysqli_connect_error());
 		}

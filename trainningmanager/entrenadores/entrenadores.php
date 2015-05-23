@@ -54,6 +54,10 @@ cabecera();
         alertify.success("Se a modificado correctamente el entrenador"); 
         return false;
     }
+    function sesion(){
+        alertify.success("Se a creado la sesion del entrenador"); 
+        return false;
+    }
     function version(){
         alertify.log("No disponible en esta versión"); 
         return false;
@@ -75,6 +79,11 @@ cabecera();
 			}
 			if($_GET["mensaje"]=='modificar'){
 				echo "<script>modificar();</script>";
+				echo "<div style=text-center><h1>Listado de entrenadores&nbsp;&nbsp;<img class='img-rounded' src='../iconos/entrenadores.png'></h1></div>";
+				echo listarEntrenadores();
+			}
+			if($_GET["mensaje"]=='sesion'){
+				echo "<script>sesion();</script>";
 				echo "<div style=text-center><h1>Listado de entrenadores&nbsp;&nbsp;<img class='img-rounded' src='../iconos/entrenadores.png'></h1></div>";
 				echo listarEntrenadores();
 			}

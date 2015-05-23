@@ -41,7 +41,7 @@
 					$id=0;
 					$clieNomb=explode(",",$cliente[$a]);
 					$sql="select id_cliente from clientes where apellido like '".$clieNomb[1]."' and nombre like '".$clieNomb[0]."'";
-					echo $sql;
+
 					$cho=ordensql($sql);
 					if($cho!=false)
 					{
@@ -49,7 +49,7 @@
 							$id=$regi[0];
 						}
 					}
-					//echo $cliente[$a]." n* ".$a;
+
 					$fecha=explode("/", $diass[$i]);
 					reservas($fecha[0],$fecha[1],$fecha[2],$horass[$i], $id);
 				}
@@ -58,9 +58,9 @@
 		}
 	}
 
-		echo "<script>alert('orden realizada con exito');</script>";
+
 		echo "<img src=imagenes/2F7864BDA.gif id=cargando/>";
-//		echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php">';
+		echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php?mensaje=bien">';
 
 
 ?>

@@ -2,6 +2,7 @@
 	session_start();
 	include("../php/funciones/function.php");
 	$semana=$_GET['semana'];
+//	var_dump($semana);
 	//echo $semana."///semanaNueva///  ";
 	$fecha_mas=explode("/",$semana);
 	//echo "mes:".$fecha_mas[1]."////";
@@ -13,8 +14,9 @@
 	{
 		$dif++;
 	}
+	//ECHO $dif;
 	//echo $semanaActual;
-	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php?semana="'.$dif.'">';
+  	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php?semana='.$dif.'">';
 	//header("refresh:0;url=http://acwellness.es/trainningmanager/reservas/calendario.php?semana=".$dif);
 
 ?>

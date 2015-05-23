@@ -162,11 +162,7 @@ body, #zona, h1, h2, h3{
 	border-color: #285E8E;
 }
 body{
-	background: url(http://acwellness.es/trainningmanager/imagenes/e2.png)no-repeat center left fixed; 
-	-webkit-background-size: 25em auto;
-	-moz-background-size: 25em auto;
-	-o-background-size: 25em auto;
-	background-size: 25em auto;
+	background: url(imagenes/tm2.png)no-repeat center left fixed; 
 }
 .titulo{
     background-color: #eeeeee;

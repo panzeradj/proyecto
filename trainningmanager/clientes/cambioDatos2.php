@@ -7,7 +7,7 @@ session_start();
 	$apellido=$_POST['apellido'];
 	$movil=$_POST['movil'];
 	$otro=$_POST['otro'];
-	$mail=$_POST['mail'];	
+	$mail=$_POST['mail'];
 	$direccion=$_POST['direccion'];
 	$poblacion=$_POST['poblacion'];
 	$provincia=$_POST['provincia'];
@@ -20,11 +20,9 @@ session_start();
 
 	$cliente=$_POST['cliente'];
 
-	$sql="update clientes set  nombre='".$nombre."' ,  apellido='".$apellido."' ,telefono='".$movil."',telefono2='".$otro."',email='".$mail."',direccion='".$direccion."',poblacion='".$poblacion."',provincia='".$provincia."',c_p='".$cp."',dni='".$dni."',objetivos='".$objetivos."',comentarios='".$comentarios."',patologias='".$patologias."',medicacion='".$medicacion."'
+	$sql="update clientes set  nombre='".$nombre."' ,  apellido='".$apellido."' ,telefono='".$movil."',telefono2='".$otro."',email='".$mail."',direccion='".$direccion."',poblacion='".$poblacion."',provincia='".$provincia."',c_p='".$cp."',dni='".$dni."',objetivos='".$objetivos."',comentarios='".$comentarios."',patologias='".$patologias."',
+	medicacion='".$medicacion."' where id_cliente=".$cliente ;
 
-
-	 where id_cliente=".$cliente ;
-	//echo $sql;
 	ordensqlupdate($sql);
 	$sql="select id_cliente from clientes where nombre='".$nombre."' and  apellido='".$apellido."' and telefono='".$movil."' and telefono2='".$otro."' and email='".$mail."'and direccion='".$direccion."' and poblacion='".$poblacion."' and provincia='".$provincia."' and c_p='".$cp."' and dni='".$dni."' and objetivos='".$objetivos."' and comentarios='".$comentarios."' and patologias='".$patologias."' and medicacion='".$medicacion."'";
 	//echo $sql;
@@ -34,14 +32,13 @@ session_start();
 	{
 		while ($regi = $cho->fetch_array()) {
 			$ban=true;
-			
+
 		}
 	}
 	if($ban){
-		//echo '<script>alert("CAMBIO CORRECTO");</script>';
+
 		echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/clientes/clienteI.php?cliente='.$cliente.'&mensaje=okcambio">';
 	}else{
-		//echo '<script>alert("FALLO EN EL CAMBIO");</script>';
-		echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/clientes/clienteI.php?cliente='.$cliente.'&mensaje=errcambio">';
+	 	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/clientes/clienteI.php?cliente='.$cliente.'&mensaje=errcambio">';
 	}
 ?>

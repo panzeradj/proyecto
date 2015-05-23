@@ -70,14 +70,12 @@ cabecera();
 	<div id="control">
 	<h1>Reserva individual</h1>
 	<article id="zona">
-		<div id="botones">
-			<button id='baja' class="iz" onClick="semanaMenos();semanaMenosN()">Semana menos</button>
-			<button id='baja' onClick="semanaMas();semanaMasN()">Semana mas</button>
-		</div>
+
 
 	<?php
 		if(!empty($_GET['calendario']))
 		{
+
 			echo "<form name=a id=conHora method=post action=confirmarHora.php>";
 			echo ' <div class="col-lg-4"><label>Cliente 1:</label> <input id ="cliente[0]" list="browsers" name="clientes[0]" class="form-control input-sm" >
 			<datalist class="comboboxx" id="browsers">
@@ -126,6 +124,10 @@ cabecera();
 		}
 		else
 		{
+			echo '	<div id="botones">
+					<button id="baja" class="iz" onClick="semanaMenos();semanaMenosN()">Semana menos</button>
+					<button id="baja" onClick="semanaMas();semanaMasN()">Semana mas</button>
+				</div>';
 			echo "<form name=a id=conHora method=post action=confirmarHora.php>";
 			echo ' <div class="col-lg-4"><label>Cliente 1:</label> <input id ="cliente[0]" list="browsers" name="clientes[0]" class="form-control input-sm" >
 			<datalist class="comboboxx" id="browsers">
