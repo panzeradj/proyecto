@@ -977,14 +977,14 @@
 			echo "</tr>";
 		}
 	}
+
+	//EMISIÓN DE PAGOS
 	function comprobarpagos(){
-		//primero hay que mirar si en la tabla pagos hay entrada para este mes y este año
+		//0. Primero hay que mirar si en la tabla pagos hay entrada para este mes y este año
 		$anyo=date("Y");
 		$mes=date("m");
 		$lista = ordensql("SELECT * from pagos where mes=".$mes." and anyo=".$anyo.";");
-
 		if (!($lista->fetch_array())){
-			//EMISIÓN DE PAGOS
 			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores
 				//1.1. Mirar clientes con reservas sin pagar
 			$listaclientes=ordensql("SELECT id_cliente FROM clientes, reservas WHERE pagada =0 and (cancelada=0 or cancelada=2) AND cliente = id_cliente and mes<=".$mes." and anyo=".$anyo." GROUP BY id_cliente;");
@@ -1008,11 +1008,13 @@
 		}
 	}
 
-	//SE LE PASA LA FACTURA Y CALCULA SU PRECIO
+	//SE LE PASA LA FACTURA Y CALCULA SU PRECIO SÓLO CON LAS CLASES QUE TENGA
 	function preciofactura($factura){
+		//1 - Se sacan todos los productos de reservas que hay en la factura
 		$listaelementos=ordensql("SELECT producto from lineas_factura where factura=".$factura." and producto<200000;");
 		$precio=0;
 		while ($resultado=$listaelementos->fetch_array()){
+			//2 - Por cada uno, se saca la fecha en la que se realizó y el cliente (para saber más adelante la tarifa que tiene)
 			$listafecha=ordensql("SELECT anyo, mes, dia, cliente from reservas where id_reserva=".$resultado[0]);
 			$fecha=$listafecha->fetch_array();
 			if ($fecha[1]<10){
@@ -1028,15 +1030,19 @@
 					$dia=$fecha[0]."-".$fecha[1]."-".$fecha[2];
 				}
 			}
+			//3 - Se saca el valor de la tarifa que tiene la clase en el momento en el que se dio
 			$listavalor=ordensql("SELECT valor_sin_iva from precios_tarifas p,contratos c
 							    	where c.tarifa=p.tarifa and cliente=".$fecha[3]."
 							    	and fecha_inicial<'".$dia."'
 							    	order by fecha_inicial desc limit 1;");
 			$resultadoprecio=$listavalor->fetch_array();
+			//4 - Se suma en el acumulador
 			$precio=$precio+$resultadoprecio[0];
 		}
+		//5 - Se devuelve el valor total de las clases.
 		return $precio;
 	}
+	
 	function calcularEdad($fecha_nacimiento)
 	{
 		$fecha_n=explode("-",$fecha_nacimiento);//anyo-mes-dia
