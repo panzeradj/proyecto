@@ -47,7 +47,7 @@ session_start();
 					if (e) {
 
 						var misdatos="?tarifa="+valor+"&cliente="+id+"&dom="+valor2;
-						location="http://acwellness.es/trainningmanager/clientes/cambioTarifa2.php"+misdatos;
+						location="http://localhost/trainningmanager/clientes/cambioTarifa2.php"+misdatos;
 					} else { alertify.error("Has cancelado la acción");
 					}
 				});

@@ -30,6 +30,9 @@
 		height: auto;
 	}
 </style>
+<script type="text/javascript" src="../alertify/lib/alertify.js"></script>
+<link rel="stylesheet" href="../alertify/themes/alertify.core.css" />
+<link rel="stylesheet" href="../alertify/themes/alertify.default.css" />
 	</head>
 
 <?php menu(); ?>
@@ -46,8 +49,8 @@
 				<div  ><label>Télefono movil:</label><input     class="form-control  "  type=text name=movil /></div>
 				<div  ><label>Otro telefono:</label><input   class="form-control  " type=text name=otro ></div>
 				<div  ><label>Email:</label><input   class="form-control  " type='email' name=mail  /></div>
-				<div  > </div> <label>Genero:</label><select   class="form-control  " name=genero> <option value=''>--</option><option value='Mujer'>Mujer</option><option value='Hombre'>Hombre</option></select></div>
-				<div  ><label>Fecha de nacimiento:</label><input   class="form-control  " type=date name=date></div>
+				<div  > </div> <label>Genero:</label><div id='calendario'></div></div>
+				<div  ><label>Fecha de nacimiento:</label><div id="calendarioJQuery"><input  required type="text" id="datepicker" name='date'/></div></div>
 				<div><label>Tarifa:</label><select required class="form-control" name="tarifa" size="1">
         				<option  value="">Elige una tarifa</option>
         				<?php
@@ -99,7 +102,42 @@
 				$('#boton').attr('disabled','disabled');
 			}
 		});
-	//	alert("hola mundo");
+	 
+	</script>
+	<script type="text/javascript">
+
+	 $.datepicker.regional['es'] =
+	  {
+	  closeText: 'Cerrar',
+	  prevText: 'Previo',
+	  nextText: 'Próximo',
+
+	  monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+	  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+	  monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+	  'Jul','Ago','Sep','Oct','Nov','Dic'],
+	  monthStatus: 'Ver otro mes', yearStatus: 'Ver otro año',
+	  dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+	  dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'],
+	  dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+	  dateFormat: 'yy/mm/dd', firstDay: 1,
+	  initStatus: 'Selecciona la fecha', isRTL: false,
+	  onSelect: function(dateText) {
+	         
+	        },
+
+	};
+
+	 $.datepicker.setDefaults($.datepicker.regional['es']);
+
+
+	    $( "#datepicker" ).datepicker({ minDate: "-1Y", maxDate: "  +1Y" });
+	    	$(document).ready(function(){
+
+			$('#datepicker').datepicker();
+
+	  });
+	</script>
 	</script>
 	</body>
 

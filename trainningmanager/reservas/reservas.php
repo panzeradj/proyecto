@@ -3,7 +3,7 @@
 ?>
 <html>
 <head>
-<script src="http://acwellness.es/trainningmanager/js/javaScript.js"></script>
+<script src="http://localhost/trainningmanager/js/javaScript.js"></script>
 </head>
 
 <body>

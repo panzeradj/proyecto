@@ -87,7 +87,7 @@ cabecera();
 	}
 	?>
 </style>
-<script src="http://acwellness.es/trainningmanager/js/javaScript.js"></script>
+<script src="http://localhost/trainningmanager/js/javaScript.js"></script>
 <script type="text/javascript" src="../alertify/lib/alertify.js"></script>
 <link rel="stylesheet" href="../alertify/themes/alertify.core.css" />
 <link rel="stylesheet" href="../alertify/themes/alertify.default.css" />
@@ -123,27 +123,27 @@ $banderaBaja=false;
 	if(!isset($_GET['baja'])  )
 	{
 		$banderaBaja=true;
-		echo "<div class='letraOscura'><h1>Clientes activos  <img src='../iconos/clientesActivos.png'></h1><form name='a' method=get action='http://acwellness.es/trainningmanager/clientes/clientes.php'><input type='hidden' name=baja value=a><input class='btn btn-warning' type=submit name=a value='Clientes inactivos'></form></div>";
+		echo "<div class='letraOscura'><h1>Clientes activos  <img src='../iconos/clientesActivos.png'></h1><form name='a' method=get action='http://localhost/trainningmanager/clientes/clientes.php'><input type='hidden' name=baja value=a><input class='btn btn-warning' type=submit name=a value='Clientes inactivos'></form></div>";
 		//echo "<form name='a' method=post action='Clientes.php'><input type=submit name=asd value='Clientes activos'></form>";
 
 	}
 	else
 	{
 		echo "<div class='letraOscura'><h1>Clientes inactivos</h1>";
-			echo "<form name='a' method=post action='http://acwellness.es/trainningmanager/clientes/clientes.php'><input class='btn btn-success' type=submit name=asd value='Clientes activos'></form></div>";
+			echo "<form name='a' method=post action='http://localhost/trainningmanager/clientes/clientes.php'><input class='btn btn-success' type=submit name=asd value='Clientes activos'></form></div>";
 		//echo "<form name='a' method=get action='Clientes.php'><input type='hidden' name=baja value=a><input type=submit name=a value='Clientes inactivos'></form>";
 	}
 
 	if($banderaBaja )
 	{
-		echo "<br/><div class='busqueda'><form action='http://acwellness.es/trainningmanager/clientes/clientes.php' method=POST name=buasdsqueda><input type=text name=busqueda ><input id='baja' type=submit name=enviar value='Enviar consulta'></form></div>";
+		echo "<br/><div class='busqueda'><form action='http://localhost/trainningmanager/clientes/clientes.php' method=POST name=buasdsqueda><input type=text name=busqueda ><input id='baja' type=submit name=enviar value='Enviar consulta'></form></div>";
 		$sql="select id_cliente , nombre, dni, genero, fecha_nacimiento , email ,apellido
         from clientes
         where activo=1 and id_cliente>1";
 	}
 	else
 	{
-		echo "<br/><div class='busqueda'><form action='http://acwellness.es/trainningmanager/clientes/clientes.php?baja=a' method=POST name=buasdsqueda><input type=text name=busqueda > <input type=hidden name='noActivo' value='asd'><input id='baja' type=submit name=enviar></form></div>";
+		echo "<br/><div class='busqueda'><form action='http://localhost/trainningmanager/clientes/clientes.php?baja=a' method=POST name=buasdsqueda><input type=text name=busqueda > <input type=hidden name='noActivo' value='asd'><input id='baja' type=submit name=enviar></form></div>";
 		$sql="select id_cliente , nombre, dni, genero, fecha_nacimiento , email , apellido
         from clientes
         where activo=0 and id_cliente>1";

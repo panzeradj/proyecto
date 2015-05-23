@@ -6,6 +6,7 @@
 	$_SESSION['dia']='';
 
 	include ('../Mobile-Detect/Mobile_Detect.php');
+	if(isset($_GET['semana']))
 	$Semana=$_GET['semana'];
 	if(!empty($Semana))
 	{
@@ -43,10 +44,10 @@
             alertify.error("Ha ocurrido un error al efectuar la reserva");
             return false;
         }
-				function reservaCancelarM(){
-						alertify.success("Reserva múltiple cancelada");
-						return false;
-				}
+		function reservaCancelarM(){
+				alertify.success("Reserva múltiple cancelada");
+				return false;
+		}
     </script>
 </head>
 <body>
@@ -71,7 +72,7 @@ if(!(empty($_GET["mensaje"]))){
 	<link rel="stylesheet" href="../alertify/themes/alertify.default.css" />
 
 
-	<script src="http://acwellness.es/trainningmanager/js/javaScript.js"></script>
+	<script src="http://localhost/trainningmanager/js/javaScript.js"></script>
 	<article id="zona">
 		<div id="botones">
 			<button id="menos" class="baja" onClick="semanaMenos();semanaMenosN();">Semana menos</button>
@@ -103,7 +104,7 @@ if(!(empty($_GET["mensaje"]))){
 	  initStatus: 'Selecciona la fecha', isRTL: false,
 	  onSelect: function(dateText) {
 	          $('#fecha').val(dateText);
-	         	location="http://acwellness.es/trainningmanager/reservas/calcularSemanas.php?semana="+dateText;
+	         	location="http://localhost/trainningmanager/reservas/calcularSemanas.php?semana="+dateText;
 
 	      },
 
