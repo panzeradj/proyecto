@@ -199,12 +199,11 @@ CREATE TABLE `externas` (
   `cod_externas` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_loca` int(10) unsigned NOT NULL,
   `cod_cliente` int(10) unsigned NOT NULL,
-  `horas` varchar(45) NOT NULL,
+  `horas` int(10) unsigned NOT NULL,
   `precio` float NOT NULL,
-  `fecha` date NOT NULL,
-  `hora` time NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cod_externas`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `externas`
@@ -329,15 +328,13 @@ CREATE TABLE `locales` (
   `id_local` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`id_local`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `locales`
 --
 
 /*!40000 ALTER TABLE `locales` DISABLE KEYS */;
-INSERT INTO `locales` (`id_local`,`nombre`) VALUES 
- (2,'Juventud');
 /*!40000 ALTER TABLE `locales` ENABLE KEYS */;
 
 
@@ -383,7 +380,7 @@ CREATE TABLE `login` (
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
 INSERT INTO `login` (`entrenador`,`pass`,`id_rol`) VALUES 
  ('adriancarnicero','e491ecb8613adf4e966a11c9c7f3e396',1),
- ('oscarromero','d9a83db0f2125a01829e1b4a65e22450',2);
+ ('oscarromero','15fa672549a3c6bb57af22fbb5bc73ba',2);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 
 

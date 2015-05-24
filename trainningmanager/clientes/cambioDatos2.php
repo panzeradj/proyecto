@@ -37,8 +37,8 @@ session_start();
 	}
 	if($ban){
 
-		echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/clientes/clienteI.php?cliente='.$cliente.'&mensaje=okcambio">';
+		echo '<meta http-equiv="refresh" content="0; url=http://localhost/trainningmanager/clientes/clienteI.php?cliente='.$cliente.'&mensaje=okcambio">';
 	}else{
-	 	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/clientes/clienteI.php?cliente='.$cliente.'&mensaje=errcambio">';
+	 	echo '<meta http-equiv="refresh" content="0; url=http://localhost/trainningmanager/clientes/clienteI.php?cliente='.$cliente.'&mensaje=errcambio">';
 	}
 ?>

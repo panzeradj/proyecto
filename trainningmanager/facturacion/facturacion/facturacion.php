@@ -1,4 +1,4 @@
-<?php include("../../php/funciones/function.php"); include ('../../Mobile-Detect/Mobile_Detect.php');
+<?php include("../../php/funciones/function.php");
 cabecera();
 ?>
 <!DOCTYPE html>

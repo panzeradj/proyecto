@@ -56,7 +56,7 @@ include ('../Mobile-Detect/Mobile_Detect.php');
 			<div  ><label>Nueva contraseña</label><input required  class="form-control  " title="Se necesita un correo " type="password" name="passNueva" placeholder='●●●●●●●●●●●'/></div>
 			<div  ><label>Confirmar contraseña</label><input required  class="form-control  " title="Se necesita un correo " type="password" name="passNuevaC" placeholder='●●●●●●●●●●●'/></div>
   			<br>
-  			<input type="submit"  class=" anchoMax  PATEON btn btn-success btn-block  RESET" name="Enviar" value="Confirmar">
+  			<input type="submit"  class=" anchoMax  PATEON btn btn-primary btn-block  RESET" name="Enviar" value="Confirmar">
   		</form>
   		</div>
   		<br>

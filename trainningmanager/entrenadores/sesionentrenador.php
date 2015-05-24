@@ -1,8 +1,6 @@
 <?php  
 require_once("../php/funciones/function.php");
 include ('../Mobile-Detect/Mobile_Detect.php');
-include('basededatos.php');
-include('config.php');
 cabecera();
 ?>
 <style type="text/css">
@@ -41,19 +39,6 @@ cabecera();
 				<div style="text-center"><h1>Sesión entrenador <?php echo $_POST['entrenador']; ?>&nbsp;&nbsp;<img class="img-rounded" src='../iconos/sesion.png'></h1></div>
 			<div  ><label>Contraseña</label><input required  class="form-control  "  type="password" name="pass" placeholder='●●●●●●●●●●●'/></div>
   			<br>
-  			<div  ><label>Tipo de usuario</label><?php
-  				$conexion = conexion(ipBaseDeDatos,usuarioBaseDeDatos,contrasenaBaseDeDatos,BaseDeDatos);
-  				$orden="SELECT * FROM roles;";
-  				$resultadoInfo = consulta($orden,$conexion);
-  				echo"<select class='form-control' name=rol>";
-				while($registro = $resultadoInfo->fetch_array()){
-					echo  '<option value=' . $registro[0]. '>' . $registro[1] .'</option>';	
-				}
-				echo "</select>";
-
-  			?>
-  			</div>
-  			<br/>
   			<input type="hidden" name="identrenador" value="<?php echo $_POST['entrenador']; ?>">
   			<input type="submit"  class=" anchoMax  PATEON btn btn-success btn-block  RESET" name="Enviar" value="Añadir">
   		
