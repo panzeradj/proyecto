@@ -1,5 +1,5 @@
-<?php include("../../php/funciones/function.php");
-cabecera();
+<?php include("../../php/funciones/function.php"); include ('../../Mobile-Detect/Mobile_Detect.php');
+cabecera(); 
 ?>
 <!DOCTYPE html>
 <html lang="es">

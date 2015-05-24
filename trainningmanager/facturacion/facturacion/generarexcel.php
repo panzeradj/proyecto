@@ -2,7 +2,7 @@
 include("../../php/funciones/function.php");
 //comprueba();
 /** Incluir la libreria PHPExcel */
-require_once '../../phpexcel/Classes/PHPExcel.php';
+require_once '../../phpexcel/Classes/PHPExcel.php'; include ('../../Mobile-Detect/Mobile_Detect.php');
 // Crea un nuevo objeto PHPExcel
 $objPHPExcel = new PHPExcel();
 
