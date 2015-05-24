@@ -232,7 +232,7 @@
 			while ($reg = $c->fetch_array()) {
 
 				$contador=$contador+$reg[0];
-			 
+				$edad=$reg[1];
 			}
 		}
 		$sql="select count(id_reserva) from reservas where anyo=".anyo()." and mes <".mes()." and cliente=".$id_cliente;
@@ -243,7 +243,7 @@
 			while ($reg = $c->fetch_array()) {
 
 				$contador=$contador+$reg[0];
-				 
+				$edad=$reg[1];
 			}
 		}
 		$sql="select count(id_reserva) from reservas where anyo=".anyo()." and mes <=".mes()." and dia<=".dia()." and cliente=".$id_cliente;
@@ -254,7 +254,7 @@
 			while ($reg = $c->fetch_array()) {
 
 				$contador=$contador+$reg[0];
- 
+				$edad=$reg[1];
 			}
 		}
 		return $contador;
@@ -977,14 +977,14 @@
 			echo "</tr>";
 		}
 	}
-
-	//EMISIÓN DE PAGOS
 	function comprobarpagos(){
-		//0. Primero hay que mirar si en la tabla pagos hay entrada para este mes y este año
+		//primero hay que mirar si en la tabla pagos hay entrada para este mes y este año
 		$anyo=date("Y");
 		$mes=date("m");
 		$lista = ordensql("SELECT * from pagos where mes=".$mes." and anyo=".$anyo.";");
+
 		if (!($lista->fetch_array())){
+			//EMISIÓN DE PAGOS
 			//1. Calcular cada factura por cada cliente que haya tenido reservas sin pagar de ese mes o anteriores
 				//1.1. Mirar clientes con reservas sin pagar
 			$listaclientes=ordensql("SELECT id_cliente FROM clientes, reservas WHERE pagada =0 and (cancelada=0 or cancelada=2) AND cliente = id_cliente and mes<=".$mes." and anyo=".$anyo." GROUP BY id_cliente;");
@@ -1008,13 +1008,11 @@
 		}
 	}
 
-	//SE LE PASA LA FACTURA Y CALCULA SU PRECIO SÓLO CON LAS CLASES QUE TENGA
+	//SE LE PASA LA FACTURA Y CALCULA SU PRECIO
 	function preciofactura($factura){
-		//1 - Se sacan todos los productos de reservas que hay en la factura
 		$listaelementos=ordensql("SELECT producto from lineas_factura where factura=".$factura." and producto<200000;");
 		$precio=0;
 		while ($resultado=$listaelementos->fetch_array()){
-			//2 - Por cada uno, se saca la fecha en la que se realizó y el cliente (para saber más adelante la tarifa que tiene)
 			$listafecha=ordensql("SELECT anyo, mes, dia, cliente from reservas where id_reserva=".$resultado[0]);
 			$fecha=$listafecha->fetch_array();
 			if ($fecha[1]<10){
@@ -1030,19 +1028,15 @@
 					$dia=$fecha[0]."-".$fecha[1]."-".$fecha[2];
 				}
 			}
-			//3 - Se saca el valor de la tarifa que tiene la clase en el momento en el que se dio
 			$listavalor=ordensql("SELECT valor_sin_iva from precios_tarifas p,contratos c
 							    	where c.tarifa=p.tarifa and cliente=".$fecha[3]."
 							    	and fecha_inicial<'".$dia."'
 							    	order by fecha_inicial desc limit 1;");
 			$resultadoprecio=$listavalor->fetch_array();
-			//4 - Se suma en el acumulador
 			$precio=$precio+$resultadoprecio[0];
 		}
-		//5 - Se devuelve el valor total de las clases.
 		return $precio;
 	}
-	
 	function calcularEdad($fecha_nacimiento)
 	{
 		$fecha_n=explode("-",$fecha_nacimiento);//anyo-mes-dia
@@ -1097,6 +1091,7 @@
                     </li>';
                     
                     
+
                     $detect = new Mobile_Detect();
                     if ($detect->isMobile()) {
 
@@ -1163,9 +1158,14 @@
                       		echo '<li><a href="http://localhost/trainningmanager/entrenadores/masEntrenador.php">Añadir entrenador</a></li>
                             <li><a href="http://localhost/trainningmanager/entrenadores/entrenadores.php">Listado de entrenadores</a></li>';
                     	}
+                    	echo '<li><a href="http://localhost/trainningmanager/externas/anadirlocal.php">Gestión locales</a></li>
+					<li><a href="http://localhost/trainningmanager/externas/reservaexterna.php">Añadir reserva externa</a></li>
+					<li><a href="http://localhost/trainningmanager/externas/listadoexternas.php">Reservas externas</a></li>';
                     }
 
-                     echo '<li role="presentation" class="divider"></li>
+                     echo '
+
+                     <li role="presentation" class="divider"></li>
                      <li><form action="http://localhost/trainningmanager/index.php" method="POST"><input type="hidden" name="c" value="c"/><input type=submit name=cerrar class="btn btn-link cierra" value="Cerrar Sesión"/></form></li>
                         </ul>
                     </li>
@@ -1182,6 +1182,8 @@
 	{
 	session_start();
 	comprueba();
+	error_reporting(E_ERROR | E_WARNING | E_PARSE);
+	ini_set("display_errors", 2);
 
 	echo '<!DOCTYPE html>
 <html lang="es" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">
@@ -1192,7 +1194,7 @@
 		 <meta name="robots" content="noindex">
 		 <meta name="googlebot" content="noindex">
 		 <META NAME="Robots" CONTENT="No-Index,No-Follow">
-		 <link rel="icon" type="image/png" href="http://localhost/trainningmanager/imagenes/ico.png" />
+		 <link rel="icon" type="image/png" href="http://localhost/trainningmanager/imagenes/logoTM.png" />
 		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
