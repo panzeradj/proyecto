@@ -1,7 +1,7 @@
 <?php
 	function abre(){
 		// Conectando con la BBDD
-		$conexion = new mysqli("127.0.0.1", "root", 'root', "trainningmanager");
+		$conexion = new mysqli("db574957313.db.1and1.com", "dbo574957313", 'pP1@@8*=hnd"siuy:8DX', "db574957313");
 		if (mysqli_connect_errno()) {
     		die("Error grave: " . mysqli_connect_error());
 		}
@@ -206,12 +206,6 @@ function impritotales($conexion,$nfactura){
 				$subtotal=$suma-$descuento;
 				$iva=$subtotal/100*$registro[3];
 				$total=$subtotal+$iva;
-				
-				$descuento=round($descuento, 2);
-				$iva=round($iva, 2);
-				$subtotal=round($subtotal, 2);
-				$total=round($total, 2);
-
 				echo "<table class='table table-hover'>";
 				echo "<thead><tr>";
 				echo "<td>Valor sin descuento</td><td>Descuento en %</td><td>Descuento</td><td>Sub Total sin iva</td>";
@@ -286,68 +280,7 @@ where p.id_producto=l.producto and l.factura=".$nfactura.";";
 						
 		}
 	}
-function totalstock($conexion,$producto){
 
-	$orden="SELECT sum(cantidad) FROM stock s where accion=0 and producto=".$producto.";";
-	$chorizo=$conexion->query($orden);
-	$registro = $chorizo->fetch_array();
-	$total=$registro[0];
-	$orden="SELECT sum(cantidad) FROM stock s where accion=1 and producto=".$producto.";";
-	$chorizo=$conexion->query($orden);
-	$registro = $chorizo->fetch_array();
-	$total=$total-$registro[0];
-
-	return $total;
-
-}
-function vermovimientos($conexion,$producto){
-	$orden="SELECT cantidad,accion,cuando FROM stock s where  producto=".$producto.";";
-
-	if ($chorizo = $conexion->query($orden)){
-			
-		echo "<table align=center border='1'>";
-		echo "<tr>";
-		echo "<td>Acción</td><td>Cantidad</td><td>Cuando</td>";
-		echo "</tr>";
-				
-			while ($registro = $chorizo->fetch_array()) {
-
-				if($registro[1]==0){
-					$medida="Compra";
-				}else{
-					$medida="Venta";
-				}
-
-				
-				echo "<tr>";
-				echo "<td>".$medida."</td><td>".$registro[0]."</td><td>".$registro[2]."</td>";
-				echo "</tr>";
-
-				}
-			echo "</table>";	
-	}
-}	
-function nombreproducto($conexion,$producto){
-			
-			$orden="select nombre from productos where id_producto=$producto;";
-			//echo $orden;
-			$chorizo =$conexion->query($orden);
-			$registro = $chorizo->fetch_array();
-			
-		return $registro[0];
-	}
-function listarproductostock($conexion,$producto){
-		$orden="SELECT id_producto,nombre FROM productos where id_producto!=$producto and off=0;";
-		//echo $orden;
-		
-		if ($chorizo = $conexion->query($orden)){
-			echo"<select name=producto>";
-			while ($registro = $chorizo->fetch_array()) {
-				echo  '<option value=' . $registro[0]. '>' . $registro[1] .'</option>';
-			}
-			echo "</select>";
-		}	
-}
 	
 
 function cierra($conexion){

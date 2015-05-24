@@ -24,10 +24,21 @@ if($registro[0]==0){
 		$nfactura=creafatura($conexion);
 		
 	}
+		$existencias=totalstock($conexion,$producto);
+	//echo $existencias;
+	if($existencias<$cantidad){
+		$cantidad=$existencias;
+
+
+		addproducto($conexion,$nfactura,$producto,$cantidad);
+		if($cantidad==0){
+			$mensaje="sinproductos";
+		}
+	}else{
 	
-	
-	addproducto($conexion,$nfactura,$producto,$cantidad);
-	$mensaje = "addproducto";
+		addproducto($conexion,$nfactura,$producto,$cantidad);
+		$mensaje = "addproducto";
+	}
 	
 	
 	

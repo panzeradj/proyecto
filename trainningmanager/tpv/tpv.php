@@ -74,6 +74,10 @@ thead td{
         alertify.success("Factura pagada"); 
         return false;
     }
+    function sinproductos(){
+        alertify.error("No queda ese producto en el almacen"); 
+        return false;
+    }
 </script>
 <body>
 <?php menu();
@@ -102,6 +106,9 @@ if(isset($_GET["mensaje"])){
   }
  if($_GET["mensaje"]=="facturaok"){
    echo "<script type=text/javascript>facturaok();</script>";
+  }
+   if($_GET["mensaje"]=="sinproductos"){
+   echo "<script type=text/javascript>sinproductos();</script>";
   }
 
 }

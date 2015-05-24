@@ -1,6 +1,7 @@
 <?php
 include ("../../funciones/funciones.php");
 $conexion=abre();
+echo "<script>alert(".$_POST["generar_factura"].");</script>";
 if ($_POST["generar_factura"] == "true")
 {
 
@@ -12,7 +13,7 @@ $orden="SELECT fecha  FROM facturas f WHERE id_factura=".$nfactura.";";
     $chorizo=$conexion->query($orden);
     $registro = $chorizo->fetch_array();
 $fecha_factura = $registro[0];
-
+$id_factura = $_POST["id_factura"];
 
 //Recibir los datos de la empresa
 $nombre_tienda = "AC wellness S.L";
@@ -32,7 +33,7 @@ $apellidos_cliente =$registro[1];
 
 
 //variable que guarda el nombre del archivo PDF
-$archivo="factura-$nfactura.pdf";
+$archivo="factura-$id_factura.pdf";
 
 //Llamada al script fpdf
 require('fpdf.php');
@@ -140,17 +141,16 @@ $subtotal=$registro[1]*$registro[2]+$subtotal;
 $y = $y + 5;
 }
 $orden="SELECT producto from lineas_factura where factura=".$nfactura." and producto<200000";
-if ($chorizo = $conexion->query($orden)){
+if ($reserva = $conexion->query($orden)){
             
             
         // Recorremos el resultset fila a fila
-         while ($registro = $chorizo->fetch_array()) {
+         while ($registro = $reserva->fetch_array()) {
                     $cod_clase=$registro[0];
-                    $orden="SELECT anyo, mes, dia, cliente, cancelada from reservas where id_reserva=".$registro[0].";";
-                    if ($reserva = $conexion->query($orden)){
-                        $fecha= $reserva->fetch_array();
+                    $orden="SELECT anyo, mes, dia, cliente from reservas where id_reserva=".$registro[0].";";
+                    if ($chorizo = $conexion->query($orden)){
+                        $fecha= $chorizo->fetch_array();
                         //echo $fecha[0].$fecha[1].$fecha[2].$fecha[3];
-                        $estadoclase=$fecha[4];
                         if ($fecha[1]<10){
                             if ($fecha[2]<10) {
                                 $dia=$fecha[0]."-0".$fecha[1]."-0".$fecha[2];
@@ -164,30 +164,23 @@ if ($chorizo = $conexion->query($orden)){
                                 $dia=$fecha[0]."-".$fecha[1]."-".$fecha[2];
                             }
                         }
-                        $orden="SELECT valor_sin_iva,p.tarifa from precios_tarifas p,contratos c
+                        $orden="SELECT valor_sin_iva from precios_tarifas p,contratos c
                                     where c.tarifa=p.tarifa and cliente=".$fecha[3]."
                                     and fecha_inicial<'".$dia."'
                                     order by fecha_inicial desc limit 1;";
                                     //echo $orden;
+
+
+                        
                         $listavalor= $conexion->query($orden);
                         $resultadoprecio=$listavalor->fetch_array();
                         $precio=$resultadoprecio[0];
-                        $tarifa=$resultadoprecio[1];
-                        $orden="SELECT nombre FROM tarifas p where id_tarifa=".$tarifa.";";
-                        $des= $conexion->query($orden);
-                        $nombre=$des->fetch_array();
-                        $nombretarifa="Clase ".$nombre[0]." (".$dia.")";
-
-                        if($estadoclase==2){
-                            $nombretarifa="Clase ".$nombre[0]." (".$dia.") (Con recargo)";
-                        }
-
                         $pdf->SetFont('Arial','',8);
 
                         $pdf->SetXY(15, $y);
                         $pdf->Cell(40, 5, $cod_clase, 0, 1, 'C');   
                         $pdf->SetXY(50, $y);
-                        $pdf->Cell(40, 5,$nombretarifa, 0, 1, 'C');
+                        $pdf->Cell(40, 5, "Sesión de Entrenamiento", 0, 1, 'C');
                         $pdf->SetXY(85, $y);
                         $pdf->Cell(40, 5, 1, 0, 1, 'C');
                         $pdf->SetXY(115, $y);
@@ -195,9 +188,9 @@ if ($chorizo = $conexion->query($orden)){
                         $pdf->SetXY(145, $y);
                         $pdf->Cell(40, 5, $precio." ", 0, 1, 'C');
 
-                    //Cálculo del subtotal
+                    //Cálculo del subtotal  
                         $subtotal=$precio+$subtotal;
-                         $y = $y + 5; 
+                        $y = $y + 5;
 
                     }
                     
@@ -246,10 +239,7 @@ $orden="SELECT f.valor,f.descuento, (f.valor/100)*f.descuento as descuento_aplic
 
 //Cálculo del Impuesto
 //$add_iva = $precio_subtotal * $iva / 100;
-$descuento=round($descuento, 2);
-$ivacal=round($ivacal, 2);
-$subtotal=round($subtotal, 2);
-$total=round($total, 2);
+
 //Cálculo del precio total
 //$total_mas_iva = round($precio_subtotal + $add_iva + $gastos_de_envio, 2);
 
