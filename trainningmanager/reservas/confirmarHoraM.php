@@ -60,7 +60,7 @@
 
 
 		echo "<img src=imagenes/2F7864BDA.gif id=cargando/>";
-		echo '<meta http-equiv="refresh" content="0; url=http://localhost/trainningmanager/reservas/calendario.php?mensaje=bien">';
+		echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php?mensaje=bien">';
 
 
 ?>

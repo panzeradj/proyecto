@@ -29,13 +29,13 @@ function canceladaCalen(hora, dia)
 		{
 			alert("cancelada con recargo");
 			misdatos=misdatos+"&can=2";
-			location="http://localhost/trainningmanager/reservas/cancelarI.php"+misdatos;
+			location="http://acwellness.es/trainningmanager/reservas/cancelarI.php"+misdatos;
 		}
 		else		
 		{
 			alert("cancelada sin recargo");
 			misdatos=misdatos+"&can=1";
-			location="http://localhost/trainningmanager/reservas/cancelarI.php"+misdatos;
+			location="http://acwellness.es/trainningmanager/reservas/cancelarI.php"+misdatos;
 		}
 	}
 	else		
@@ -48,7 +48,7 @@ function canceladaCalen(hora, dia)
 function refresca(){
 	// Timestamp para que IE no impida la recarga
 	var timestamp = parseInt(new Date().getTime().toString().substring(0, 10));
-	var url = "http://localhost/trainningmanager/reservas/calen.php";
+	var url = "http://acwellness.es/trainningmanager/reservas/calen.php";
 	// El código...
 	objetoAjax.onreadystatechange=function(){
 		// Si esta listo para recibir de nuevo la pagina, la refresca
@@ -63,13 +63,13 @@ function refresca(){
 function enviarCalen(dia, hora){
 	// Datos para el envio por POST:
 	var misdatos="?hora="+hora+"&dia="+dia+"&calendario=1";
-	location="http://localhost/trainningmanager/reservas/individuales.php"+misdatos;
+	location="http://acwellness.es/trainningmanager/reservas/individuales.php"+misdatos;
 }
 function enviar(dia, hora){
 	// Datos para el envio por POST:
 	var misdatos="hora="+hora+"&dia="+dia;	
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/calen.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/calen.php",true);
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
@@ -82,7 +82,7 @@ function semanaMenos()
 	// Datos para el envio por POST:
 	var misdatos="semanaMenos=1";
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/calen.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/calen.php",true);
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);
@@ -96,7 +96,7 @@ function semanaMas()
 	// Datos para el envio por POST:
 	var misdatos="semanaMas=1";
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/calen.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/calen.php",true);
 
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -111,7 +111,7 @@ function eliminar(dia, hora){
 	// Datos para el envio por POST:
 	var misdatos="hora="+hora+"&dia="+dia;
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/eliminar.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/eliminar.php",true);
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);

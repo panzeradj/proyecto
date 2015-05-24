@@ -6,7 +6,6 @@
 	$_SESSION['dia']='';
 
 	include ('../Mobile-Detect/Mobile_Detect.php');
-	if(isset($_GET['semana']))
 	$Semana=$_GET['semana'];
 	if(!empty($Semana))
 	{
@@ -44,10 +43,10 @@
             alertify.error("Ha ocurrido un error al efectuar la reserva");
             return false;
         }
-		function reservaCancelarM(){
-				alertify.success("Reserva múltiple cancelada");
-				return false;
-		}
+				function reservaCancelarM(){
+						alertify.success("Reserva múltiple cancelada");
+						return false;
+				}
     </script>
 </head>
 <body>

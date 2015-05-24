@@ -25,5 +25,5 @@
 		}
 	}
 	
-echo '<meta http-equiv="refresh" content="0; url=http://localhost/trainningmanager/reservas/calendario.php">';
+echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/reservas/calendario.php">';
 ?>

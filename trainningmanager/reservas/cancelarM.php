@@ -60,66 +60,6 @@
 			<thead><tr><td>Cliente</td><td>Fecha Inicio</td><td>Fecha Fin</td> <td> Cancelar</td></tr></thead>
 
 			<?php
-			function sanear_string($string)
-			{
-
-			    $string = trim($string);
-
-			    $string = str_replace(
-			        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
-			        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
-			        $string
-			    );
-
-			    $string = str_replace(
-			        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
-			        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
-			        $string
-			    );
-
-			    $string = str_replace(
-			        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
-			        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
-			        $string
-			    );
-
-			    $string = str_replace(
-			        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-			        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
-			        $string
-			    );
-
-			    $string = str_replace(
-			        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-			        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
-			        $string
-			    );
-
-			    $string = str_replace(
-			        array('ñ', 'Ñ', 'ç', 'Ç'),
-			        array('n', 'N', 'c', 'C',),
-			        $string
-			    );
-
-			    //Esta parte se encarga de eliminar cualquier caracter extraño
-			    $string = str_replace(
-			        array("\\", "¨", "º", "-", "~",
-			             "#", "@", "|", "!", "\"",
-			             "·", "$", "%", "&", "/",
-			             "(", ")", "?", "'", "¡",
-			             "¿", "[", "^", "`", "]",
-			             "+", "}", "{", "¨", "´",
-			             ">", "< ", ";", ",", ":",
-			             ".", " "),
-			        '',
-			        $string
-			    );
-
-
-			    return $string;
-			}
-
-
 				$orden="select reservasmultiples.dia_inicio, reservasmultiples.mes_inicio, reservasmultiples.anyo_inicio, reservasmultiples.dia_fin, reservasmultiples.mes_fin, reservasmultiples.anyo_fin, reservasmultiples.cliente, reservasmultiples.ID, clientes.nombre, clientes.apellido from reservasmultiples inner join clientes on clientes.id_cliente=reservasmultiples.cliente where cancelada=0 ";
 				$cho=ordensql($orden);
 				if($cho!=false)
@@ -127,9 +67,8 @@
 					while ($regi = $cho->fetch_array()) {
 						$inicio="".$regi[0]."/".$regi[1]."/".$regi[2];
 						$fin="".$regi[3]."/".$regi[4]."/".$regi[5];
-						$usuario = "".$regi[8].",".$regi[9];
-						$usuario=sanear_string($usuario);
-							echo "<tr><td>".$usuario."</td><td>".$inicio."</td><td>".$fin."</td><td><a onClick=envio('".$regi[7]."','".$usuario."')>Cancelar</a></td></tr>";
+						$usuario = $regi[8]."&nbsp;".$regi[9];
+						echo "<tr><td>".$regi[8]." ".$regi[9]."</td><td>".$inicio."</td><td>".$fin."</td><td><a  onClick=envio(".$regi[7].",'".$usuario."')>Cancelar</a></td></tr>";
 					}
 				}
 

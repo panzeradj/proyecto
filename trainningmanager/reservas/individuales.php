@@ -61,7 +61,7 @@ cabecera();
             return false;
         }
 </script>
-<script src="http://localhost/trainningmanager/js/javaScriptIndividuales.js"></script>
+<script src="http://acwellness.es/trainningmanager/js/javaScriptIndividuales.js"></script>
 </head>
 <body>
 	<?php menu();?>

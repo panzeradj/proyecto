@@ -24,7 +24,7 @@
 		$_SESSION['semanas']=0;
 
 ?>
-<script src="http://localhost/trainningmanager/js/javaScriptMulti.js"></script>
+<script src="http://acwellness.es/trainningmanager/js/javaScriptMulti.js"></script>
 <style type="text/css">
 	body, form, #zona{
 

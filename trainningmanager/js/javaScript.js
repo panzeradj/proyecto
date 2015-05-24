@@ -24,7 +24,7 @@ function refresca(){
 	// Timestamp para que IE no impida la recarga
 	// Timestamp para que IE no impida la recarga
 	var timestamp = parseInt(new Date().getTime().toString().substring(0, 10));
-	var url = "http://localhost/trainningmanager/reservas/calen2.php";
+	var url = "http://acwellness.es/trainningmanager/reservas/calen2.php";
 	// El código...
 	objetoAjax.onreadystatechange=function(){
 		// Si esta listo para recibir de nuevo la pagina, la refresca
@@ -49,13 +49,13 @@ function canceladaCalen(hora, dia)
 		{
 			alert("cancelada con recargo");
 			misdatos=misdatos+"&can=2";
-			location="http://localhost/trainningmanager/reservas/cancelarI.php"+misdatos;
+			location="http://acwellness.es/trainningmanager/reservas/cancelarI.php"+misdatos;
 		}
 		else		
 		{
 			alert("cancelada sin recargo");
 			misdatos=misdatos+"&can=1";
-			location="http://localhost/trainningmanager/reservas/cancelarI.php"+misdatos;
+			location="http://acwellness.es/trainningmanager/reservas/cancelarI.php"+misdatos;
 		}
 	}
 	else		
@@ -69,13 +69,13 @@ function multiples(dia, hora)
 {
 	alert("multiples");
 	var misdatos="?hora="+hora+"&dia="+dia;
-	location="http://localhost/trainningmanager/reservas/multiples.php"+misdatos;
+	location="http://acwellness.es/trainningmanager/reservas/multiples.php"+misdatos;
 }
 function enviar(dia, hora)
 {
 	//alert("multiples");
 	var misdatos="?hora="+hora+"&dia="+dia+"&calendario=1";
-	location="http://localhost/trainningmanager/reservas/individuales.php"+misdatos;
+	location="http://acwellness.es/trainningmanager/reservas/individuales.php"+misdatos;
 }
 function semanaMenos()
 {
@@ -83,7 +83,7 @@ function semanaMenos()
 	//alert("Hola");
 	var misdatos="semanaMenos=1";
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/calen.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/calen.php",true);
 
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -97,7 +97,7 @@ function semanaMas()
 	// Datos para el envio por POST:
 	var misdatos="semanaMas=1";
 	// Preparar el envio con Open
-	objetoAjax.open("POST","http://localhost/trainningmanager/reservas/calen.php",true);
+	objetoAjax.open("POST","http://acwellness.es/trainningmanager/reservas/calen.php",true);
 	// Enviar cabeceras para que acepte POST:
 	objetoAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	objetoAjax.setRequestHeader("Content-length", misdatos.length);

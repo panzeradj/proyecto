@@ -7,5 +7,5 @@ session_start();
 
 	$sql="update clientes set activo=".$estado." where id_cliente=".$id_cliente;
 	ordensqlupdate($sql);
-	echo '<meta http-equiv="refresh" content="0; url=http://localhost/trainningmanager/clientes/clientes.php">';
+	echo '<meta http-equiv="refresh" content="0; url=http://acwellness.es/trainningmanager/clientes/clientes.php">';
 ?>
