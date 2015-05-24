@@ -2,7 +2,7 @@
 <html>
 <?php 
 include ("../funciones/funciones.php");
-$nfactura=$_POST['nfactura'];
+$nfactura=27;
 ?>
 <head>
     <meta charset="ISO-8859-1">
@@ -31,7 +31,7 @@ $nfactura=$_POST['nfactura'];
 <table>
  <tr>
     <td>ID de factura:</td>
-    <td><input type="text" name="id_factura" value="1" size="5"></td>
+    <td><input type="text" name="id_factura" value="27" size="5"></td>
  </tr>
 
  <tr>

@@ -235,7 +235,7 @@ function impritotales($conexion,$nfactura){
 	}
 function creafatura($conexion){
 
-	$orden="insert into facturas (cliente,estado,borrable,valor,descuento) values (1,0,1,0,0);";
+	$orden="insert into facturas (cliente,estado,valor,descuento) values (1,0,0,0);";
 		$conexion->query($orden);
 		$orden="SELECT LAST_INSERT_ID()";
 		$chorizo=$conexion->query($orden);
