@@ -305,10 +305,10 @@ function vermovimientos($conexion,$producto){
 
 	if ($chorizo = $conexion->query($orden)){
 			
-		echo "<table align=center border='1'>";
-		echo "<tr>";
+		echo "<table class='table table-hover'>";
+		echo "<thead>";
 		echo "<td>Acción</td><td>Cantidad</td><td>Cuando</td>";
-		echo "</tr>";
+		echo "</thead>";
 				
 			while ($registro = $chorizo->fetch_array()) {
 
@@ -341,7 +341,7 @@ function listarproductostock($conexion,$producto){
 		//echo $orden;
 		
 		if ($chorizo = $conexion->query($orden)){
-			echo"<select name=producto>";
+			echo"<select class='form-control' name=producto>";
 			while ($registro = $chorizo->fetch_array()) {
 				echo  '<option value=' . $registro[0]. '>' . $registro[1] .'</option>';
 			}

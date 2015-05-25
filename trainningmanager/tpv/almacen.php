@@ -8,7 +8,7 @@ include ("./funciones/funciones.php");
 	$orden="INSERT INTO stock (producto,cantidad) VALUES ($producto,$cantidad);";
 	//echo $orden;
 	$conexion->query($orden);
-	$mensaje="<h1align='center'>Alacén actualizado</h1>";
+	$mensaje="almacen";
 
 	header ("Location: registroproducto.php?mensaje=$mensaje");
 

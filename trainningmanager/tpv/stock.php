@@ -1,12 +1,53 @@
+<?php include("../php/funciones/function.php"); include ('../Mobile-Detect/Mobile_Detect.php');
+cabecera();    
+?>
 <html>
 <head>
-<title>Stock</title>
 <meta charset='utf-8'>
- 
+ <script type="text/javascript" src="../alertify/lib/alertify.js"></script>
+<link rel="stylesheet" href="../alertify/themes/alertify.core.css" />
+<link rel="stylesheet" href="../alertify/themes/alertify.default.css" />
+<style type="text/css">
+#control{
+  width: 50em;
+}
+hr {
+  width: 100%;
+  height: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color:#1D99D6;
+  color:#FF0066;
+  border: 0 none;
+}
+td{
+  text-align: center;
+  background-color: #ffffff;
+} 
+thead td{
+  background-color: #eeeeee;
+}
+</style>
+<script type="text/javascript">
+    function okprov(){
+        alertify.success("Proveedor registrado"); 
+        return false;
+    }
+    function errprov(){
+        alertify.error("El Proveedor ya existe"); 
+        return false;
+    }
+    function okborraprov(){
+        alertify.error("Proveedor Eliminado"); 
+        return false;
+    }
+</script>
 </head>
 
 <body>
-	<h1 align="center">Stock</h1>
+<?php menu();?>
+<div id="control">
+<div style="text-center"><h1>Stock&nbsp;&nbsp;<img class="img-rounded" src="../iconos/stock.png"></h1></div>
 <?php 
 include ("./funciones/funciones.php");
 	$producto=$_POST['producto'];
@@ -17,23 +58,23 @@ include ("./funciones/funciones.php");
 	$nombre=nombreproducto($conexion,$producto);
 	
 ?>
-<h3 align="center"> En el almacen quedan: <?php echo $existencias." ".$nombre; ?></h2>
-<h2 align="center">Regsitro de compra y venta</h2>
+<div style="text-center"><h3> En el almacen quedan: <?php echo $existencias." ".$nombre; ?></h2></div>
+<div style="text-center"><h2>Regsitro de compra y venta</h2></div>
 <?php
 	vermovimientos($conexion,$producto);
 
-?>
-<h1 align="center">Ver otro producto</h1>
+?><hr>
+<div style="text-center"><h1>Ver otro producto&nbsp;&nbsp;<img class="img-rounded" src="../iconos/producto.png"></h1></div>
 <form name="form1" method="post" action="stock.php">
 <?php    
    listarproductostock($conexion,$producto);
    ?> 
-<p><input type="submit" name="Submit" value="Ver"> </p>
+<br/><input type="submit" class=" anchoMax  PATEON btn btn-info btn-block  RESET" name="Submit" value="Ver"> </p>
 </form>
 
 <form name="form1" method="post" action="registroproducto.php">
 
-<p><input type="submit" name="Submit" value="Ir a productos"> </p>
+<p><input type="submit" class=" anchoMax  PATEON btn btn-warning btn-block  RESET" name="Submit" value="Volver a productos"> </p>
 </form>
 </body>
 </html>
