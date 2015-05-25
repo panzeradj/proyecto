@@ -23,6 +23,7 @@ if($destinatario==0){
 	$pass = $registro['pass'];
 	$servidor = $registro['servidor'];
 	$puerto = intval($registro['puerto']);
+
 	/*$para      = $destinatario;
 	$titulo    = $remitente;
 	$mensaje   = $mensaje;
@@ -37,12 +38,11 @@ if($destinatario==0){
 	$mail = new PHPMailer(); 
 	$mail->IsSMTP();
 	$mail->Mailer="smtp";
-	$mail->isSMTP();
 	$mail->Host = $servidor;
 	$Mail->SMTPDebug = 2; //no olvides quitar el debug
 	$mail->SMTPAuth = true;
 	$mail->SMTPSecure = "tls";
-	$mail->Port = $puerto;
+	$mail->Port = 25;
 	$mail->Username   = $remitente;
 	$mail->Password = $pass;
 	$mail->From = $remitente;
@@ -52,12 +52,11 @@ if($destinatario==0){
 	$mail->Subject = $asunto;
 	$mail->Body = $mensaje;
 	$mail->AltBody =  $mensaje;
+	$mail->IsSendmail() ;
 	$exito = $mail->Send();
 	$intentos=1; 
 	if($exito){
 	     $mail->ClearAddresses();
 	     header("Location:envio.php?mensaje=correcto");
-	}else{
-		echo "Mailer Error: " . $mail->ErrorInfo;
 	}
 ?>
