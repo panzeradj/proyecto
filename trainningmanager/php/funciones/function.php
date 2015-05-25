@@ -1211,7 +1211,7 @@
     <link rel="stylesheet" href="http://localhost/trainningmanager/js/jquery-ui-1.11.4.custom/jquery-ui.structure.css">
 
 
-	<title>AC Wellness</title>
+	<title>Training Manager</title>
     <link href="http://localhost/trainningmanager/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost/trainningmanager/bootstrap/logo-nav.css" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost/trainningmanager/estilos/stylesadmin.css">';
